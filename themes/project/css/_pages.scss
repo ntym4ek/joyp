@@ -1,0 +1,24 @@
+@import "variables";                                                            // чтобы переменные не подсвечивались
+
+// секция оформления отдельных страниц
+.page-wrapper--front {
+  .slider {
+    display: flex;
+    &__thumbs {
+      flex: 0 0 220px;
+      img {
+        height: 80px; width: 80px;
+        object-fit: cover;
+      }
+      .swiper-thumbs {
+        display: flex; flex-direction: column; justify-content: center; align-items: center;
+        height: 100%;
+      }
+      .swiper-wrapper { width: initial; }
+      .swiper-wrapper,
+      .swiper-slide { height: initial; }
+    }
+  }
+  .swiper-container { margin: 0; }
+
+}

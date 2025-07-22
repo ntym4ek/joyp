@@ -1,0 +1,52 @@
+@import "../../base9/css/supplies/variables";                                  // чтобы переменные не подсвечивались
+
+
+$font-url:                'https://fonts.googleapis.com/css2?family=Raleway:wght@400&display=swap';
+$font-url2:               'https://fonts.googleapis.com/css2?family=Tenor+Sans:wght@400&display=swap';
+
+$font-name:               'Raleway';
+$font-name2:              'Tenor Sans';
+
+// colors
+//
+$gray-darkest:            #606060!default;
+$gray-dark:               #7D7C7C!default;
+$gray:                    #aaa!default;
+$gray-light:              #ccc!default;
+$gray-lightest:           #E8E8E8;
+
+$brand-cocoa:             #B2A8A3;
+
+// страница
+//
+$page-bkg:                #fff;
+
+// шапка
+//
+$header-height:           90px;
+$header-text:             $text-color;
+$header-bkg:              transparent;
+$header-shadow:           none;
+
+// меню
+//
+$menu-item-color:         $text-color;
+$menu-item-hover-color:   lighten($menu-item-color, 10%);
+$menu-item-active-color:  lighten($menu-item-color, 10%);
+
+// шрифт
+//
+$font-size-h1:            2.33rem!default;           //
+$font-size-h2:            2.25rem;                   // 36
+$font-size-h3:            1.333rem!default;          //
+$font-size-h4:            1.375rem;                  // 22
+$font-size-h5:            1rem;                      // 16
+$font-size-h6:            .889rem!default;           //
+
+$font-size-large:         1.222rem!default;          //
+$font-size-base:          1rem;                      // 16
+$font-size-small:         .889rem!default;           //
+
+$input-font-size-base:    16px;
+$input-font-size-large:   20px!default;
+$input-font-size-small:   14px!default;

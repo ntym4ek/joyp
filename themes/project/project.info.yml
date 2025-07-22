@@ -1,0 +1,27 @@
+name: Project
+type: theme
+description: 'Тема проекта на базе базовой темы Base9'
+package: Core
+version: 1.0.0
+base theme: base9
+core_version_requirement: ^11
+
+libraries:
+  - project/styles
+  - base9/layout-kccc
+  - base9/back-to-top
+  - base9/click-to-copy
+  - base9/swiper-thumbs
+
+regions:
+  header: Header
+  primary_menu: Primary menu
+  secondary_menu: Secondary menu
+  highlighted: Highlighted
+  breadcrumb: Breadcrumb
+  help: Help
+  sidebar_first: Left sidebar
+  content: Content
+  sidebar_second: Right sidebar
+  downlighted: Downlighted
+  footer: Footer

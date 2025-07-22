@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * @file
+ * Functions to support theming.
+ */
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function project_preprocess_page(array &$vars): void
+{
+  // логотипы
+  $path_theme = \Drupal::service('extension.path.resolver')->getPath('theme', 'project');
+  $vars['site']['logo']['standart'] = \Drupal::service('file_url_generator')->generateString($path_theme . '/images/logo/logo.png');
+}

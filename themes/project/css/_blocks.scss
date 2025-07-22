@@ -1,0 +1,84 @@
+@import "variables";                                                            // чтобы переменные не подсвечивались
+
+.block {
+  .section-title {
+    border-top: 1px solid $gray-lightest; border-bottom: 1px solid $gray-lightest;
+    padding: 2rem 0;
+    h2 { margin: 0; }
+  }
+}
+
+
+
+.block-advantages-counter {
+  .row-f {
+    border-top: 1px solid $gray-lightest; border-bottom: 1px solid $gray-lightest;
+  }
+  .col-f-2 {
+    display: flex; justify-content: center; align-items: center;
+    height: 150px;
+    &:not(:last-child) { border-right: 1px solid $gray-lightest; }
+  }
+  .content {
+    margin: 0 auto;
+    width: 235px;
+  }
+  .digits {
+    color: $brand-cocoa; font-family: $font-name2; font-size: $font-size-large;
+  }
+  .text { margin: 1rem 0 .5rem; }
+}
+
+.block-luxury-symbol,
+.block-our-destiny {
+  .col-f-4 {
+    display: flex; justify-content: center; align-items: center;
+    .content {
+      margin: 0 auto;
+      width: 620px;
+    }
+  }
+  .text { margin: 1rem 0 .5rem; }
+}
+
+.block-product-categories {
+  .col-f-2 {
+    display: flex; justify-content: center;
+    padding: 40px 0 50px;
+    &:not(:last-child) { border-right: 1px solid $gray-lightest; }
+  }
+  .category-card {
+    color: $text-color;
+    margin: 0 auto;
+    width: 235px;
+    transition: all 0.3s;
+    &:hover { transform: translateY(-4px); }
+    &__more {
+      color: $brand-cocoa;
+    }
+  }
+}
+
+.block-views-blockaromas-block-1 {
+  .view-aromas { border-bottom: 1px solid $gray-lightest; }
+  .swiper-slide:not(:last-child) { border-right: 1px solid $gray-lightest; }
+  .views-field-field-image {
+    overflow: hidden;
+    img { transition: all 0.5s; }
+    &:hover img { transform: scale(1.02); }
+  }
+  .views-field-name {
+    padding: 30px 0;
+    height: 100px;
+    .field-content {
+      display: block;
+      margin: 0 auto;
+      width: 235px;
+      transition: all 0.3s;
+      &:hover { transform: translateY(-4px); }
+      a {
+        color: inherit; font-family: $font-name2; font-size: $font-size-large; text-transform: uppercase;
+      }
+    }
+  }
+}

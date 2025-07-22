@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * Implements hook_theme().
+ */
+function extn_block_theme()
+{
+  return [
+    'extn_block_product_categories' => [
+      'variables' => [
+        'categories' => [],
+      ],
+    ],
+  ];
+}

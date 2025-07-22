@@ -1,0 +1,29 @@
+<div class="screen-wide">
+
+  <div class="section-title">
+    <div class="container">
+      <h2>Каталог товаров</h2>
+    </div>
+  </div>
+
+  <div class="section-content">
+    <div class="row-f">
+
+      {% for category in categories %}
+      <div class="col-f-2">
+        <a href="{{ category.url }}">
+          <div class="category-card">
+            <div class="category-card__image">
+              <div class="image"><img src="{{ category.image.url }}" alt="{{ category.title }}"></div>
+            </div>
+            <div class="category-card__title"><h4>{{ category.title }}</h4></div>
+            <div class="category-card__more">----></div>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+
+    </div>
+  </div>
+
+</div>

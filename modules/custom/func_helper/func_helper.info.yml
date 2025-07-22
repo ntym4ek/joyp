@@ -1,0 +1,6 @@
+name: Func Helper
+description: Модуль с часто используемым в проектах функционалом
+package: xCustom
+type: module
+core_version_requirement: ^9.5 || ^10 || ^11
+

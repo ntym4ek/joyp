@@ -1,0 +1,32 @@
+@import "variables";                                                            // чтобы переменные не подсвечивались
+
+.page-wrapper--front {
+  .container { max-width: 1802px; }
+  .row { max-width: 1802px; }
+}
+
+.page-header {
+  border-bottom: 1px solid $gray-lightest;
+  display: flex; align-items: center;
+  height: $header-height;
+  .page-header-inner {
+    display: flex;
+    width: 100%;
+  }
+  &__brand {
+    flex: 0 1 14%;
+    display: flex; align-items: center;
+  }
+  &__content {
+    flex: auto;
+    display: flex; justify-content: space-between;
+  }
+  &__col1 {
+    display: flex; align-items: center;
+  }
+  &__col2 {
+    display: flex; justify-content: right; align-items: center;
+    gap: 40px;
+  }
+}
+

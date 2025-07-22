@@ -1,0 +1,8 @@
+fnc_helper.home:
+  path: '/home'
+  defaults:
+    _title: 'Home'
+    _controller: '\Drupal\func_helper\Controller\HomePageController::content'
+  requirements:
+    _access: 'TRUE'
+

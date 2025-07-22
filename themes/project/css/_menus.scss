@@ -1,0 +1,9 @@
+@import "variables";                                                            // чтобы переменные не подсвечивались
+
+.menu-wrapper {
+  .menu {
+    display: flex; align-items: center;
+    gap: 40px;
+    .menu-item > a { padding: .5rem 0; }
+  }
+}

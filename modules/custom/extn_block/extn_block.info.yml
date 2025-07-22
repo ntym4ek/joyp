@@ -1,0 +1,5 @@
+name: Extn Block
+type: module
+description: 'Собственные блоки и расширение функционала'
+package: xCustom
+core_version_requirement: ^10 || ^11
