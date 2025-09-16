@@ -1,0 +1,34 @@
+@import "variables";                                                            // чтобы переменные не подсвечивались
+
+.view-katalog {
+  .view-content {
+    border-left: 1px solid $gray-lightest;
+
+    @include row('true', $gutter-xs);
+
+    @media #{$tablet}   {
+      @include row('true', $gutter-md);
+    }
+  }
+  .views-row {
+    flex-basis: 25%;
+    max-width: 25%;
+    padding: 0 $gutter-md;
+
+    border-right: 1px solid $gray-lightest;
+    box-sizing: border-box;
+  }
+}
+
+.view-aromas {
+  .view-content {
+    border-left: 1px solid $gray-lightest;
+
+    @include row('true', $gutter-xs);
+
+    @media #{$tablet}   {
+      @include row('true', $gutter-md);
+    }
+  }
+}
+

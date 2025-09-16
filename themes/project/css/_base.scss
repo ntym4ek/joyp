@@ -2,6 +2,11 @@
 
 @import url($font-url2);
 
+*,
+html * {
+  scrollbar-color: $brand-cocoa #f1f1f1;
+}
+
 html {
   font-size: 12px;
   @media #{$smart}    { font-size: 14px; }
@@ -13,9 +18,25 @@ h1, h2, h3, h4 {
   font-family: $font-name2; font-weight: 400; text-transform: uppercase;
 }
 
-.row-f {
-  display: flex;
+a { color: inherit; }
+
+.button {
+  font-family: $font-name2; font-weight: 400; text-transform: uppercase;
 }
-.col-f-2 { flex-basis: 20%; max-width: 20%; }
-.col-f-4 { flex-basis: 40%; max-width: 40%; }
-.col-f-6 { flex-basis: 60%; max-width: 60%; }
+
+.badge {
+  background: $brand-cocoa;
+
+  .menu-item & {
+    font-family: $font-name2;
+    top: 25px;
+  }
+}
+
+#back-to-top {
+  border: .5rem solid #{$brand-primary + '85'};
+
+  .icon {
+    color: $brand-primary; line-height: 0;
+  }
+}

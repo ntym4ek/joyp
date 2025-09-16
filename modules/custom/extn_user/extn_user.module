@@ -1,0 +1,69 @@
+<?php
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_FORM_ID_alter()
+ */
+function extn_user_form_user_register_form_alter(&$form, FormStateInterface $form_state): void
+{
+  // скрыть имя пользователя
+  $form["account"]["name"]["#access"] = false;
+  $passwordGenerator = \Drupal::service('password_generator');
+  $form['account']['name']['#value'] = 'ext_user_' . $passwordGenerator->generate(10);
+
+  $form["account"]["mail"]["#description"] = '';
+  $form["user_profiles"]["widget"][0]["#type"] = 'container';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter()
+ */
+function extn_user_form_user_login_form_alter(&$form, FormStateInterface $form_state): void
+{
+  $form['name']["#title"]= 'E-Mail';
+  $form['name']['#element_validate'][] = 'ext_user_login_name_validate';
+
+  $form['pass']["#description"]= '<a href="/user/password">Забыли пароль?</a>';
+
+  $form['actions']["submit"]['#attributes']['class'][] = 'button--primary';
+  $form['actions']["register"] = [
+    "#markup" => '<a href="/user/register" class="button button--outline button--default">Регистрация</a>',
+  ];
+
+}
+
+function ext_user_login_name_validate($form, FormStateInterface &$form_state): bool
+{
+  if ($user = ext_user_user_load_by_login($form_state->getValue('name'))) {
+    $form_state->setValue('name', $user->get('name')->value);
+    return TRUE;
+  }
+
+  return FALSE;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter()
+ */
+function extn_user_form_user_pass_alter(&$form, FormStateInterface $form_state): void
+{
+  $form['actions']["submit"]['#attributes']['class'][] = 'button--primary';
+}
+
+/**
+ * Загрузить пользователя по указанному логину
+ *
+ * @return EntityInterface|null
+ */
+function ext_user_user_load_by_login($login): ?EntityInterface
+{
+  // Try loading by email.
+  if ($user = user_load_by_mail($login)) return $user;
+
+  // Try loading by username.
+  if ($user = user_load_by_name($login)) return $user;
+
+  return NULL;
+}

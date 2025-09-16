@@ -1,5 +1,30 @@
-styles:
+base:
   version: VERSION
   css:
     component:
-      css/project.css: { }
+      css/project.css: {}
+  js:
+      js/project.js: {}
+
+iconfont:
+  version: VERSION
+  css:
+    component:
+      fonts/iconfont/styles.css:
+        weight: -10
+
+swiper-outsource-navigation:
+  version: VERSION
+  js:
+    js/swiper-outsource-navigation.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+
+commerce-quantity-controls:
+  version: VERSION
+  js:
+    js/commerce-quantity-controls.js: {}
+  dependencies:
+    - core/drupal
+    - core/once

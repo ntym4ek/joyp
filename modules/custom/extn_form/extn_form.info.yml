@@ -1,0 +1,5 @@
+name: Extn Form
+type: module
+description: 'Изменение стандартных форм'
+package: xCustom
+core_version_requirement: ^10 || ^11

@@ -2,8 +2,15 @@
 @import "variables";                                                            // переменные Текущей темы
 @import "../../base9/css/supplies/styles";                                     // стили Базовой темы
 
+@import "helper";                                                               // вспомогательные классы
 @import "base";                                                                 // общие
+@import "forms";                                                                //
 @import "layout";                                                               //
 @import "menus";                                                                //
 @import "blocks";                                                               // блоки
+@import "commerce";                                                             //
 @import "pages";                                                                // отдельные страницы
+@import "views";                                                                //
+@import "products";                                                             //
+@import "swipers";                                                              //
+@import "tabs";                                                                 //

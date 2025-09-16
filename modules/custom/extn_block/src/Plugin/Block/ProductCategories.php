@@ -30,27 +30,27 @@ class ProductCategories extends BlockBase {
         [
           'title' => 'Для волос',
           'image' => ['url' => $img_path. '/cat-hair.png'],
-          'url' => '',
+          'url' => \Drupal::service('path_alias.manager')->getAliasByPath('/taxonomy/term/21'),
         ],
         [
           'title' => 'Для рук',
           'image' => ['url' => $img_path. '/cat-hands.png'],
-          'url' => '',
+          'url' => \Drupal::service('path_alias.manager')->getAliasByPath('/taxonomy/term/22'),
         ],
         [
           'title' => 'Для тела',
           'image' => ['url' => $img_path. '/cat-body.png'],
-          'url' => '',
+          'url' => \Drupal::service('path_alias.manager')->getAliasByPath('/taxonomy/term/23'),
         ],
         [
           'title' => 'Для дома',
           'image' => ['url' => $img_path. '/cat-home.png'],
-          'url' => '',
+          'url' => \Drupal::service('path_alias.manager')->getAliasByPath('/taxonomy/term/24'),
         ],
         [
           'title' => 'TRAVEL',
           'image' => ['url' => $img_path. '/cat-travel.png'],
-          'url' => '',
+          'url' => \Drupal::service('path_alias.manager')->getAliasByPath('/taxonomy/term/25'),
         ],
       ],
       '#cache' => [

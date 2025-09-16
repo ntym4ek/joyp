@@ -1,5 +1,13 @@
 @import "../../base9/css/supplies/variables";                                  // чтобы переменные не подсвечивались
 
+// Grid
+$grid-columns:            10;
+$gutter-xl:               1rem;
+$gutter-sm:               75px;
+$gutter-md:               75px;
+$gutter-lg:               75px;
+$gutter-xl:               75px;
+
 
 $font-url:                'https://fonts.googleapis.com/css2?family=Raleway:wght@400&display=swap';
 $font-url2:               'https://fonts.googleapis.com/css2?family=Tenor+Sans:wght@400&display=swap';
@@ -11,11 +19,16 @@ $font-name2:              'Tenor Sans';
 //
 $gray-darkest:            #606060!default;
 $gray-dark:               #7D7C7C!default;
-$gray:                    #aaa!default;
+$gray:                    #9a9a9a;
 $gray-light:              #ccc!default;
 $gray-lightest:           #E8E8E8;
 
 $brand-cocoa:             #B2A8A3;
+$brand-green:             #667A6E;
+
+$brand-primary:           #667A6E;
+
+$text-muted:              $gray;
 
 // страница
 //
@@ -34,19 +47,112 @@ $menu-item-color:         $text-color;
 $menu-item-hover-color:   lighten($menu-item-color, 10%);
 $menu-item-active-color:  lighten($menu-item-color, 10%);
 
+// подвал
+//
+$footer-bkg:                    #fff;
+$footer-text:                   $text-color;
+
 // шрифт
 //
-$font-size-h1:            2.33rem!default;           //
-$font-size-h2:            2.25rem;                   // 36
-$font-size-h3:            1.333rem!default;          //
-$font-size-h4:            1.375rem;                  // 22
-$font-size-h5:            1rem;                      // 16
-$font-size-h6:            .889rem!default;           //
+$font-size-h1:                  3.71rem;                   // 60
+$font-size-h2:                  2.25rem;                   // 36
+$font-size-h3:                  1.375rem;                  // 22
+$font-size-h4:                  1.25rem;                   // 20
+$font-size-h5:                  1rem;                      // 16
+$font-size-h6:                  .889rem!default;           //
 
-$font-size-large:         1.222rem!default;          //
-$font-size-base:          1rem;                      // 16
-$font-size-small:         .889rem!default;           //
+$font-size-large:               1.25rem;                   // 20
+$font-size-base:                1rem;                      // 16
+$font-size-small:               .875rem;                   // 14
+$font-size-xs:                  .75rem;                    // 12
 
-$input-font-size-base:    16px;
-$input-font-size-large:   20px!default;
-$input-font-size-small:   14px!default;
+$input-font-size-base:          16px;
+$input-font-size-large:         22px;
+$input-font-size-small:         16px;
+
+// кнопки
+$btn-font-size-base:            22px;
+$btn-font-size-small:           16px;
+$btn-font-size-large:           22px;
+$btn-font-weight:               normal;
+
+$btn-padding-base-v:            14px;
+$btn-padding-base-h:            32px;
+
+$btn-default-color:             #333;
+$btn-default-bg:                #fff;
+$btn-default-border:            #ccc;
+$btn-default-h-color:           lighten($btn-default-color, 25%);
+$btn-default-h-bg:              lighten($btn-default-bg, 25%);
+$btn-default-h-border:          lighten($btn-default-border, 25%);
+
+$btn-primary-color:             #fff;
+$btn-primary-bg:                $brand-primary;
+$btn-primary-border:            darken($btn-primary-bg, 5%);
+$btn-primary-h-color:           $btn-primary-color;
+$btn-primary-h-bg:              darken($btn-primary-bg, 10%);
+$btn-primary-h-border:          darken($btn-primary-border, 10%);
+
+$btn-success-color:             #fff;
+$btn-success-bg:                $brand-success;
+$btn-success-border:            darken($btn-success-bg, 5%);
+$btn-success-h-color:           $btn-success-color;
+$btn-success-h-bg:              darken($btn-success-bg, 10%);
+$btn-success-h-border:          darken($btn-success-border, 10%);
+
+$btn-info-color:                #fff;
+$btn-info-bg:                   $brand-info;
+$btn-info-border:               darken($btn-info-bg, 5%);
+$btn-info-h-color:              $btn-info-color;
+$btn-info-h-bg:                 darken($btn-info-bg, 10%);
+$btn-info-h-border:             darken($btn-info-border, 10%);
+
+$btn-warning-color:              #fff;
+$btn-warning-bg:                 $brand-warning;
+$btn-warning-border:             darken($btn-warning-bg, 5%);
+$btn-warning-h-color:            $btn-warning-color;
+$btn-warning-h-bg:               darken($btn-warning-bg, 10%);
+$btn-warning-h-border:           darken($btn-warning-border, 10%);
+
+$btn-danger-color:               #fff;
+$btn-danger-bg:                  $brand-danger;
+$btn-danger-border:              darken($btn-danger-bg, 5%);
+$btn-danger-h-color:             $btn-danger-color;
+$btn-danger-h-bg:                darken($btn-danger-bg, 10%);
+$btn-danger-h-border:            darken($btn-danger-border, 10%);
+
+$btn-border-radius-base:         0;
+$btn-border-radius-large:        0;
+$btn-border-radius-small:        0;
+
+
+// формы
+//
+$border-radius-base:            0;
+$border-radius-large:           0;
+$border-radius-small:           0;
+
+$input-padding-base-v:          16px;
+$input-padding-base-h:          16px;
+
+$input-padding-large-v:         10px;
+$input-padding-large-h:         16px;
+
+$input-padding-small-v:         6px;
+$input-padding-small-h:         12px;
+
+$padding-xs-vertical:           4px;
+$padding-xs-horizontal:         10px;
+
+$line-height-base:              1.2;
+$line-height-large:             1.3;
+$line-height-small:             1.1;
+
+$label-color:                   $text-color;
+$label-margin:                  10px;
+
+$input-border-color:            $gray-lightest;
+$input-height-base:             55px;
+$input-height-large:            (floor(($input-font-size-large * $line-height-large)) + ($input-padding-large-v * 2) + 4);
+$input-height-small:            (floor(($input-font-size-small * $line-height-small)) + ($input-padding-small-v * 2) + 4);
+

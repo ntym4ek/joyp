@@ -1,0 +1,25 @@
+{#
+/**
+ * @file
+ * Two column template for the checkout form.
+ *
+ * Available variables:
+ * - form: The form.
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="row">
+  <div class="col-xs-10 col-md-7 main">
+    {{ form|without('sidebar', 'actions') }}
+  </div>
+  {% if form["#step_id"] != "complete" %}
+  <div class="col-xs-10 col-md-3 sidebar">
+    <div class="float-wrapper">
+      <h3>Ваш заказ</h3>
+      {{ form.sidebar }}
+      {{ form.actions }}
+    </div>
+  </div>
+  {% endif %}
+</div>

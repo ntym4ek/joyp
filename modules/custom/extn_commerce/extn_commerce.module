@@ -1,0 +1,375 @@
+<?php
+
+use Drupal\commerce_product\Entity\ProductInterface;
+use Drupal\Component\Utility\Html;
+use Drupal\Component\Utility\UrlHelper;
+use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\InvokeCommand;
+use Drupal\Core\Ajax\OpenModalDialogCommand;
+use Drupal\Core\Ajax\ReplaceCommand;
+use Drupal\Core\EventSubscriber\AjaxResponseSubscriber;
+use Drupal\Core\EventSubscriber\MainContentViewSubscriber;
+use Drupal\Core\Form\FormBuilderInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\Render\Element;
+use Drupal\Core\Render\Markup;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\Core\Url;
+use Drupal\func_helper\Helper\CommerceHelper;
+
+/**
+ * Implements hook_form_alter()
+ */
+function extn_commerce_form_alter(&$form, FormStateInterface $form_state, $form_id): void
+{
+  // форма Чекаута
+  if ($form_id == 'commerce_checkout_flow_multistep_default') {
+
+    // модальное окно ввода сертификата
+    if (isset($form["shipping_information"])) {
+      $form['#attached']['library'][] = 'extn_commerce/cdek-widget';
+      $form['#attached']['library'][] = 'extn_commerce/commerce-shipping-cdek';
+      $form["shipping_information"]["shipping_profile"]["address"]["#access"] = false;
+      $form["shipping_information"]["shipping_profile"]["field_user_phone"]["#access"] = false;
+      $form["shipping_information"]["recalculate_shipping"]['#attributes']['class'][] = 'js-hide';
+      $form["shipping_information"]["shipping_profile"]["#element_validate"][] = 'extn_commerce_shipping_profile_validate';
+      $form["shipping_information"]["shipments"]["#element_validate"][] = 'extn_commerce_shipping_method_validate';
+    }
+
+    // модальное окно ввода сертификата
+    if (isset($form["commerce_giftcard_redemption"])) {
+      $form['#attached']['library'][] = 'extn_commerce/giftcard-modal';
+      $form["commerce_giftcard_redemption"]["#prefix"] = '<div class="checkout-pane">';
+      $form["commerce_giftcard_redemption"]["form"]["code"]["#type"] = 'hidden';
+      $form["commerce_giftcard_redemption"]["form"]["apply"]["#attributes"]['class'][] = 'js-hide';
+      $form["commerce_giftcard_redemption"]["form"]["#element_validate"][] = 'extn_commerce_commerce_giftcard_redemption_element_validate';
+      $form["commerce_giftcard_redemption"]["#title"] = new TranslatableMarkup('');
+      if (empty($form["commerce_giftcard_redemption"]["form"]["giftcards"])) {
+        $form["commerce_giftcard_redemption"]["form"]['show_modal'] = ['#markup' => '<div class="button button--primary giftcard-modal-button">Применить сертификат</div>'];
+      } else {
+        $form["commerce_giftcard_redemption"]["form"]["giftcards"][0]["remove_button"]['#attributes']['class'][] = 'button--primary';
+      }
+    }
+
+    // модальное окно ввода промокода
+    if (isset($form["coupon_redemption"])) {
+      $form['#attached']['library'][] = 'extn_commerce/promocode-modal';
+      $form["coupon_redemption"]["#suffix"] = '</div>';
+      $form["coupon_redemption"]["form"]["code"]["#type"] = 'hidden';
+      $form["coupon_redemption"]["form"]["apply"]["#attributes"]['class'][] = 'js-hide';
+      $form["coupon_redemption"]["form"]["#element_validate"][] = 'extn_commerce_coupon_redemption_element_validate';
+      $form["coupon_redemption"]["#title"] = new TranslatableMarkup('');
+      if (empty($form["coupon_redemption"]["form"]["coupons"])) {
+        $form["coupon_redemption"]["form"]['show_modal'] = ['#markup' => '<div class="button button--primary promocode-modal-button">Ввести промокод</div>'];
+      } else {
+        $form["coupon_redemption"]["form"]["coupons"][0]["remove_button"]['#attributes']['class'][] = 'button--primary';
+      }
+    }
+
+    if (isset($form["payment_information"]["payment_method"]["yoomoney"])) {
+      $form["payment_information"]["payment_method"]["yoomoney"]['#description'] = 'Карты Visa, Mastercard, Maestro, Мир, JCB';
+      $form["payment_information"]["billing_information"]["copy_fields"]['#access'] = false;
+    }
+  }
+
+  // форма Корзины
+  if (str_contains($form_id, 'views_form_commerce_cart_form')) {
+    foreach (\Drupal\Core\Render\Element::children($form["edit_quantity"]) as $key) {
+      $form["edit_quantity"][$key]['#wrapper_attributes']['class'][] = '';
+      $form["edit_quantity"][$key]['#prefix'] = Markup::create('<div class="commerce-quantity-controls"><span class="commerce-quantity-control decrement"></span>');
+      $form["edit_quantity"][$key]["#suffix"] = Markup::create('<span class="commerce-quantity-control increment"></span></div>');
+    }
+    $form['#attached']['library'][] = 'project/commerce-quantity-controls';
+  }
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter(): commerce_order_item_add_to_cart_form.
+ */
+function extn_commerce_form_commerce_order_item_add_to_cart_form_alter(&$form, FormStateInterface $form_state): void
+{
+  /** @var ProductInterface $product */
+  $product = $form_state->get('product');
+
+  // в Каталоге не выводить количество в форме добавления в корзину
+  $storage = $form_state->getStorage();
+  if (isset($storage["view_mode"]) && $storage["view_mode"] == 'summary') {
+    $form["quantity"]["#access"] = false;
+    if (CommerceHelper::isProductInCart($product)) {
+      $form["actions"]["submit"]["#attributes"]["class"][] = 'in-cart';
+    }
+  }
+  // Для поля количества вывести кнопки +/-
+  if (isset($storage["view_mode"]) && $storage["view_mode"] == 'full') {
+    $form["quantity"]['#attributes']['class'][] = 'commerce-quantity-controls';
+    $form["quantity"]["widget"]['#prefix'] = Markup::create('<span class="commerce-quantity-control decrement"></span>');
+    $form["quantity"]["widget"][0]["value"]["#suffix"] = Markup::create('<span class="commerce-quantity-control increment"></span>');
+    $form['#attached']['library'][] = 'project/commerce-quantity-controls';
+    $go_to_cart_class = ' hide';
+    if (CommerceHelper::isProductInCart($product)) {
+      $form["actions"]["submit"]["#access"] = false;
+      $form["quantity"]["#access"] = false;
+      $go_to_cart_class = '';
+    }
+    $form["actions"]["to_cart"] = [
+      '#markup' => '<a href="/cart" class="go-to-cart button button--primary button--wide' . $go_to_cart_class . '">В корзине<br><span>Перейти</span></a>',
+    ];
+
+  }
+
+  // ajax на кнопку добавления в корзину
+  $form['actions']['submit']['#id'] = 'add-to-cart-button-' . $product->id();
+  $form['actions']['submit']['#ajax'] = [
+    'callback' => 'extn_commerce_add_to_cart_ajax',
+//    'disable-refocus' => TRUE,
+    'event' => 'click',
+    'selector' => ':input[data-drupal-selector="add-to-cart-button-' . $product->id() . '"]',
+  ];
+}
+
+/**
+ * "Add to cart" form ajax submit.
+ */
+function extn_commerce_add_to_cart_ajax(array &$form, FormStateInterface $form_state): AjaxResponse
+{
+  // Удалить статусные сообщения
+  \Drupal::messenger()->deleteByType(MessengerInterface::TYPE_STATUS);
+
+  // Получить отрендеренный продукт в Мини view_mode
+  $product = $form_state->get('product');
+  $view_builder = \Drupal::entityTypeManager()->getViewBuilder('commerce_product');
+  $build = $view_builder->view($product, 'mini');
+  $output = \Drupal::service('renderer')->render($build);
+
+  $output .=  '<div class="ui-dialog-actions" autofocus>' .
+    '<a href="/cart" class="button button--primary">Перейти в корзину</a>' .
+    '<a id="buttonDialogClose" class="button button--default button--outline">Вернуться к покупкам</a>' .
+    '</div>';
+
+  $response = new AjaxResponse();
+  // только на странице Каталога
+  $response->addCommand(new InvokeCommand('.product--summary #add-to-cart-button-' . $product->id(), 'addClass', ['in-cart']));
+  // только на странице Продукта
+  $response->addCommand(new InvokeCommand('.product--full .go-to-cart', 'removeClass', ['hide']));
+  $response->addCommand(new InvokeCommand('.product--full .field--name-quantity', 'addClass', ['hide']));
+  $response->addCommand(new InvokeCommand('.product--full #add-to-cart-button-' . $product->id(), 'addClass', ['hide']));
+  // обновить бейдж на Корзине
+  $products_count = CommerceHelper::getCurrentUserCartProductsCount() ?: '';
+  $response->addCommand(new InvokeCommand('.menu-item--cart .badge', 'text', [$products_count]));
+  // Показать диалог
+  $response->addCommand(new OpenModalDialogCommand(
+    t('Product added to cart'),
+    ['#markup' => $output],
+    ['width' => '570px']
+  ));
+
+  return $response;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter(): views_form_commerce_cart_form_default.
+ */
+function extn_commerce_form_views_form_commerce_cart_form_default_alter(array &$form, FormStateInterface $form_state): void
+{
+  $form['actions']['checkout']['#attributes']['class'][] = 'button--primary';
+
+  $form['policy'] = [
+    '#markup' => '<div class="commerce-cart-policy">Нажимая на кнопку "Оформить заказ", Вы соглашаетесь с <a href="#">Политикой конфиденциальности</a></div>'
+  ];
+
+  // AJAXify "update" button
+  $form['#action'] = Url::fromRoute('commerce_cart.page')->toString();
+  $form['actions']['submit']['#ajax'] = [
+    'callback' => 'extn_commerce_ajax_update_cart_form',
+    'event' => 'click',
+  ];
+  $form['actions']['submit']['#attributes']['class'][] = 'js-hide';
+  $form['actions']['submit']['#name'] = 'update';
+
+  // AJAXify "quantity" inputs
+  foreach (Element::children($form['edit_quantity']) as $key) {
+    $form['edit_quantity'][$key]['#ajax'] = [
+      'event' => 'change',
+      'callback' => '',
+      'trigger_as' => [
+        'name' => 'update',
+      ],
+    ];
+  }
+
+  // AJAXify "delete" buttons
+  foreach (Element::children($form['remove_button']) as $key) {
+    $form['remove_button'][$key]['#ajax'] = [
+      'callback' => 'extn_commerce_ajax_update_cart_form',
+      'event' => 'click',
+    ];
+  }
+}
+
+/**
+ * AJAX update cart page.
+ */
+function extn_commerce_ajax_update_cart_form(array &$form, FormStateInterface $form_state): AjaxResponse
+{
+  // Delete status messages
+  \Drupal::messenger()->deleteByType(MessengerInterface::TYPE_STATUS);
+
+  // Create fake request to cart page
+  $fake_request = \Drupal::request()->duplicate();
+  $fake_request->query->replace(UrlHelper::filterQueryParameters($fake_request->query->all(), [
+    FormBuilderInterface::AJAX_FORM_REQUEST,
+    AjaxResponseSubscriber::AJAX_REQUEST_PARAMETER,
+    MainContentViewSubscriber::WRAPPER_FORMAT,
+  ]));
+  $fake_request->request->replace([]);
+  \Drupal::requestStack()->push($fake_request);
+
+  // Get cart page content
+  $cart_page_content = \Drupal::service('controller_resolver')->getController($fake_request)();
+
+  // Update cart page content in browser
+  $response = new AjaxResponse();
+  $response->addCommand(new ReplaceCommand('.cart-form', $cart_page_content));
+  // обновить бейдж на Корзине
+  $products_count = CommerceHelper::getCurrentUserCartProductsCount() ?: '';
+  $response->addCommand(new InvokeCommand('.menu-item--cart .badge', 'text', [$products_count]));
+
+  // Remove fake request
+  \Drupal::requestStack()->pop();
+
+  return $response;
+}
+
+/**
+ * Implements hook_commerce_checkout_pane_info_alter().
+ */
+function extn_commerce_commerce_checkout_pane_info_alter(&$definitions)
+{
+  // замена панели чекаута ContactInformarion на свою
+  if (isset($definitions['contact_information'])) {
+    $definitions['contact_information']['class'] = \Drupal\extn_commerce\Plugin\Commerce\CheckoutPane\ContactInformation::class;
+    $definitions['contact_information']['provider'] = 'extn_commerce';
+  }
+}
+
+function extn_commerce_commerce_inline_form_info_alter(array &$inline_form)
+{
+  if (isset($inline_form['customer_profile'])) {
+    // замена класса формы Customer Profile на свой
+    $inline_form['customer_profile']['class'] = 'Drupal\extn_commerce\Plugin\Commerce\InlineForm\CustomerProfile';
+  }
+}
+
+function extn_commerce_commerce_inline_form_customer_profile_alter(array &$inline_form, FormStateInterface $form_state, array &$complete_form)
+{
+  // Modify the shipping profile when in "form" mode.
+  $is_admin = \Drupal::service('router.admin_context')->isAdminRoute();
+  if (!$is_admin && $inline_form['#profile_scope'] == 'shipping' && !isset($inline_form['rendered'])) {
+
+    // в зависимости от метода доставки изменить набор полей
+    $shipping_method_id = 0;
+    $checkout_flow = $form_state->getFormObject();
+    $order = $checkout_flow->getOrder();
+    if ($shipments = $order->get('shipments')->referencedEntities()) {
+      $shipping_method_id = reset($shipments)->getShippingMethodId();
+    }
+    if ($shipping_method_id == 1) {
+      $inline_form["field_shipping_pvz"]["widget"][0]["value"]["#type"] = 'hidden';
+    }
+    if ($shipping_method_id == 2) {
+      $inline_form["field_shipping_address"]["widget"][0]["value"]["#type"] = 'hidden';
+    }
+
+    // настраиваем поля для работы со СДЭК
+    $inline_form["field_shipping_city"]["widget"][0]["value"]["#attributes"]["class"][] = 'shipping-city';
+    $inline_form["field_shipping_address"]["widget"][0]["value"]["#attributes"]["class"][] = 'shipping-address';
+    $inline_form["field_shipping_json"]["widget"][0]["value"]["#attributes"]["class"][] = 'shipping-json';
+    $inline_form["field_shipping_json"]["widget"][0]["value"]["#type"] = 'hidden';
+    $inline_form["field_shipping_pvz"]["widget"][0]["value"]["#attributes"]["class"][] = 'shipping-pvz';
+    $inline_form["field_shipping_pvz"]["widget"][0]["value"]["#placeholder"] = 'кликните, чтобы открыть карту';
+
+    // Подготовить список городов по введённому текстовому значению.
+    // В основном нужно только для того, чтобы после выбора города и перезагрузки формы
+    // выпадающий список не оказался пустым.
+    // Изначально загружать список всех возможных городов затратно и нецелесообразно.
+    // Пользователь начнёт набирать и тогда посмотрим...
+    $cities = [];
+    if ($user_input = $form_state->getUserInput()) {
+      $string = Html::escape($user_input["shipping_information"]["shipping_profile"]["field_shipping_city"][0]["value"]);
+    } else $string = $inline_form["field_shipping_city"]["widget"][0]["value"]["#default_value"];
+    if ($string && $list = CommerceHelper::getCitiesFromCDEK($string)) {
+      foreach ($list->items as $city) {
+        $city_array = explode(', ', $city->full_name);
+        $city_name = array_shift($city_array);
+        $city_region = implode(', ', $city_array);
+        $cities[$city->code] = Markup::create($city_name . '<span>, ' . $city_region . '</span>');
+      }
+    }
+    if (!$cities) $cities = ['0' => 'Начните набирать и выберите из списка' ];
+    $inline_form["field_shipping_city"]["widget"][0]["value"]['#dropdown_options'] = $cities;
+
+    // Сменить оформление поля на выпадающий список с фильтром
+    $inline_form["field_shipping_city"]["widget"][0]["value"]['#theme'] = 'input_dropdown_filter';
+    // отключить фильтрацию при наборе
+    $inline_form["field_shipping_city"]["widget"][0]["value"]['#attributes']['data-diacritics'] = 'off';
+  }
+}
+
+
+function extn_commerce_coupon_redemption_element_validate(&$element, FormStateInterface $form_state): void
+{
+  // Если обнаружена ошибка при вводе купона, то сбросить введённое значение,
+  // так как поле ввода скрыто и пользователь не сможет убрать
+  // перед оформлением заказа неправильное значение.
+  $errors = $form_state->getErrors();
+  if (isset($errors["coupon_redemption][form][code"])) {
+    $element["code"]["#value"] = '';
+  }
+}
+
+function extn_commerce_commerce_giftcard_redemption_element_validate(&$element, FormStateInterface $form_state): void
+{
+  // Если обнаружена ошибка при вводе сертификата, то сбросить введённое значение,
+  // так как поле ввода скрыто и пользователь не сможет убрать
+  // перед оформлением заказа неправильное значение.
+  $errors = $form_state->getErrors();
+  if (isset($errors["commerce_giftcard_redemption][form][code"])) {
+    $element["code"]["#value"] = '';
+  }
+}
+
+function extn_commerce_shipping_profile_validate(&$element, FormStateInterface $form_state): void
+{
+  // в зависимости от выбранного метода, поле адреса или ПВЗ при сабмите не должно быть пустым
+  $values = $form_state->getValue('shipping_information');
+  $shipping_method = $values["shipments"][0]["shipping_method"][0];
+
+  $triggering_element = $form_state->getTriggeringElement();
+  if (empty($triggering_element["#recalculate"])) {
+    if ($shipping_method == '1--default'
+      && empty($values["shipping_profile"]["field_shipping_address"][0]["value"])) {
+      $form_state->setErrorByName('shipping_information][shipping_profile][field_shipping_address', 'Задайте адрес для курьерской доставки');
+    }
+    if ($shipping_method == '2--default'
+      && empty($values["shipping_profile"]["field_shipping_pvz"][0]["value"])) {
+      $form_state->setErrorByName('shipping_information][shipping_profile][field_shipping_pvz', 'Выберите пункт выдачи заказов');
+    }
+  }
+
+}
+
+function extn_commerce_shipping_method_validate(&$element, FormStateInterface $form_state): void
+{
+  // в зависимости от выбранного метода, поле адреса или ПВЗ при сабмите не должно быть пустым
+  $values = $form_state->getValue('shipping_information');
+  $shipping_method = $values["shipments"][0]["shipping_method"][0];
+
+  $rates = $form_state->get('shipping_information_shipments_0_shipping_method_0');
+  $data = $rates[$shipping_method]->getData();
+  if (!empty($data['errors'])) {
+    $form_state->setErrorByName(implode('][', $element['#parents']), 'Выбранный метод доставки недоступен, выберите другой.');
+  }
+}
+
+

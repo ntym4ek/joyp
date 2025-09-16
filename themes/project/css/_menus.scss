@@ -3,7 +3,21 @@
 .menu-wrapper {
   .menu {
     display: flex; align-items: center;
+    height: $header-height;
     gap: 40px;
-    .menu-item > a { padding: .5rem 0; }
+    .menu-item {
+      border-bottom: 1px solid transparent;
+      height: 100%;
+      transition: border-color 200ms;
+      > a {
+        display: flex; align-items: center;
+        height: 100%;
+        padding: .5rem 0;
+      }
+      &--active-trail,
+      &:hover {
+        border-bottom: 1px solid $brand-cocoa;
+      }
+    }
   }
 }

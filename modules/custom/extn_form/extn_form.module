@@ -1,0 +1,16 @@
+<?php
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_alter()
+ */
+function extn_form_form_alter(&$form, FormStateInterface $form_state, $form_id): void
+{
+  $form['#attributes']['novalidate'] = 'novalidate';
+  $form['#attributes']['autocomplete'] = 'off';
+}
+
+
+
+

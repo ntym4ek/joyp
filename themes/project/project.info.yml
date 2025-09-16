@@ -7,11 +7,15 @@ base theme: base9
 core_version_requirement: ^11
 
 libraries:
-  - project/styles
+  - core/drupal.dialog.ajax
+  - project/base
+  - project/iconfont
   - base9/layout-kccc
   - base9/back-to-top
   - base9/click-to-copy
   - base9/swiper-thumbs
+  - base9/tabs-js
+  - project/swiper-outsource-navigation
 
 regions:
   header: Header

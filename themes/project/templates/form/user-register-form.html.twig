@@ -1,0 +1,16 @@
+<div class="user-profile-form">
+  <div class="user-profile-form__left">
+    {{ form["user_profiles"]["widget"][0]["entity"]["field_user_surname"] }}
+    {{ form["user_profiles"]["widget"][0]["entity"]["field_user_name"] }}
+    {{ form["user_profiles"]["widget"][0]["entity"]["field_user_name2"] }}
+  </div>
+  <div class="user-profile-form__right">
+    <div class="container-inline">
+      {{ form["user_profiles"]["widget"][0]["entity"]["field_user_birthday"] }}
+      {{ form["user_profiles"]["widget"][0]["entity"]["field_user_gender"] }}
+    </div>
+    {{ form["user_profiles"]["widget"][0]["entity"]["field_user_phone"] }}
+    {{ form["account"]["mail"] }}
+  </div>
+  {{ form|without('user_profiles', 'account') }}
+</div>

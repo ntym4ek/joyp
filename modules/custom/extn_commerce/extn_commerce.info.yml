@@ -1,0 +1,5 @@
+name: Extn Commerce
+type: module
+description: 'Расширение функционала Commerce'
+package: xCustom
+core_version_requirement: ^10 || ^11

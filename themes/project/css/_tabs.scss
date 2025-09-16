@@ -1,0 +1,17 @@
+@import "variables";                                                            // чтобы переменные не подсвечивались
+
+.tabs {
+  display: flex; flex-direction: column;
+  width: 100%;
+  &__content {
+    display: none;
+    &--visible { display: block; }
+  }
+
+  &__link {
+    display: block;
+    cursor: pointer;
+    &--active {}
+  }
+}
+

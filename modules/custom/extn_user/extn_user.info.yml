@@ -1,0 +1,5 @@
+name: Extn User
+type: module
+description: 'Расширение функционала пользователя'
+package: xCustom
+core_version_requirement: ^10 || ^11

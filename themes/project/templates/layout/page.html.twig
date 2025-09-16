@@ -42,7 +42,7 @@
  * @see html.html.twig
  */
 #}
-<div class="page-wrapper layout-kccc">
+<div class="page-wrapper">
 
   <div class="page-offside">
     <div class="branding">
@@ -59,96 +59,68 @@
   </div>
 
   <div class="page">
-    {% if is_header_on %}
-    <header class="page-header" role="banner">
-      <div class="page-header-inner">
-        <div class="container">
-          <div class="row">
-          <div class="page-header__brand">
-            <div class="branding">
-              <div class="branding__brand">
-                <div class="name nowrap">KCCC GROUP</div>
-                <div class="site-name">{{ site.name }}</div>
+    <div class=" container-fluid">
+      <header class="page-header" role="banner">
+        <div class="page-header-inner">
+
+            <div class="page-header__brand">
+              <div class="branding">
+                <div class="branding__logo"><a href="/"><img src="{{ site.logo.standart }}" alt="JOY PREMIUM" /></a></div>
               </div>
-              <div class="branding__logo"><a href="/"><img src="{{ site.logo.standart }}" alt="KCCC GROUP" /></a></div>
             </div>
-          </div>
-          <div class="page-header__menu">
-            <div class="menu-bkg">
-              <div class="page-offside-label hide-lg"><div class="label"><div class="icon"></div></div></div>
-              <div class="hide-xs show-lg">
-                <div class="menu-wrapper">
-                  {{ page.primary_menu }}
-                  {{ page.secondary_menu }}
+
+            <div class="page-header__content">
+
+              <div class="page-header__col1">
+                <div class="page-header__menu">
+                  <div class="menu-wrapper">
+                    {{ page.primary_menu }}
+                  </div>
+                </div>
+              </div>
+
+              <div class="page-header__col2">
+                <div class="page-header__static">
+                  8 922 922-67-74
+                </div>
+
+                <div class="page-header__menu">
+                  <div class="menu-wrapper">
+                    {{ page.secondary_menu }}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          {# {{ page.header }}  #}
+
         </div>
-        </div>
-      </div>
-    </header>
-    {% endif %}
+      </header>
 
     <div class="page-content">
-      <div class="container">
-
-        {% if banner.image %}
-        <div class="page-banner">
-          <div class="screen-wide">
-            <div class="image image-cover">
-              <picture>
-                {% if banner.image.mobile_url %} <source srcset="{{ banner.image.mobile_url  }}" media="(max-width: {{ banner.break }}px)"> {% endif %}
-                <img src="{{ banner.image.url }}" alt="{{ banner.title.text }}">
-              </picture>
-            </div>
-            {% if banner.title %}
-            <div class="container full-height">
-              <div class="banner-title-wrapper">
-                {% if banner.title.prefix %} <div class="banner-prefix">{{ banner.title.prefix|raw }}</div> {% endif %}
-                {% if banner.title.text %}   <div class="banner-title">{{ banner.title.text|raw }}</div> {% endif %}
-                {% if banner.title.suffix %} <div class="banner-suffix">{{ banner.title.suffix|raw }}</div> {% endif %}
-              </div>
-            </div>
-            {% endif %}
-          </div>
-        </div>
-        {% else %}
-          <div class="page-margin"></div>
-        {% endif %}
-
-        {{ page.highlighted }}
+        {{ page.header }}
 
         {{ page.breadcrumb }}
 
         <div class="page-main">
-
-          {% if is_title_on and title %}
-          <div class="page-title">
-            {% if title %} {{ title_prefix }} {% endif %}
-            {% if title %} <h1>{{ title }}</h1> {% endif %}
-            {% if title %} {{ title_suffix }} {% endif %}
-          </div>
-          {% endif %}
+          {{ page.highlighted }}
 
           <div class="row">
             {% if page.sidebar_first %}
-            <aside class="col-xs-12 col-md-4" role="complementary">
-              {{ page.sidebar_first }}
-            </aside>
+              <aside class="col-xs-10 col-md-2" role="complementary">
+                {{ page.sidebar_first }}
+              </aside>
             {% endif %}
 
-            <main class="col-xs-12 col-md" role="main">
+            <main class="col-xs-10 col-md-fill" role="main">
               {{ page.content }}
             </main>
 
             {% if page.sidebar_second %}
-            <aside class="col-xs-12 col-md-4" role="complementary">
-              {{ page.sidebar_second }}
-            </aside>
+              <aside class="col-xs-10 col-md-2" role="complementary">
+                {{ page.sidebar_second }}
+              </aside>
             {% endif %}
           </div>
+
         </div>
 
         {{ page.downlighted }}
@@ -159,18 +131,76 @@
     {# {{ page.help }}  #}
 
     <footer class="page-footer">
-      <div class="container">
-        <div class="row middle-xs">
-          <div class="col-xs-4">
-            <div class="branding">
-              <div class="branding__logo"><a href="/"><img src="{{ site.logo.transparent }}" alt="KCCC GROUP" /></a></div>
+      <div class="page-footer__row1">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-xs-10 col-md-5 col-lg-2">
+              <div class="page-footer__menu">
+                <h4>Каталог</h4>
+                <ul>
+                  <li><a href="/">Подарочные наборы</a></li>
+                  <li><a href="/">Для волос</a></li>
+                  <li><a href="/">Для рук</a></li>
+                  <li><a href="/">Для тела</a></li>
+                  <li><a href="/">Для дома</a></li>
+                  <li><a href="/">Travel</a></li>
+                  <li><a href="/">Сертификаты</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-xs-10 col-md-5 col-lg-2">
+              <div class="page-footer__menu">
+                <h4>Клиентам</h4>
+                <ul>
+                  <li><a href="/">Доставка</a></li>
+                  <li><a href="/">Оплата</a></li>
+                  <li><a href="/">Обмен и возврат</a></li>
+                  <li><a href="/">Сотрудничество</a></li>
+                  <li><a href="/">О нас</a></li>
+                  <li><a href="/">Travel</a></li>
+                  <li><a href="/">Контакты</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-xs-10 col-lg-4">
+              <div class="page-footer__menu">
+                <h4>Информация</h4>
+                <ul>
+                  <li><a href="/">Согласие на обработку персональных данных</a></li>
+                  <li><a href="/">Политика в отношении обработки персональных данных</a></li>
+                  <li><a href="/">Политика конфиденциальности</a></li>
+                  <li><a href="/">Договор публичной оферты</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-xs-10 col-md-5 col-lg-2">
+              <div class="page-footer__menu">
+                <h4>Контакты</h4>
+                <ul>
+                  <li><a href="tel:+79229226774">8 (922) 922-67-74</a></li>
+                  <li><a href="mailto:joypremium_zakaz@kccc.ru">joypremium_zakaz@kccc.ru</a></li>
+                  <li><a href="/" class="button button--primary">Задать вопрос</a></li>
+                </ul>
+              </div>
             </div>
           </div>
-          <div class="col-xs-4">
-            {{ page.footer }}
-          </div>
-          <div class="col-xs-4">
-            <div class="rights">{{ site.copyright }}</div>
+        </div>
+      </div>
+      <div class="page-footer__row2">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-xs-10 col-md-8">
+              <div class="production">
+                КОСМЕТИКА РАЗРАБОТАНА GREEN GROW CHEMICAL TRADING FZE (Dubai United Arab Emirates)<br>
+                Производство частично локализовано в России.<br>
+                Фабрика-партнер ООО "Страда".
+              </div>
+            </div>
+            <div class="col-xs-10 col-md-2">
+              <div class="copyright">
+                Joy Premium © 2025
+              </div>
+            </div>
           </div>
         </div>
       </div>

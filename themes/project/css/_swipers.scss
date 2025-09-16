@@ -1,0 +1,45 @@
+@import "variables";                                                            // чтобы переменные не подсвечивались
+
+.swiper-outsource-navigation {
+  span {
+    display: inline-block;
+    color: $brand-cocoa;
+    cursor: pointer;
+  }
+  .left { margin-right: 1rem; }
+}
+
+
+.slider {
+  display: flex;
+  &__thumbs {
+    flex: 0 0 auto;
+    img {
+      height: 80px; width: 80px;
+      object-fit: cover;
+    }
+    .swiper-thumbs {
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      height: 100%;
+    }
+    .swiper-wrapper { width: initial; }
+    .swiper-wrapper,
+    .swiper-slide { height: initial; }
+
+    .swiper-slide {
+      opacity: .5;
+      transition: opacity 200ms;
+    }
+    .swiper-slide-thumb-active { opacity: 1; }
+  }
+}
+
+.view {
+  .swiper-container { margin: 0; }
+}
+.view-front-slider {
+  .slider {
+    display: flex;
+    &__thumbs { flex: 0 0 220px; }
+  }
+}

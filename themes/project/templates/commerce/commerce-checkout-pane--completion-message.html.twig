@@ -1,0 +1,26 @@
+{#
+/**
+ * @file
+ * Default theme implementation for checkout panes.
+ *
+ * Available variables:
+ * - elements: The checkout pane's form elements.
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="checkout-pane checkout-pane--complete">
+  {% if elements['#title']|render %}
+  <div class="checkout-pane__title">Заказ оформлен</div>
+  {% endif %}
+  <div class="checkout-pane__content">
+    {{ elements }}
+    <div class="acions">
+    {% if user.isAnonymous %}
+      <a href="/user/login" class="button button--primary button--wide">Войти</a>
+    {% else %}
+      <a href="/user" class="button button--primary button--wide">Личный кабинет</a>
+    {% endif %}
+    </div>
+  </div>
+</div>

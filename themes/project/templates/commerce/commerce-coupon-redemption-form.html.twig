@@ -1,0 +1,25 @@
+{#
+/**
+ * @file
+ * Template for the coupon redemption form.
+ *
+ * Available variables:
+ * - form: The form. Contains the currently applied coupons in form.coupons,
+ *         each containing a code, display_name, remove_button.
+ *         For example: form.coupons.0.code.
+ *
+ * @ingroup themeable
+ */
+#}
+{% if form.coupons|length %}
+  <div class="coupon-redemption-form__coupons coupon-redemption-form__coupons--multiple">
+    {% for key, coupon in form.coupons|filter((coupon, key) => key|first != '#') %}
+      <div class="item">
+        <div class="item__code"> {{ coupon.code }} </div>
+        <div class="item__action"> {{ coupon.remove_button }} </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+{{ form|without('coupons') }}

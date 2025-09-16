@@ -1,0 +1,30 @@
+promocode-modal:
+  version: VERSION
+  js:
+    js/promocode-modal.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+    - core/drupal.dialog.ajax
+
+giftcard-modal:
+  version: VERSION
+  js:
+    js/giftcard-modal.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+    - core/drupal.dialog.ajax
+
+cdek-widget:
+  js:
+    https://cdn.jsdelivr.net/npm/@cdek-it/widget@3: { type: external }
+
+commerce-shipping-cdek:
+  version: VERSION
+  js:
+    js/commerce-shipping-cdek.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+

@@ -1,24 +1,37 @@
 @import "variables";                                                            // чтобы переменные не подсвечивались
 
 // секция оформления отдельных страниц
-.page-wrapper--front {
-  .slider {
-    display: flex;
-    &__thumbs {
-      flex: 0 0 220px;
-      img {
-        height: 80px; width: 80px;
-        object-fit: cover;
-      }
-      .swiper-thumbs {
-        display: flex; flex-direction: column; justify-content: center; align-items: center;
-        height: 100%;
-      }
-      .swiper-wrapper { width: initial; }
-      .swiper-wrapper,
-      .swiper-slide { height: initial; }
+
+.user-profile-form {
+  display: flex; flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 2rem 0 4rem;
+
+  &__left,
+  &__right {
+    flex: 0 0 50%;
+  }
+  &__left { padding-right: 1rem; }
+  &__right {
+    padding-left: 1rem;
+    > .container-inline {
+      display: flex; justify-content: space-between;
+      > div { flex: 0 0 49%; }
+      .form-item { margin-bottom: 0; }
     }
   }
-  .swiper-container { margin: 0; }
+  .field--name-field-user-birthday {
+    .form-item { width: 100%; }
+  }
+  .field--name-field-user-gender {
+    .form-item { width: 100%; }
+  }
 
+  .form-actions { width: 100%; }
+  .button {
+    margin: 1rem 0 0 0;
+    width: 100%;
+  }
+
+  #edit-pass--description { text-align: right; }
 }

@@ -1,17 +1,20 @@
 @import "variables";                                                            // чтобы переменные не подсвечивались
 
-.page-wrapper--front {
-  .container { max-width: 1802px; }
-  .row { max-width: 1802px; }
-}
+//.page-wrapper--front {
+//  .container { max-width: 1802px; }
+//  .row { max-width: 1802px; }
+//}
 
 .page-header {
   border-bottom: 1px solid $gray-lightest;
   display: flex; align-items: center;
   height: $header-height;
+  @include row("true", $gutter-xl);
+
   .page-header-inner {
     display: flex;
     width: 100%;
+    @include col('xs', 10, $gutter-xl);
   }
   &__brand {
     flex: 0 1 14%;
@@ -30,3 +33,100 @@
   }
 }
 
+.page-title {
+  line-height: 1;
+  margin-top: 0;
+}
+
+.page-footer {
+  padding: 0;
+  &__row1,
+  &__row2 {
+    border-top: 1px solid $gray-lightest;
+  }
+
+  &__row1 {
+    padding: 3rem 0;
+  }
+  &__row2 {
+    color: $text-muted; font-size: $font-size-xs;
+    height: 80px;
+    .container-fluid { height: 100%; }
+    .row {
+      align-items: center;
+      height: 100%;
+    }
+  }
+  &__menu {
+    ul { margin: 0; padding: 0; }
+    li {
+      list-style: none;
+      a:not(.button) {
+        color: inherit;
+        display: block;
+        padding: .5rem 0;
+        transition: color 200ms;
+        &:hover {
+          color: $brand-cocoa;
+        }
+      }
+      a.button { margin-top: .5rem; }
+    }
+  }
+}
+
+.ui-dialog {
+  padding: 60px;
+  .ui-dialog-titlebar {
+    background: none; border: none;
+    padding: 0;
+    h1 { font-family: $font-name2; font-size: $font-size-h2; text-align: center; }
+    button {
+      top: -1rem; right: -1rem;
+      margin: 0;
+      span.ui-icon-closethick {
+        background-image: url(../images/icons/cross.svg);
+        background-position: 0 0;
+        cursor: pointer;
+        margin: 0;
+        top: 0; left: 0;
+        width: 20px; height: 20px;
+      }
+    }
+  }
+  .ui-dialog-title {
+    float: none;
+    width: initial;
+    white-space: initial;
+  }
+  .ui-dialog-content {
+    padding: 2rem 0 0 0;
+    input {
+      font-size: $font-size-base;
+      width: 100%;
+    }
+  }
+  .ui-dialog-actions {
+    padding-top: 2rem;
+  }
+  .ui-dialog-buttonpane {
+    background: none; border: none;
+    padding: 0;
+    width: 100%;
+    .ui-dialog-buttonset { float: none; }
+    .ui-dialog-notes {
+      color: $text-muted; font-size: $font-size-xs; text-align: center;
+      margin-top: 1rem;
+    }
+  }
+  .button {
+    width: 100%;
+    margin: 0;
+    &:not(:first-child) {
+      margin-top: 1rem;
+    }
+  }
+  a.button--primary {
+    @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border, $btn-primary-h-color, $btn-primary-h-bg, $btn-primary-h-border);
+  }
+}

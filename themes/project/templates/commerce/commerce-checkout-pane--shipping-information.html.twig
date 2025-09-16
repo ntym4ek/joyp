@@ -1,0 +1,20 @@
+{#
+/**
+ * @file
+ * Default theme implementation for checkout panes.
+ *
+ * Available variables:
+ * - elements: The checkout pane's form elements.
+ *
+ * @ingroup themeable
+ */
+#}
+{% if elements['#title']|render %}
+<div class="checkout-pane__title">{{ elements['#title'] }}</div>
+{% endif %}
+<div class="checkout-pane__content">
+  {{ elements.shipments }}
+  {{ elements.shipping_profile }}
+  {{ elements|without('shipments', 'shipping_profile') }}
+</div>
+

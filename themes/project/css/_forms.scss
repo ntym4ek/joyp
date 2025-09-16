@@ -1,0 +1,32 @@
+@import "variables";                                                            // чтобы переменные не подсвечивались
+
+.input-dropdown-filter {
+
+  .input-dropdown-menu {
+    border: 1px solid $gray-lightest;
+    box-shadow: 1px 1px 10px $gray-lightest;
+    max-height: 13rem;
+
+    .input-dropdown-item {
+      padding: 1rem;
+      &:hover { background-color: $gray-lightest; }
+      span { color: $gray-light; font-size: $font-size-small; }
+    }
+
+    &.processing .input-dropdown-item {
+      opacity: .2; pointer-events: none;
+    }
+  }
+}
+
+.form-item--error-message {
+  margin-top: 2px;
+
+  strong {
+    color: $brand-danger; font-size: $font-size-small; font-weight: 400;
+  }
+  &::before {
+    height: 12px;
+    vertical-align: initial;
+  }
+}

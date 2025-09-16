@@ -1,0 +1,7 @@
+extn_commerce.ajax_example:
+  path: '/endpoint/cities/{string}'
+  defaults:
+    _controller: '\Drupal\extn_commerce\Controller\AjaxController::getCities'
+  requirements:
+    _permission: 'access content'
+    string: '.*'
