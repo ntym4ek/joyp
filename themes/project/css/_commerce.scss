@@ -31,6 +31,8 @@
 .commerce-checkout-flow {
   .main {
     display: flex; flex-wrap: wrap;
+    line-height: 1.5;
+
     > .checkout-pane,
     #shipping-information-wrapper > .checkout-pane {
       @include row('true', $gutter-md);
@@ -39,7 +41,8 @@
       padding: 2rem 0;
     }
 
-    .checkout-pane--complete {
+    .checkout-pane--complete,
+    .checkout-pane-extn-commerce-gift-message {
       border-bottom: none;
     }
   }
@@ -117,9 +120,6 @@
   }
 }
 
-.checkout-pane-extn-commerce-gift-message {
-  border-bottom: none;
-}
 
 .checkout-pane-extn-commerce-gift-message {
   .gift-message {

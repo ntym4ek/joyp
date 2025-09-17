@@ -31,35 +31,29 @@
       </div>
     </div>
     <div class="col-xs-10 col-md-4">
-      <h1>{{- product.title -}}</h1>
-      <div class="product-care__summary">
-        {{- product.body['#items'].getValue()[0].summary -}}
-      </div>
-      <div class="product-care__specs">
-        {{- product.field_p_application -}}
-        {{- product.field_p_type -}}
-        {{- product.field_p_volume -}}
-        {{- product.field_p_aroma -}}
-      </div>
-      <div class="product-care__price">
-        {{- product.variation_price -}}
-        {{- product.variation_list_price -}}
-      </div>
-      <div class="product-care__add-to-cart">
-        {{- product.variations -}}
+      <div class="product-care__brief">
+        <h1>{{- product.title -}}</h1>
+        <div class="product-care__summary">
+          {{- product.body['#items'].getValue()[0].summary -}}
+        </div>
+        <div class="product-care__specs">
+          {{- product.field_p_application -}}
+          {{- product.field_p_type -}}
+          {{- product.field_p_volume -}}
+          {{- product.field_p_aroma -}}
+        </div>
+        <div class="product-care__price">
+          {{- product.variation_price -}}
+          {{- product.variation_list_price -}}
+        </div>
+        <div class="product-care__add-to-cart">
+          {{- product.variations -}}
+        </div>
       </div>
     </div>
     <div class="col-xs-10 col-md-2">
       <div class="product-care__socials">
-        <div class="socials">
-          <div class="socials__title">Поделиться:</div>
-          <div class="socials__items">
-            <div class="socials__item"><a href=""><i class="vk"></i></a></div>
-            <div class="socials__item"><a href=""><i class="tg"></i></a></div>
-            <div class="socials__item"><a href=""><i class="vb"></i></a></div>
-            <div class="socials__item"><a href=""><i class="wa"></i></a></div>
-          </div>
-        </div>
+        {{- socials -}}
       </div>
     </div>
   </div>

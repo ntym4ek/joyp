@@ -20,11 +20,18 @@
   }
 }
 
-.view-aromas {
+.view-aromas,
+.view-karusel-produktov {
   .view-content {
-    border-left: 1px solid $gray-lightest;
 
     @include row('true', $gutter-xs);
+
+    .swiper-container {
+      border-top: 1px solid $gray-lightest;
+      width: 100%;
+    }
+    .swiper-slide:first-child { border-left: 1px solid $gray-lightest; }
+    .swiper-slide { border-right: 1px solid $gray-lightest; }
 
     @media #{$tablet}   {
       @include row('true', $gutter-md);

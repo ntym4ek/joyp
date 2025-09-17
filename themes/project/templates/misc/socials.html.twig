@@ -1,0 +1,19 @@
+{#
+/**
+ * @file
+ * Тема для вывода иконок соцсетей
+ *
+ * Available variables:
+ * - items: список ссылок и иконок на соцсети
+ */
+#}
+
+<div class="socials">
+  <div class="socials__title">Поделиться:</div>
+  <div class="socials__items">
+    {% for item in items %}
+      <div class="socials__item"><a href="{{ item.url }}"><i class="{{ item.icon_class }}"></i></a></div>
+    {% endfor %}
+  </div>
+</div>
+

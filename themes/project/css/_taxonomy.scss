@@ -1,0 +1,36 @@
+@import "variables";                                                            // чтобы переменные не подсвечивались
+
+.taxonomy-term {
+  .field--name-field-image img {
+    object-fit: contain;
+    width: 100%;
+  }
+}
+
+.taxonomy-term--full.vocabulary-aromas {
+
+  .field--name-field-teaser {
+    font-size: $font-size-h2; font-family: $font-name2; text-transform: uppercase;
+  }
+
+  .description {
+    border-bottom: 1px solid $gray-lightest;
+    padding: $gutter-md;
+  }
+
+  .field--name-field-smells {
+    padding: $gutter-md;
+
+    .field__label {
+      font-size: $font-size-h2; font-family: $font-name2; font-weight: 400; text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .field__items {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+    }
+  }
+}
+
+.taxonomy-term--default.vocabulary-smells {
+  .field--name-field-image {}
+}

@@ -1,5 +1,9 @@
 <?php
 
+use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\node\NodeInterface;
+
 /**
  * Implements hook_theme().
  */
@@ -12,4 +16,37 @@ function extn_block_theme()
       ],
     ],
   ];
+}
+
+/**
+ * Implements hook_block_access().
+ */
+function extn_block_block_access($block, $operation, AccountInterface $account)
+{
+  // программное управление видимостью блока Page Title
+  if ($operation == 'view' && $block->getPluginId() == 'page_title_block') {
+
+    // Скрыть блок на главной странице
+    if (\Drupal::service('path.matcher')->isFrontPage()) {
+      return AccessResult::forbidden();
+    }
+
+    // Скрыть для определённых типов Материалов
+    $route_match = \Drupal::routeMatch();
+//    $r = $route_match->getRouteName();
+    if ($route_match->getRouteName() === 'entity.node.canonical') {
+      $node = $route_match->getParameter('node');
+      if ($node instanceof NodeInterface) {
+        if ($node->bundle() === 'article') {
+          return AccessResult::forbidden();
+        }
+      }
+    }
+    if ($route_match->getRouteName() === 'entity.commerce_product.canonical') {
+      return AccessResult::forbidden();
+    }
+
+  }
+
+  return AccessResult::neutral();
 }

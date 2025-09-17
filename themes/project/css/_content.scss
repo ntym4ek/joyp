@@ -1,0 +1,68 @@
+@import "variables";                                                            // чтобы переменные не подсвечивались
+
+.node {
+
+}
+
+.node--view-mode-full {
+  margin-bottom: 2rem;
+
+  h1 {
+    font-size: $font-size-h2;
+    margin-top: 0;
+  }
+
+  h3 { margin-top: 3rem; }
+
+  .node__header {
+    display: flex; gap: 2rem;
+    color: $gray-light; font-family: $font-name2; font-size: $font-size-large;
+    text-transform: uppercase;
+    margin: 2rem 0;
+  }
+
+  .field--name-field-image {
+    margin-bottom: 2rem;
+
+    img {
+      object-fit: cover;
+      width: 100%;
+    }
+  }
+
+  .field--name-body {
+    line-height: 1.5;
+    ul li {
+      list-style-type: none;
+    }
+
+    ul li:before {
+      content: '\2014';
+      position: absolute;
+      margin-left: -20px;
+    }
+  }
+
+  footer {
+    display: flex; justify-content: space-between;
+    margin-top: 2rem;
+  }
+  .node__back {
+    font-size: $font-size-large; font-family: $font-name2;
+    span {
+      border: 1px solid $gray-lightest;
+      display: inline-flex; justify-content: center; align-items: center;
+      font-size: $font-size-base; font-family: $font-name;
+      margin-right: 1rem;
+      width: 55px; height: 55px;
+    }
+  }
+  .node__socials {
+    .socials { display: flex; align-items: center; }
+    .socials__title { margin: 0 1rem 0 0; }
+  }
+
+  @media #{$laptop} {
+    margin-bottom: 4rem;
+  }
+}
