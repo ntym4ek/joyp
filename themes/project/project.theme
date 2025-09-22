@@ -38,6 +38,12 @@ function project_theme(): array
         'items' => [],
       ],
     ],
+    'cart_block' => [
+      'template' => 'commerce/commerce-cart-block',
+      'variables' => [
+        'count' => 0,
+      ],
+    ],
   ];
 }
 
@@ -75,6 +81,17 @@ function project_preprocess_page(array &$vars): void
   if ($route_name == 'commerce_checkout.form') {
     \Drupal::messenger()->deleteByType(MessengerInterface::TYPE_ERROR);
   }
+
+  // подготовить блок корзины
+  $products_count = CommerceHelper::getCurrentUserCartProductsCount();
+  $vars['cart_block'] = [
+    '#theme' => 'cart_block',
+    '#count' => $products_count,
+    '#cache' => [
+      'contexts' => ['user'],
+      'tags' => ['commerce_cart'],
+    ],
+  ];
 }
 
 /**
@@ -114,22 +131,6 @@ function project_get_socials_links(): array
     ['url' => '', 'icon_class' => 'vb'],
     ['url' => '', 'icon_class' => 'wa'],
   ];
-}
-
-/**
- * Implements hook_preprocess_HOOK().
- */
-function project_preprocess_menu__account(&$variables)
-{
-  // для пункта меню Корзина добавить бейдж с количеством уникальных продуктов
-  $products_count = CommerceHelper::getCurrentUserCartProductsCount();
-  $badge = $products_count ? '<span class="badge">' . $products_count . '</span>' : '';
-  foreach ($variables['items'] as &$item) {
-    if ($item['title'] === 'Корзина') {
-      $item['title'] = Markup::create($item['title'] . '<span class="cart-badge-wrapper">' . $badge . '</span>');
-      $item["attributes"]['class'][] = 'menu-item--cart';
-    }
-  }
 }
 
 /**

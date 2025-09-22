@@ -26,7 +26,7 @@ var timer = null;
 
 
   Drupal.behaviors.commerceShippingCdek = {
-    attach: function (context, settings) {
+    attach: function (context) {
 
       // панель доставки
       once('commerce-shipping-once', 'body', context).forEach(
@@ -41,6 +41,7 @@ var timer = null;
                 let menu = event.detail.source[0].parentElement.querySelector('.input-dropdown-menu');
                 menu.classList.add('processing');
 
+                // добавить ajax throbber
                 const loader = document.createElement('div');
                 loader.className = 'ajax-progress ajax-progress-throbber';
                 loader.innerHTML = '<div class="throbber">&nbsp;</div><div class="message">Подождите...</div>';
@@ -93,7 +94,7 @@ var timer = null;
       once('shipping-pvz-once', 'input.shipping-pvz', context).forEach(
         (element) => {
 
-          element.addEventListener('focus', (event) => {
+          element.addEventListener('focus', () => {
             widget.open();
           });
 

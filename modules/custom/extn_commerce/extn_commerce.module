@@ -144,9 +144,9 @@ function extn_commerce_add_to_cart_ajax(array &$form, FormStateInterface $form_s
   $output = \Drupal::service('renderer')->render($build);
 
   $output .=  '<div class="ui-dialog-actions" autofocus>' .
-    '<a href="/cart" class="button button--primary">Перейти в корзину</a>' .
-    '<a id="buttonDialogClose" class="button button--default button--outline">Вернуться к покупкам</a>' .
-    '</div>';
+               '<a href="/cart" class="button button--primary">Перейти в корзину</a>' .
+               '<a id="buttonDialogClose" class="button button--default button--outline">Вернуться к покупкам</a>' .
+              '</div>';
 
   $response = new AjaxResponse();
   // только на странице Каталога

@@ -26,11 +26,6 @@ a { color: inherit; }
 
 .badge {
   background: $brand-cocoa;
-
-  .menu-item & {
-    font-family: $font-name2;
-    top: 25px;
-  }
 }
 
 #back-to-top {
