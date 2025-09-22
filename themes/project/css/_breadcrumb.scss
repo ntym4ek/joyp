@@ -1,0 +1,16 @@
+@import "variables";
+
+.breadcrumb {
+
+  li,
+  li a {
+    color: $gray;
+  }
+
+  li::before {
+    content: " \2022 ";
+    margin: 0 5px;
+  }
+
+  li:last-child { color: $text-color; }
+}

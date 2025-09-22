@@ -38,7 +38,13 @@ var timer = null;
               clearTimeout(timer);
               timer = setTimeout(() => {
                 // заблюрить список
-                event.detail.source[0].parentElement.querySelector('.input-dropdown-menu').classList.add('processing');
+                let menu = event.detail.source[0].parentElement.querySelector('.input-dropdown-menu');
+                menu.classList.add('processing');
+
+                const loader = document.createElement('div');
+                loader.className = 'ajax-progress ajax-progress-throbber';
+                loader.innerHTML = '<div class="throbber">&nbsp;</div><div class="message">Подождите...</div>';
+                menu.appendChild(loader);
 
                 // сделать запрос
                 const ajax = Drupal.ajax({
@@ -48,7 +54,7 @@ var timer = null;
                 ajax.execute();
               }, 200);
             } else {
-              event.detail.source[0].parentElement.querySelector('.input-dropdown-menu').innerHTML = '<li class="input-dropdown-item">Начните набирать и выберите из списка</li>';
+              menu.innerHTML = '<li class="input-dropdown-item">Начните набирать и выберите из списка</li>';
             }
           });
           // обработчик события на выбор Города (библиотека input-dropdown-filter)
@@ -98,11 +104,12 @@ var timer = null;
             document.body.appendChild(div);
 
             let city = document.querySelector('input.shipping-city').value;
+            let site = window.location.protocol + "//" + window.location.hostname;
 
             widget = new window.CDEKWidget({
               from: 'Москва',
               root: 'cdek-map',
-              apiKey: 'df470b3b-b068-41a0-8ebb-93bbc0f7621a', servicePath: 'http://jp.local/service.php',
+              apiKey: 'df470b3b-b068-41a0-8ebb-93bbc0f7621a', servicePath: site + '/service.php',
               hideDeliveryOptions: {
                 door: true,
               },

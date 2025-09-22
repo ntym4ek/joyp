@@ -73,32 +73,15 @@
 {{ attach_library('base9/node') }}
 <article{{ attributes.addClass(classes) }}>
 
-  {{ title_prefix }}
-  {% if label  %}
-    <h1{{ title_attributes }}>
-      {{ label }}
-    </h1>
-  {% endif %}
-  {{ title_suffix }}
-
-  <div class="node__header">
-    <div class="node__date">{{ date }}</div>
-    <div class="node__tags">{{ content.field_tags }}</div>
+  <div class="node__image">
+    {{ content.field_image }}
   </div>
-
 
   <div{{ content_attributes.addClass('node__content') }}>
-    {{ content|without('field_tags') }}
+    <div class="node__date">{{ date }}</div>
+    <h2><a href="{{ url }}">{{ label }}</a></h2>
+    <div class="node__tags">{{ content|without('field_image') }}</div>
   </div>
-
-  <footer>
-    <div class="node__back">
-      <a href="/blog"><span><---</span>Назад к списку</a>
-    </div>
-    <div class="node__socials">
-      {{- socials -}}
-    </div>
-  </footer>
 
   <div class="node__meta">{{ metadata }}</div>
 

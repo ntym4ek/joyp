@@ -65,13 +65,14 @@ function project_theme_suggestions_taxonomy_term_alter(array &$suggestions, arra
  */
 function project_preprocess_page(array &$vars): void
 {
+  $route_name = \Drupal::routeMatch()->getRouteName();
+
   // логотипы
   $path_theme = \Drupal::service('extension.path.resolver')->getPath('theme', 'project');
   $vars['site']['logo']['standart'] = \Drupal::service('file_url_generator')->generateString($path_theme . '/images/logo/logo.png');
 
   // для страницы Чекаута подавить сообщения о количестве ошибок во всплывающем окне
-  $route_match = \Drupal::routeMatch();
-  if ($route_match->getRouteName() == 'commerce_checkout.form') {
+  if ($route_name == 'commerce_checkout.form') {
     \Drupal::messenger()->deleteByType(MessengerInterface::TYPE_ERROR);
   }
 }
@@ -144,7 +145,7 @@ function project_preprocess_node__article(&$vars)
     '#timestamp' => $created_unix,
     '#text' => \Drupal::service('date.formatter')->format($created_unix, 'custom', 'd.m.Y'),
     '#attributes' => [
-      'class' => ['my-date'],
+      'class' => ['node__date'],
       'datetime' => date('c', $created_unix), // ISO 8601
     ]
   ];
@@ -156,5 +157,6 @@ function project_preprocess_node__article(&$vars)
     ];
   }
 }
+
 
 

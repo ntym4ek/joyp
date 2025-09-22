@@ -1,0 +1,38 @@
+services:
+  _defaults:
+    autowire: true
+
+  extn_breadcrumbs.cart_breadcrumb:
+    class: Drupal\extn_breadcrumbs\Breadcrumb\CartBreadcrumbBuilder
+    tags:
+      - { name: breadcrumb_builder}
+
+  extn_breadcrumbs.checkout_breadcrumb:
+    class: Drupal\extn_breadcrumbs\Breadcrumb\CheckoutBreadcrumbBuilder
+    tags:
+      - { name: breadcrumb_builder}
+
+  extn_breadcrumbs.blog_list_breadcrumb:
+    class: Drupal\extn_breadcrumbs\Breadcrumb\BlogListBreadcrumbBuilder
+    tags:
+      - { name: breadcrumb_builder}
+
+  extn_breadcrumbs.node_page_breadcrumb:
+    class: Drupal\extn_breadcrumbs\Breadcrumb\NodePageBreadcrumbBuilder
+    tags:
+      - { name: breadcrumb_builder}
+
+  extn_breadcrumbs.product_list_breadcrumb:
+    class: Drupal\extn_breadcrumbs\Breadcrumb\ProductListBreadcrumbBuilder
+    tags:
+      - { name: breadcrumb_builder, priority: 1003 }
+
+  extn_breadcrumbs.product_page_breadcrumb:
+    class: Drupal\extn_breadcrumbs\Breadcrumb\ProductPageBreadcrumbBuilder
+    tags:
+      - { name: breadcrumb_builder}
+
+  extn_breadcrumbs.user_breadcrumb:
+    class: Drupal\extn_breadcrumbs\Breadcrumb\UserBreadcrumbBuilder
+    tags:
+      - { name: breadcrumb_builder}

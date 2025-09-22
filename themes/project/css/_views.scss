@@ -39,3 +39,22 @@
   }
 }
 
+.view-blog {
+  .view-content {
+    border-left: 1px solid $gray-lightest;
+
+    @include row('true', $gutter-xs);
+
+    @media #{$tablet}   {
+      @include row('true', $gutter-md);
+    }
+  }
+
+  .views-row {
+    flex-basis: 20%;
+    max-width: 20%;
+
+    border-right: 1px solid $gray-lightest;
+    box-sizing: border-box;
+  }
+}

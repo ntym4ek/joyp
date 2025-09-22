@@ -2,18 +2,20 @@
 @import "variables";                                                            // переменные Текущей темы
 @import "../../base9/css/supplies/styles";                                     // стили Базовой темы
 
+@import "ajax";                                                                 //
 @import "helper";                                                               // вспомогательные классы
 @import "base";                                                                 // общие
-@import "forms";                                                                //
+@import "breadcrumb";                                                          //
+@import "form";                                                                //
 @import "layout";                                                               //
-@import "menus";                                                                //
-@import "blocks";                                                               // блоки
+@import "menu";                                                                //
+@import "block";                                                               // блоки
 @import "commerce";                                                             //
-@import "pages";                                                                // отдельные страницы
+@import "page";                                                                // отдельные страницы
 @import "views";                                                                //
-@import "products";                                                             //
+@import "product";                                                             //
 @import "content";                                                              //
 @import "taxonomy";                                                             //
-@import "swipers";                                                              //
+@import "swiper";                                                              //
 @import "tabs";                                                                 //
 @import "socials";                                                              //

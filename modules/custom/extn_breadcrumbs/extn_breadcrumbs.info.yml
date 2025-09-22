@@ -1,0 +1,5 @@
+name: Extn Breadcrumbs
+type: module
+description: 'Рассыпать крошки по сайту'
+package: xCustom
+core_version_requirement: ^10 || ^11
