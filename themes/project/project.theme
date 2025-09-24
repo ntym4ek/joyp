@@ -107,11 +107,16 @@ function project_preprocess_page(array &$vars): void
 
   // установить ширину сайдбаров в зависимости от контента
   $left_col = $right_col = 3;
-  if ($route_name == 'views.katalog.page_1') {
+  // Каталог (блок фильтров)
+  if ($route_name == 'entity.taxonomy_term.canonical') {
     $left_col = 2;
   }
   $vars['sidebar_first_col'] = $left_col;
   $vars['sidebar_second_col'] = $right_col;
+
+  // определить контейнер для вставки ajax-throbber
+  // (по-умолчанию рядом с элементом)
+  $vars['attributes']['data-drupal-ajax-container'] = '';
 }
 
 /**

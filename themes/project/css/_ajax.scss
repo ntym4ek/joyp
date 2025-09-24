@@ -1,12 +1,12 @@
 @import "variables";                                                            // продублировано из styles.scss, чтобы переменные не подсвечивались
 
 .ajax-progress.ajax-progress-throbber {
-  color: #fff;
-  position: fixed; left: initial; top: 100px; right: -250px; bottom: initial; z-index: 1;
-  background: $brand-green;
-  width: 250px; height: 50px;
-  padding: 0 1rem;
   animation: slideIn 0.4s ease forwards;
+  background: $brand-green;
+  color: #fff;
+  padding: 0 1rem;
+  position: fixed; left: initial; top: 100px; right: -250px; bottom: initial; z-index: 1;
+  width: 250px; height: 50px;
 
   .message {
     display: initial;
