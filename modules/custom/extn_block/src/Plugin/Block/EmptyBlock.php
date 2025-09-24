@@ -7,8 +7,8 @@ use Drupal\Core\Block\BlockBase;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
- * Provides an 'Empty Block' Block.
- * Блок нужен добавляется на страницы, где контент должен отображаться с сайдбаром
+ * Provides an 'Empty' Block.
+ * Блок добавляется на страницы, где контент должен отображаться с сайдбаром
  */
 
 #[Block(

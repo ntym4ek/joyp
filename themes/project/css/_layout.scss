@@ -130,3 +130,7 @@
     @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border, $btn-primary-h-color, $btn-primary-h-bg, $btn-primary-h-border);
   }
 }
+
+.page-node-type-page aside:first-child {
+  border-right: 1px solid $gray-lightest;
+}

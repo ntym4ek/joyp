@@ -109,7 +109,7 @@
 
           <div class="row">
             {% if page.sidebar_first %}
-              <aside class="col-xs-10 col-md-2" role="complementary">
+              <aside class="col-xs-10 col-md-{{ sidebar_first_col }}" role="complementary">
                 {{ page.sidebar_first }}
               </aside>
             {% endif %}
@@ -119,7 +119,7 @@
             </main>
 
             {% if page.sidebar_second %}
-              <aside class="col-xs-10 col-md-3" role="complementary">
+              <aside class="col-xs-10 col-md-{{ sidebar_second_col }}" role="complementary">
                 {{ page.sidebar_second }}
               </aside>
             {% endif %}
@@ -156,9 +156,9 @@
               <div class="page-footer__menu">
                 <h4>Клиентам</h4>
                 <ul>
-                  <li><a href="/">Доставка</a></li>
-                  <li><a href="/">Оплата</a></li>
-                  <li><a href="/">Обмен и возврат</a></li>
+                  <li><a href="{{ path('entity.node.canonical', {'node': 6}) }}">Доставка</a></li>
+                  <li><a href="{{ path('entity.node.canonical', {'node': 7}) }}">Оплата</a></li>
+                  <li><a href="{{ path('entity.node.canonical', {'node': 8}) }}">Обмен и возврат</a></li>
                   <li><a href="/">Сотрудничество</a></li>
                   <li><a href="{{ path('entity.node.canonical', {'node': 5}) }}">Исследования</a></li>
                   <li><a href="/blog">Новости</a></li>

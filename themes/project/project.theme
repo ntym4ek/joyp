@@ -50,6 +50,18 @@ function project_theme(): array
 /**
  * Implements hook_theme_suggestions_HOOK_alter().
  */
+function project_theme_suggestions_node_alter(array &$suggestions, array $variables)
+{
+  // сменить шаблон для информационных страниц
+  $node = $variables['elements']['#node'];
+  if (in_array($node->id(), [6, 7, 8])) {
+    $suggestions[] = 'node__info';
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
 function project_theme_suggestions_taxonomy_term_alter(array &$suggestions, array $variables)
 {
   // добавить шаблоны для терминов таксономии
@@ -73,7 +85,7 @@ function project_preprocess_page(array &$vars): void
 {
   $route_name = \Drupal::routeMatch()->getRouteName();
 
-  // логотипы
+  // подготовить логотипы
   $path_theme = \Drupal::service('extension.path.resolver')->getPath('theme', 'project');
   $vars['site']['logo']['standart'] = \Drupal::service('file_url_generator')->generateString($path_theme . '/images/logo/logo.png');
 
@@ -92,6 +104,14 @@ function project_preprocess_page(array &$vars): void
       'tags' => ['commerce_cart'],
     ],
   ];
+
+  // установить ширину сайдбаров в зависимости от контента
+  $left_col = $right_col = 3;
+  if ($route_name == 'views.katalog.page_1') {
+    $left_col = 2;
+  }
+  $vars['sidebar_first_col'] = $left_col;
+  $vars['sidebar_second_col'] = $right_col;
 }
 
 /**
