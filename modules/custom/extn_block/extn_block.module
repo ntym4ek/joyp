@@ -46,7 +46,7 @@ function extn_block_block_access($block, $operation, AccountInterface $account)
             }
           }
         }
-        if ($route_match->getRouteName() === 'entity.commerce_product.canonical') {
+        if (in_array($route_match->getRouteName(), ['entity.commerce_product.canonical', 'fnc_helper.page404', 'fnc_helper.page403'])) {
           return AccessResult::forbidden();
         }
         break;

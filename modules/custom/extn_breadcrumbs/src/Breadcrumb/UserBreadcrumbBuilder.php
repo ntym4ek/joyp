@@ -14,15 +14,16 @@ class UserBreadcrumbBuilder implements BreadcrumbBuilderInterface {
   /**
    * Проверяет, применим ли builder к текущему маршруту.
    */
-  public function applies(RouteMatchInterface $route_match) {
-    // Пример: срабатываем только для нод.
-    return explode('.', $route_match->getRouteName())[0] === 'user';
+  public function applies(RouteMatchInterface $route_match)
+  {
+    return $route_match->getRouteName() && explode('.', $route_match->getRouteName())[0] === 'user';
   }
 
   /**
    * Собираем хлебные крошки.
    */
-  public function build(RouteMatchInterface $route_match) {
+  public function build(RouteMatchInterface $route_match)
+  {
     $breadcrumb = new Breadcrumb();
     $breadcrumb->addCacheContexts(['route']);
 

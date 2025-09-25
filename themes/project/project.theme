@@ -12,6 +12,7 @@ use Drupal\func_helper\Helper\CommerceHelper;
 
 /**
  * Implements hook_theme().
+ * @see hook_theme
  */
 function project_theme(): array
 {
@@ -43,6 +44,14 @@ function project_theme(): array
       'variables' => [
         'count' => 0,
       ],
+    ],
+    'markup_404' => [
+      'template' => 'content/markup-404',
+      'render element' => '',
+    ],
+    'markup_403' => [
+      'template' => 'content/markup-403',
+      'render element' => '',
     ],
   ];
 }

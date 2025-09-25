@@ -13,9 +13,9 @@ class NodePageBreadcrumbBuilder implements BreadcrumbBuilderInterface {
   /**
    * Проверяет, применим ли builder к текущему маршруту.
    */
-  public function applies(RouteMatchInterface $route_match) {
-    // Пример: срабатываем только для нод.
-    return $route_match->getRouteName() === 'entity.node.canonical';
+  public function applies(RouteMatchInterface $route_match)
+  {
+    return $route_match->getRouteName() && $route_match->getRouteName() === 'entity.node.canonical';
   }
 
   /**

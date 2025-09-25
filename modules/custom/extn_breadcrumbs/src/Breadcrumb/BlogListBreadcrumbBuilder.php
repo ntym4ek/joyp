@@ -15,7 +15,7 @@ class BlogListBreadcrumbBuilder implements BreadcrumbBuilderInterface {
    */
   public function applies(RouteMatchInterface $route_match)
   {
-    return $route_match->getRouteName() === 'view.blog.page_1';
+    return $route_match->getRouteName() && $route_match->getRouteName() === 'view.blog.page_1';
   }
 
   /**

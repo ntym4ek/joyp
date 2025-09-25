@@ -2,6 +2,11 @@ services:
   _defaults:
     autowire: true
 
+  extn_breadcrumbs.no_breadcrumb:
+    class: Drupal\extn_breadcrumbs\Breadcrumb\NoBreadcrumbBuilder
+    tags:
+      - { name: breadcrumb_builder}
+
   extn_breadcrumbs.cart_breadcrumb:
     class: Drupal\extn_breadcrumbs\Breadcrumb\CartBreadcrumbBuilder
     tags:

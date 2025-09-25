@@ -17,7 +17,7 @@ class ProductListBreadcrumbBuilder implements BreadcrumbBuilderInterface {
    */
   public function applies(RouteMatchInterface $route_match)
   {
-    return $route_match->getRouteName() === 'entity.taxonomy_term.canonical';
+    return $route_match->getRouteName() && $route_match->getRouteName() === 'entity.taxonomy_term.canonical';
   }
 
   /**

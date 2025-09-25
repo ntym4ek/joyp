@@ -2,6 +2,16 @@
 
 // секция оформления отдельных страниц
 
+.page--404 {
+  h1 { font-size: 250px; line-height: 1; }
+  .image img {
+    object-fit: cover;
+    width: 100%
+  }
+  .actions { margin-top: 2rem; }
+}
+
+
 .user-profile-form {
   display: flex; flex-wrap: wrap;
   max-width: 1200px;

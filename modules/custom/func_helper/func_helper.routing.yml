@@ -6,3 +6,10 @@ fnc_helper.home:
   requirements:
     _access: 'TRUE'
 
+fnc_helper.page404:
+  path: '/404'
+  defaults:
+    _controller: '\Drupal\func_helper\Controller\Page404Controller::content'
+    _title: 'Страница не найдена'
+  requirements:
+    _access: 'TRUE'
