@@ -59,30 +59,30 @@
   </div>
 
   <div class="product-care__description row border-t">
-    <div class="tabs tabs-js">
-      <div class="tabs__nav">
-        <a class="tabs__link tabs__link--active" data-target-id="1">Описание</a>
-        <a class="tabs__link" data-target-id="2">Состав</a>
-        <a class="tabs__link" data-target-id="3">Аромат</a>
-        <a class="tabs__link" data-target-id="4">Отзывы</a>
+    <div class="tabs-js">
+      <div class="tabs-js__nav">
+        <a class="tabs-js__link tabs-js__link--active" data-target-id="1">Описание</a>
+        <a class="tabs-js__link" data-target-id="2">Состав</a>
+        <a class="tabs-js__link" data-target-id="3">Аромат</a>
+        <a class="tabs-js__link" data-target-id="4">Отзывы</a>
       </div>
 
-      <div class="tabs__content tabs__content--visible" data-id="1">
+      <div class="tabs-js__content tabs-js__content--visible" data-id="1">
         <div class="col-xs-10 col-md-6">
           {{- product.body -}}
         </div>
       </div>
-      <div class="tabs__content" data-id="2">
+      <div class="tabs-js__content" data-id="2">
         <div class="col-xs-10 col-md-6">
           {{- product.field_p_composition -}}
         </div>
       </div>
-      <div class="tabs__content" data-id="3">
+      <div class="tabs-js__content" data-id="3">
         <div class="col-xs-10 col-md-6">
           {{- product.field_p_aroma[0]['#entity']|view('product_aroma') -}}
         </div>
       </div>
-      <div class="tabs__content" data-id="4">
+      <div class="tabs-js__content" data-id="4">
         <div class="col-xs-10 col-md-6">
           Содержимое 4... Lorem ipsum dolor sit, amet consectetur adipisicing elit. Similique eaque iure debitis nostrum, vero ad totam ratione sequi! Suscipit, labore repellat cum soluta ullam dignissimos perspiciatis sequi rerum sapiente ex.
         </div>

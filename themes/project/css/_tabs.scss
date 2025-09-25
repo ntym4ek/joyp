@@ -1,6 +1,42 @@
 @import "variables";                                                            // чтобы переменные не подсвечивались
 
-.tabs {
+nav.tabs {
+  @include row('true', $gutter-md);
+
+  ul.tabs {
+    @include col('md', 10, $gutter-lg);
+  }
+
+}
+
+ul.tabs {
+  border-bottom: 1px solid $gray-lightest;
+  display: flex; justify-content: flex-end;
+  margin-bottom: 2rem;
+  position: relative; z-index: 1;
+
+  > li {
+    border: 1px solid $gray-lightest;
+    margin-right: 0; margin-bottom: -1px;
+    a {
+      padding: .6rem 2rem;
+      transition: background-color 200ms;
+
+    }
+    &.is-active {
+      border-bottom-color: $brand-green;
+      a {
+        background: $brand-green;
+        color: #fff;
+      }
+    }
+    &:not(:first-of-type) {
+      border-left: none;
+    }
+  }
+}
+
+.tabs-js {
   display: flex; flex-direction: column;
   width: 100%;
   &__content {
