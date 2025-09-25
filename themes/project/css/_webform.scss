@@ -1,0 +1,11 @@
+@import "variables";                                                            // чтобы переменные не подсвечивались
+
+.webform-submission-sotrudnichestvo-form {
+
+  padding-bottom: 2rem;
+
+  .webform-section-wrapper {
+    display: flex; flex-wrap: wrap; gap: 1rem;
+    > div { flex: 1 0 48%; }
+  }
+}

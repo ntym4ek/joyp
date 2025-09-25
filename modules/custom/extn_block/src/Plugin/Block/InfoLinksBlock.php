@@ -32,7 +32,6 @@ class InfoLinksBlock extends BlockBase {
     // 'field_information_section' => 1,
     $storage = \Drupal::entityTypeManager()->getStorage('node');
     $nodes = $storage->loadByProperties([
-      'type' => 'page',
       'status' => 1,
       'field_information_section' => 1,
     ]);

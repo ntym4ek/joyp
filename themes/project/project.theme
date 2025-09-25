@@ -50,18 +50,6 @@ function project_theme(): array
 /**
  * Implements hook_theme_suggestions_HOOK_alter().
  */
-function project_theme_suggestions_node_alter(array &$suggestions, array $variables)
-{
-  // сменить шаблон для информационных страниц
-  $node = $variables['elements']['#node'];
-  if (in_array($node->id(), [6, 7, 8])) {
-    $suggestions[] = 'node__info';
-  }
-}
-
-/**
- * Implements hook_theme_suggestions_HOOK_alter().
- */
 function project_theme_suggestions_taxonomy_term_alter(array &$suggestions, array $variables)
 {
   // добавить шаблоны для терминов таксономии

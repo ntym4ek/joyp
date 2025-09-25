@@ -25,17 +25,19 @@ function extn_block_block_access($block, $operation, AccountInterface $account)
 {
   // программное управление видимостью блоков
   if ($operation == 'view') {
+    $route_match = \Drupal::routeMatch();
+
     switch ($block->getPluginId()) {
 
       // Page Title
       case 'page_title_block':
+
         // Скрыть блок на главной странице
         if (\Drupal::service('path.matcher')->isFrontPage()) {
           return AccessResult::forbidden();
         }
 
         // Скрыть для определённых типов Материалов
-        $route_match = \Drupal::routeMatch();
         if ($route_match->getRouteName() === 'entity.node.canonical') {
           $node = $route_match->getParameter('node');
           if ($node instanceof NodeInterface) {
@@ -48,6 +50,21 @@ function extn_block_block_access($block, $operation, AccountInterface $account)
           return AccessResult::forbidden();
         }
         break;
+
+      // блок ссылок в разделе Информационных страниц
+      case 'info_links_block':
+
+        // показать блок, если field_information_section == 1
+        if ($route_match->getRouteName() === 'entity.node.canonical') {
+          $node = $route_match->getParameter('node');
+          if ($node instanceof NodeInterface) {
+            if ($node->hasField('field_information_section') && $node->get('field_information_section')->value) {
+              return AccessResult::allowed();
+            }
+          }
+        }
+
+        return AccessResult::forbidden();
 
     }
   }
