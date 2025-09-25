@@ -6,6 +6,7 @@ use Drupal\Core\Block\Attribute\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
+use Drupal\node\Entity\Node;
 
 /**
  * Provides an 'Info Links' Block.
@@ -26,40 +27,29 @@ class InfoLinksBlock extends BlockBase {
   public function build()
   {
     $current_path = \Drupal::service('path.current')->getPath();
-    $pages = [
-      ['path' => '/node/6', 'title' => 'Доставка'],
-      ['path' => '/node/7', 'title' => 'Оплата'],
-      ['path' => '/node/8', 'title' => 'Обмен и возврат'],
-//      ['path' => '/node/9', 'title' => 'Сотрудничество'],
-    ];
 
-//    $storage = \Drupal::entityTypeManager()->getStorage('node');
+    // получить Материалы, которые должны быть размещены в Информации
+    // 'field_information_section' => 1,
+    $storage = \Drupal::entityTypeManager()->getStorage('node');
+    $nodes = $storage->loadByProperties([
+      'type' => 'page',
+      'status' => 1,
+      'field_information_section' => 1,
+    ]);
 
-    // все Страницы с установленным кастомным (добавлен в extn_node) флагом
-//    $nodes = $storage->loadByProperties([
-//      'type' => 'page',
-//      'information_section' => 1,
-//    ]);
-
-//    $pages = [];
-//    foreach ($pages as $node) {
-      // Работаем с нодой
-//      $pages[] = ['path' => '/node/' . $node->id(), 'title' => $node->label()];
-//    }
-
-
-    foreach ($pages as $page) {
-      if ($current_path === $page['path']) {
+    $links = [];
+    foreach ($nodes as $node) {
+      if ($current_path === '/node/' . $node->id()) {
         $links[] = [
-          '#markup' => '<span>' . $page['title'] . '</span>',
+          '#markup' => '<span>' . $node->label() . '</span>',
           '#wrapper_attributes' => ['class' => ['item--current']],
         ];
       }
       else {
         $links[] = [
           '#type' => 'link',
-          '#url' => Url::fromUserInput($page['path']),
-          '#title' => $page['title'],
+          '#url' => Url::fromUserInput('/node/' . $node->id()),
+          '#title' => $node->label(),
         ];
       }
     }
@@ -67,6 +57,9 @@ class InfoLinksBlock extends BlockBase {
     return [
       '#theme' => 'item_list',
       '#items' => $links,
+      '#cache' => [
+        'contexts' => ['url.path'],
+      ],
     ];
   }
 

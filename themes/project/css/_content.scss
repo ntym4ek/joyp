@@ -133,5 +133,13 @@
 
     .image { flex: 0 0 auto; }
     .text { padding-left: 2rem; }
+    .digits {
+      color: $brand-cocoa; font-family: $font-name2; font-size: $font-size-h2;
+      display: inline-block; margin-right: 2rem;
+    }
   }
+}
+
+.node--oplata {
+  .node__well:not(:last-of-type) { border-bottom: none; }
 }
