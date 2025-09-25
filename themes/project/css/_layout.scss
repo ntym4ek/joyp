@@ -65,10 +65,8 @@
         color: inherit;
         display: block;
         padding: .5rem 0;
-        transition: color 200ms;
-        &:hover {
-          color: $brand-cocoa;
-        }
+        &:hover,
+        &:active { color: $brand-cocoa; }
       }
       a.button { margin-top: .5rem; }
     }

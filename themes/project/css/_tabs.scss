@@ -21,7 +21,11 @@ ul.tabs {
     a {
       padding: .6rem 2rem;
       transition: background-color 200ms;
-
+      &:hover,
+      &:active {
+        background: #{$brand-green} + '77';
+        border-bottom-color: #{$brand-green} + '77';
+      }
     }
     &.is-active {
       border-bottom-color: $brand-green;

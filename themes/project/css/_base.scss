@@ -19,7 +19,10 @@ h1, h2, h3, h4,
   font-family: $font-name2; font-weight: 400; text-transform: uppercase;
 }
 
-a { color: inherit; }
+a {
+  color: inherit;
+  transition: color 200ms;
+}
 
 .button {
   font-family: $font-name2; font-weight: 400; text-transform: uppercase;
