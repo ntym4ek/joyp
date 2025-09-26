@@ -30,3 +30,16 @@
     vertical-align: initial;
   }
 }
+
+.js-form-item-fz152-agreement {
+  color: $gray; font-size: $font-size-small;
+  a { text-decoration: underline; }
+}
+
+.form-items-inline {
+  display: flex; gap: 0 1rem;
+  margin: 1rem 0;
+
+  > .form-item,
+  > .form-actions { margin: 0; }
+}
