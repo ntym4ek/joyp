@@ -148,7 +148,6 @@
                   <li><a href="{{ path('entity.taxonomy_term.canonical', {'taxonomy_term': 23}) }}">Для тела</a></li>
                   <li><a href="{{ path('entity.taxonomy_term.canonical', {'taxonomy_term': 24}) }}">Для дома</a></li>
                   <li><a href="{{ path('entity.taxonomy_term.canonical', {'taxonomy_term': 25}) }}">Travel</a></li>
-                  <li><a href="/">Сертификаты</a></li>
                 </ul>
               </div>
             </div>
@@ -163,27 +162,28 @@
                   <li><a href="{{ path('entity.node.canonical', {'node': 5}) }}">Исследования</a></li>
                   <li><a href="/blog">Новости</a></li>
                   <li><a href="{{ path('entity.node.canonical', {'node': 10}) }}">Контакты</a></li>
+                  <li><a href="/">Сертификаты</a></li>
                 </ul>
               </div>
             </div>
-            <div class="col-xs-10 col-lg-4">
+            <div class="col-xs-10 col-md-fill">
               <div class="page-footer__menu">
                 <h4>Информация</h4>
                 <ul>
-                  <li><a href="/">Согласие на обработку персональных данных</a></li>
-                  <li><a href="/">Политика в отношении обработки персональных данных</a></li>
+                  <li><a href="{{ path('entity.node.canonical', {'node': 12}) }}">Согласие на обработку персональных данных</a></li>
+                  <li><a href="/sites/default/files/attachments/misc/personal-data-policy.pdf" title="Файл в формате PDF">Политика в отношении обработки персональных данных</a></li>
                   <li><a href="{{ path('entity.node.canonical', {'node': 3}) }}">Политика конфиденциальности</a></li>
-                  <li><a href="/">Договор публичной оферты</a></li>
+                  <li><a href="{{ path('entity.node.canonical', {'node': 11}) }}">Договор публичной оферты</a></li>
                 </ul>
               </div>
             </div>
-            <div class="col-xs-10 col-md-5 col-lg-2">
+            <div class="col-xs-10 col-md">
               <div class="page-footer__menu">
                 <h4>Контакты</h4>
                 <ul>
                   <li><a href="tel:+79229226774">8 (922) 922-67-74</a></li>
                   <li><a href="mailto:joypremium_zakaz@kccc.ru">joypremium_zakaz@kccc.ru</a></li>
-                  <li><a href="/" class="button button--primary">Задать вопрос</a></li>
+                  <li><a href="{{ path('entity.node.canonical', {'node': 13}) }}" class="button button--primary">Задать вопрос</a></li>
                 </ul>
               </div>
             </div>

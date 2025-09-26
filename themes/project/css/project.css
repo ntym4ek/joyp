@@ -2507,7 +2507,7 @@ a {
   padding: 0 75px;
 }
 .page-header__brand {
-  flex: 0 1 14%;
+  flex: 0 0 190px;
   display: flex;
   align-items: center;
 }
@@ -2569,7 +2569,7 @@ a {
   color: #B2A8A3;
 }
 .page-footer__menu li a.button {
-  margin-top: 0.5rem;
+  margin-top: 1rem;
 }
 
 .ui-dialog {
@@ -3175,7 +3175,7 @@ aside:first-child {
   width: 100%;
 }
 .page--404 .actions {
-  margin-top: 2rem;
+  margin: 2rem 0;
 }
 
 .user-profile-form {

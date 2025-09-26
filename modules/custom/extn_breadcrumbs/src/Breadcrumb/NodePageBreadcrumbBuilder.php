@@ -40,6 +40,10 @@ class NodePageBreadcrumbBuilder implements BreadcrumbBuilderInterface {
         if (!in_array($node->id(), [5])) $links[] = Link::fromTextAndUrl(t('Information'), Url::fromRoute('<none>'));
         $links[] = Link::fromTextAndUrl($node->label(), Url::fromRoute('<none>'));
       }
+      elseif ($node->bundle() == 'webform') {
+        if (!in_array($node->id(), [5])) $links[] = Link::fromTextAndUrl(t('Form'), Url::fromRoute('<none>'));
+        $links[] = Link::fromTextAndUrl($node->label(), Url::fromRoute('<none>'));
+      }
     }
 
     return $breadcrumb->setLinks($links);

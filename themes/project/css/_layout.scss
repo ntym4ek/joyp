@@ -17,7 +17,7 @@
     @include col('xs', 10, $gutter-xl);
   }
   &__brand {
-    flex: 0 1 14%;
+    flex: 0 0 190px;
     display: flex; align-items: center;
   }
   &__content {
@@ -68,7 +68,7 @@
         &:hover,
         &:active { color: $brand-cocoa; }
       }
-      a.button { margin-top: .5rem; }
+      a.button { margin-top: 1rem; }
     }
   }
 }
