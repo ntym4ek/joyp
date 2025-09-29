@@ -21,6 +21,20 @@ function project_theme(): array
       'render element' => 'form',
       'template' => 'commerce/commerce-cart-form',
     ],
+    'cart_block' => [
+      'template' => 'commerce/commerce-cart-block',
+      'variables' => [
+        'count' => 0,
+      ],
+    ],
+    'user_orders_list' => [
+      'template' => 'commerce/user-orders-list',
+      'variables' => [
+        'orders' => NULL,
+      ],
+    ],
+
+
     'user_register_form' => [
       'render element' => 'form',
       'template' => 'form/user-register-form',
@@ -33,18 +47,18 @@ function project_theme(): array
       'render element' => 'form',
       'template' => 'form/user-login-form',
     ],
+    'profile_user_edit_form' => [
+      'render element' => 'form',
+      'template' => 'form/profile-user-edit-form',
+    ],
+
     'socials' => [
       'template' => 'misc/socials',
       'variables' => [
         'items' => [],
       ],
     ],
-    'cart_block' => [
-      'template' => 'commerce/commerce-cart-block',
-      'variables' => [
-        'count' => 0,
-      ],
-    ],
+
     'markup_404' => [
       'template' => 'content/markup-404',
       'render element' => '',
@@ -52,10 +66,6 @@ function project_theme(): array
     'markup_403' => [
       'template' => 'content/markup-403',
       'render element' => '',
-    ],
-    'profile_user_edit_form' => [
-      'render element' => 'form',
-      'template' => 'form/profile-user-edit-form',
     ],
   ];
 }
@@ -118,6 +128,20 @@ function project_preprocess_page(array &$vars): void
   // определить контейнер для вставки ajax-throbber
   // (по-умолчанию рядом с элементом)
   $vars['attributes']['data-drupal-ajax-container'] = '';
+
+}
+
+/**
+ * Implements hook_preprocess_page_title().
+ */
+function project_preprocess_page_title(array &$vars): void
+{
+  $current_path = \Drupal::service('path.current')->getPath();
+  $current_user = \Drupal::currentUser();
+
+  if ($current_user->isAuthenticated() && str_starts_with($current_path, '/user')) {
+    $vars["title"] = 'Личный кабинет';
+  }
 }
 
 /**

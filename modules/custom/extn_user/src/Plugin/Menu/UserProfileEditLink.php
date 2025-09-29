@@ -11,7 +11,7 @@ class UserProfileEditLink extends MenuLinkDefault {
    * {@inheritDoc}
    */
   public function getTitle() {
-    return t('Profile edit');
+    return 'Личные данные';
   }
 
   /**

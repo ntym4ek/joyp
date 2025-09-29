@@ -214,3 +214,74 @@
   font-family: $font-name2;
  }
 }
+
+.orders-list {
+  padding: 2rem 0;
+
+  &__order {
+    border: 1px solid $gray-lightest;
+    margin: 0;
+    &:not(:first-child) { border-top: none; }
+
+    span { color: $text-muted; }
+
+    .order__header {
+      display: flex; justify-content: space-between;
+      padding: 2rem;
+    }
+    .order__number {
+      font-size: $font-size-large; font-family: $font-name2;
+      flex: 0 0 250px;
+    }
+    .order__total {
+      flex: 0 0 300px;
+      text-align: right;
+    }
+
+    .col--1 { flex: 0 0 200px; }
+    .col--2 { flex: 0 0 250px; }
+    .col--3 { flex: 0 0 200px; }
+
+    .order_item {
+      border-top: 1px solid $gray-lightest;
+      display: flex; align-items: center;
+      padding: 2rem;
+
+      &__price,
+      &__qty,
+      &__total_price {
+        font-size: $font-size-large; font-family: $font-name2;
+      }
+      &__qty { text-align: center; }
+      &__total_price { text-align: right; }
+
+      .product-care { flex: auto; }
+      img { width: 50px; }
+    }
+
+    .order__footer {
+      display: flex;
+      padding: 0 2rem 2rem;
+    }
+    .order__actions {
+      flex: auto;
+      margin-top: .5rem;
+    }
+    .order__summary { flex: 0 0 auto; }
+    .summary__row {
+      display: flex;
+      padding: .5rem 0;
+
+      &:last-child {
+        font-size: $font-size-large; font-family: $font-name2;
+      }
+
+      .notes {
+        color: $text-muted; font-size: $font-size-small;
+        padding: 0 1rem;
+      }
+      .amount { text-align: right; }
+    }
+  }
+}
+

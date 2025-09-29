@@ -1,5 +1,8 @@
 <?php
 
+const SHIPPING_COURIER = 1;
+const SHIPPING_PICKUP = 2;
+
 use Drupal\commerce_product\Entity\ProductInterface;
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\UrlHelper;
@@ -277,10 +280,10 @@ function extn_commerce_commerce_inline_form_customer_profile_alter(array &$inlin
     if ($shipments = $order->get('shipments')->referencedEntities()) {
       $shipping_method_id = reset($shipments)->getShippingMethodId();
     }
-    if ($shipping_method_id == 1) {
+    if ($shipping_method_id == SHIPPING_COURIER) {
       $inline_form["field_shipping_pvz"]["widget"][0]["value"]["#type"] = 'hidden';
     }
-    if ($shipping_method_id == 2) {
+    if ($shipping_method_id == SHIPPING_PICKUP) {
       $inline_form["field_shipping_address"]["widget"][0]["value"]["#type"] = 'hidden';
     }
 
@@ -374,5 +377,4 @@ function extn_commerce_shipping_method_validate(&$element, FormStateInterface $f
     $form_state->setErrorByName(implode('][', $element['#parents']), 'Выбранный метод доставки недоступен, выберите другой.');
   }
 }
-
 
