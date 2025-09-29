@@ -1,0 +1,11 @@
+user_profile_edit_link:
+  class: \Drupal\extn_user\Plugin\Menu\UserProfileEditLink
+  menu_name: account
+  parent: user.page
+  weight: -2
+
+user_orders_link:
+  class: \Drupal\extn_user\Plugin\Menu\UserOrdersLink
+  menu_name: account
+  parent: user.page
+  weight: -1

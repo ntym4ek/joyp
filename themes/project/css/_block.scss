@@ -123,6 +123,7 @@
   }
 }
 
+.block-user-links-block,
 .block-info-links-block {
   ul {
     @include row('true', $gutter-md);

@@ -53,6 +53,10 @@ function project_theme(): array
       'template' => 'content/markup-403',
       'render element' => '',
     ],
+    'profile_user_edit_form' => [
+      'render element' => 'form',
+      'template' => 'form/profile-user-edit-form',
+    ],
   ];
 }
 

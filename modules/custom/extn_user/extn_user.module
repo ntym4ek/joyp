@@ -1,7 +1,27 @@
 <?php
 
+use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\MessageCommand;
+use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_FORM_ID_alter()
+ */
+function extn_user_form_profile_user_edit_form_alter(&$form, FormStateInterface $form_state): void
+{
+  $form['actions']['submit']['#ajax']['callback'] = 'extn_user_form_profile_user_edit_form_ajax_update';
+}
+
+function extn_user_form_profile_user_edit_form_ajax_update(array &$form, FormStateInterface $form_state)
+{
+  $response = new AjaxResponse();
+  $response->addCommand(new ReplaceCommand('.profile-user-edit-form', $form));
+//  $response->addCommand(new MessageCommand('Профиль успешно сохранён', NULL, ['type' => 'status']));
+
+  return $response;
+}
 
 /**
  * Implements hook_form_FORM_ID_alter()
@@ -22,7 +42,7 @@ function extn_user_form_user_register_form_alter(&$form, FormStateInterface $for
  */
 function extn_user_form_user_login_form_alter(&$form, FormStateInterface $form_state): void
 {
-  $form['name']["#title"]= 'E-Mail';
+  $form['name']["#title"] = 'E-Mail';
   $form['name']['#element_validate'][] = 'ext_user_login_name_validate';
 
   $form['pass']["#description"]= '<a href="/user/password">Забыли пароль?</a>';

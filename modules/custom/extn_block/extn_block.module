@@ -63,6 +63,16 @@ function extn_block_block_access($block, $operation, AccountInterface $account)
             }
           }
         }
+        return AccessResult::forbidden();
+
+      // блок ссылок в Личном кабинете
+      case 'user_links_block':
+
+        if ($account = $route_match->getParameter('user') && $account->isAuthenticated()) {
+          $current_path = \Drupal::service('path.current')->getPath();
+          $args = explode('/', trim($current_path, '/'));
+          if ($args[0] == 'user') return AccessResult::allowed();
+        }
 
         return AccessResult::forbidden();
 

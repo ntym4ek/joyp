@@ -1,0 +1,15 @@
+<div class="user-profile-form">
+  <div class="user-profile-form__left">
+    {{ form.field_user_surname }}
+    {{ form.field_user_name }}
+    {{ form.field_user_name2 }}
+  </div>
+  <div class="user-profile-form__right">
+    <div class="container-inline">
+      {{ form.field_user_birthday }}
+      {{ form.field_user_gender }}
+    </div>
+    {{ form.field_user_phone }}
+  </div>
+  {{ form|without('field_user_phone', 'field_user_surname', 'field_user_name', 'field_user_name2', 'field_user_birthday', 'field_user_gender') }}
+</div>
