@@ -13,3 +13,11 @@ fnc_helper.page404:
     _title: 'Страница не найдена'
   requirements:
     _access: 'TRUE'
+
+fnc_helper.page403:
+  path: '/403'
+  defaults:
+    _controller: '\Drupal\func_helper\Controller\Page403Controller::content'
+    _title: 'Доступ запрещён'
+  requirements:
+    _access: 'TRUE'

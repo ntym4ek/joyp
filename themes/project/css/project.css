@@ -3285,15 +3285,15 @@ aside:first-child {
   text-align: right;
 }
 
-.page--404 h1 {
+.page--40x h1 {
   font-size: 250px;
   line-height: 1;
 }
-.page--404 .image img {
+.page--40x .image img {
   object-fit: cover;
   width: 100%;
 }
-.page--404 .actions {
+.page--40x .actions {
   margin: 2rem 0;
 }
 
