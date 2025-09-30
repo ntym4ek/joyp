@@ -1,7 +1,7 @@
 (function ($, Drupal, once) {
 
   Drupal.behaviors.commerceGiftCardModal = {
-    attach: function (context, settings) {
+    attach: function (context) {
 
       once('giftcard-modal-once', '.giftcard-modal-button', context).forEach(
         (element) => {

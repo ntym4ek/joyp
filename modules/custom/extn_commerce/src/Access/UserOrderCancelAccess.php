@@ -2,18 +2,19 @@
 
 namespace Drupal\extn_commerce\Access;
 
-use Drupal\Core\Access\AccessResult;
+
+use Drupal\Core\Routing\Access\AccessInterface;
 use Drupal\Core\Session\AccountInterface;
-use Drupal\Core\Access\AccessInterface;
 use Drupal\commerce_order\Entity\OrderInterface;
+use Drupal\Core\Access\AccessResult;
 
 /**
  * Проверяет, что пользователь — владелец заказа и можно выполнить transition 'cancel'.
  */
-class UserOrderCancelAccess
+class UserOrderCancelAccess implements AccessInterface
 {
 
-  public function access($user, OrderInterface $commerce_order, AccountInterface $current_user)
+  public function access(OrderInterface $commerce_order, AccountInterface $current_user)
   {
     // Проверяем авторизованного пользователя.
     if ($current_user->isAnonymous()) {

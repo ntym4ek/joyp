@@ -5,7 +5,6 @@ namespace Drupal\extn_commerce\Access;
 use Drupal\Core\Routing\Access\AccessInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Session\AccountInterface;
-use Drupal\commerce_order\Entity\OrderInterface;
 use Drupal\Core\Access\AccessResult;
 
 class CheckoutCompleteAccessCheck implements AccessInterface {

@@ -1,7 +1,7 @@
 (function ($, Drupal, once) {
 
   Drupal.behaviors.commercePromocodeModal = {
-    attach: function (context, settings) {
+    attach: function (context) {
 
       once('promocode-modal-once', '.promocode-modal-button', context).forEach(
         (element) => {
