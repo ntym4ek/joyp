@@ -1,16 +1,16 @@
-promocode-modal:
+commerce-promocode-modal:
   version: VERSION
   js:
-    js/promocode-modal.js: {}
+    js/commerce-promocode-modal.js: {}
   dependencies:
     - core/drupal
     - core/once
     - core/drupal.dialog.ajax
 
-giftcard-modal:
+commerce-giftcard-modal:
   version: VERSION
   js:
-    js/giftcard-modal.js: {}
+    js/commerce-giftcard-modal.js: {}
   dependencies:
     - core/drupal
     - core/once

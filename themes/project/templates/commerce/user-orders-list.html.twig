@@ -20,7 +20,9 @@
       </div>
       <div class="order__footer">
         <div class="order__actions">
-          <a href="" class="button button--default">Отменить заказ</a>
+          {% for action in order.actions %}
+            {{ action }}
+          {% endfor %}
         </div>
         <div class="order__summary">
           {% for item in order.summary %}

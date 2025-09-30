@@ -5,3 +5,15 @@ extn_commerce.ajax_example:
   requirements:
     _permission: 'access content'
     string: '.*'
+
+extn_commerce.user_order_cancel:
+  path: '/user/{user}/orders/{commerce_order}/cancel'
+  defaults:
+    _form: '\Drupal\extn_commerce\Form\UserOrderCancelForm'
+    _title: 'Cancel order'
+  requirements:
+    _custom_access: '\Drupal\extn_commerce\Access\UserOrderCancelAccess::access'
+  options:
+    parameters:
+      commerce_order:
+        type: entity:commerce_order

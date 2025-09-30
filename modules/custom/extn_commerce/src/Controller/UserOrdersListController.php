@@ -2,9 +2,9 @@
 
 namespace Drupal\extn_commerce\Controller;
 
-use Drupal\commerce_price\Price;
+use Drupal\Core\Link;
 use Drupal\Core\Render\Markup;
-use Drupal\image\Entity\ImageStyle;
+use Drupal\Core\Url;
 use Drupal\user\UserInterface;
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Session\AccountInterface;
@@ -54,8 +54,11 @@ class UserOrdersListController {
         'uid' => $user->id(),
       ]);
 
+    usort($orders, function ($a, $b) {
+      return $b->getCreatedTime() <=> $a->getCreatedTime();
+    });
+
     $result = [];
-    $currency_formatter = \Drupal::service('commerce_price.currency_formatter');
 
     /** @var \Drupal\commerce_order\Entity\Order $order */
     foreach ($orders as $order) {
@@ -74,6 +77,7 @@ class UserOrdersListController {
           'total_price' => $total_price,
           'items' => [],
           'summary' => [],
+          'actions' => [],
         ];
 
         // собрать покупки
@@ -118,7 +122,6 @@ class UserOrdersListController {
           'notes' => '',
           'amount' => $order->getSubTotalPrice(),
         ];
-
 
           // строки модификаторов цены
         foreach ($order->getAdjustments() as $adjustment) {
@@ -173,6 +176,27 @@ class UserOrdersListController {
           'notes' => '',
           'amount' => $order->getTotalPrice(),
         ];
+
+
+        // возможные действия с заказом
+          // отмена
+        $state = $order->getState();
+        $transitions = $state->getTransitions();
+        foreach ($transitions as $transition) {
+          if ($transition->getId() === 'cancel') {
+            $url = Url::fromRoute('extn_commerce.user_order_cancel', [
+              'user' => $order->getCustomerId(),
+              'commerce_order' => $order->id(),
+            ], [
+              'attributes' => [
+                'class' => ['use-ajax', 'button', 'button--default', 'button--outline'],
+                'data-dialog-type' => 'modal',
+                'data-dialog-options' => json_encode(['width' => 500, 'autoFocus' => FALSE]),
+              ],
+            ]);
+            $order_data['actions'][] = Link::fromTextAndUrl('Отменить заказ', $url);
+          }
+        }
 
         $result[] = $order_data;
       }

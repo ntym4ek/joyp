@@ -15,6 +15,7 @@ libraries:
   - base9/click-to-copy
   - base9/swiper-thumbs
   - base9/tabs-js
+  - base9/modal-ui-widget-remove
   - project/swiper-outsource-navigation
 
 regions:
