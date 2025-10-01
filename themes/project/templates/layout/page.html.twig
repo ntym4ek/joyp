@@ -59,47 +59,51 @@
   </div>
 
   <div class="page"{{ attributes }}>
-    <div class=" container-fluid">
-      <header class="page-header" role="banner">
-        <div class="page-header-inner">
+    <header class="page-header" role="banner">
+      <div class="page-header__inner">
+        <div class="container-fluid">
+          <div class="page-header__row">
 
-          <div class="page-header__brand">
-            <div class="branding">
-              <div class="branding__logo"><a href="/"><img src="{{ site.logo.standart }}" alt="JOY PREMIUM" /></a></div>
-            </div>
+            <div class="page-header__brand">
+          <div class="branding">
+            <div class="branding__logo"><a href="/"><img src="{{ site.logo.standart }}" alt="JOY PREMIUM" /></a></div>
           </div>
-
-          <div class="page-header__content">
-
-            <div class="page-header__col1">
-              <div class="page-header__menu">
-                <div class="menu-wrapper">
-                  {{ page.primary_menu }}
-                </div>
-              </div>
-            </div>
-
-            <div class="page-header__col2">
-              <div class="page-header__info">
-                8 922 922-67-74
-              </div>
-
-              <div class="page-header__menu">
-                <div class="menu-wrapper">
-                  {{ page.secondary_menu }}
-                </div>
-              </div>
-
-              <div class="page-header__info">
-                {{ cart_block }}
-              </div>
-            </div>
-          </div>
-
         </div>
-      </header>
+
+            <div class="page-header__content">
+
+          <div class="page-header__col1">
+            <div class="page-header__menu">
+              <div class="menu-wrapper">
+                {{ page.primary_menu }}
+              </div>
+            </div>
+          </div>
+
+          <div class="page-header__col2">
+            <div class="page-header__info">
+              8 922 922-67-74
+            </div>
+
+            <div class="page-header__menu">
+              <div class="menu-wrapper">
+                {{ page.secondary_menu }}
+              </div>
+            </div>
+
+            <div class="page-header__info">
+              {{ cart_block }}
+            </div>
+          </div>
+        </div>
+
+          </div>
+        </div>
+      </div>
+    </header>
 
     <div class="page-content">
+      <div class="container-fluid">
         {{ page.header }}
 
         {{ page.breadcrumb }}
@@ -135,7 +139,8 @@
     {# {{ page.help }}  #}
 
     <footer class="page-footer">
-      <div class="page-footer__row1">
+      <div class="page-footer__inner">
+        <div class="page-footer__row1">
         <div class="container-fluid">
           <div class="row">
             <div class="col-xs-10 col-md-5 col-lg-2">
@@ -190,7 +195,7 @@
           </div>
         </div>
       </div>
-      <div class="page-footer__row2">
+        <div class="page-footer__row2">
         <div class="container-fluid">
           <div class="row">
             <div class="col-xs-10 col-md-8">
@@ -207,6 +212,7 @@
             </div>
           </div>
         </div>
+      </div>
       </div>
     </footer>
 

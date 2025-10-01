@@ -7,7 +7,7 @@ use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\func_helper\Helper\CommerceHelper;
 
-class AjaxController extends ControllerBase {
+class CDEKDataSourceController extends ControllerBase {
 
   /**
    * Обработчик AJAX-запроса.

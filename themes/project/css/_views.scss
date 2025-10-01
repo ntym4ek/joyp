@@ -19,7 +19,8 @@
 }
 
 .view-aromas,
-.view-karusel-produktov {
+.view-karusel-produktov,
+.view-novosti {
   .view-content {
 
     @include row('true', $gutter-xs);

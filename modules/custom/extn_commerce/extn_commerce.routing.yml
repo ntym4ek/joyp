@@ -1,7 +1,7 @@
-extn_commerce.ajax_example:
+extn_commerce.endpoint_cdek:
   path: '/endpoint/cities/{string}'
   defaults:
-    _controller: '\Drupal\extn_commerce\Controller\AjaxController::getCities'
+    _controller: '\Drupal\extn_commerce\Controller\CDEKDataSourceController::getCities'
   requirements:
     _permission: 'access content'
     string: '.*'

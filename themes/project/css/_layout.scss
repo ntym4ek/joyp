@@ -9,12 +9,10 @@
   border-bottom: 1px solid $gray-lightest;
   display: flex; align-items: center;
   height: $header-height;
-  @include row("true", $gutter-xl);
 
-  .page-header-inner {
+  .page-header__inner { width: 100%; }
+  .page-header__row {
     display: flex;
-    width: 100%;
-    @include col('xs', 10, $gutter-xl);
   }
   &__brand {
     flex: 0 0 190px;
@@ -39,10 +37,12 @@
 }
 
 .page-footer {
-  padding: 0;
+  .page-footer__inner { width: 100%; }
+
   &__row1,
   &__row2 {
     border-top: 1px solid $gray-lightest;
+    width: 100%;
   }
 
   &__row1 {
