@@ -1,8 +1,12 @@
 <div class="cart-block">
-  <a href="/cart">Корзина</a>
-  <span class="cart-badge-wrapper">
-    {% if count %}
-    <span class="badge">{{ count }}</span>
-    {% endif %}
-  </span>
+  <a href="/cart">
+    <div class="cart-block__inner">
+      Корзина
+      <span class="cart-badge-wrapper">
+        {% if count %}
+        <span class="badge">{{ count }}</span>
+        {% endif %}
+      </span>
+    </div>
+  </a>
 </div>

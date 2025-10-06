@@ -1,5 +1,7 @@
 <?php
 
+require('includes/extn_user.register.inc');
+
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\MessageCommand;
 use Drupal\Core\Ajax\ReplaceCommand;
@@ -11,6 +13,7 @@ use Drupal\Core\Form\FormStateInterface;
  */
 function extn_user_form_profile_user_edit_form_alter(&$form, FormStateInterface $form_state): void
 {
+  $form["field_user_phone"]["widget"][0]["value"]["#disabled"] = TRUE;
   $form['actions']['submit']['#ajax']['callback'] = 'extn_user_form_profile_user_edit_form_ajax_update';
 }
 
@@ -23,19 +26,6 @@ function extn_user_form_profile_user_edit_form_ajax_update(array &$form, FormSta
   return $response;
 }
 
-/**
- * Implements hook_form_FORM_ID_alter()
- */
-function extn_user_form_user_register_form_alter(&$form, FormStateInterface $form_state): void
-{
-  // скрыть имя пользователя
-  $form["account"]["name"]["#access"] = false;
-  $passwordGenerator = \Drupal::service('password_generator');
-  $form['account']['name']['#value'] = 'ext_user_' . $passwordGenerator->generate(10);
-
-  $form["account"]["mail"]["#description"] = '';
-  $form["user_profiles"]["widget"][0]["#type"] = 'container';
-}
 
 /**
  * Implements hook_form_FORM_ID_alter()

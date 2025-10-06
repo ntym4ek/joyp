@@ -43,3 +43,13 @@
   > .form-item,
   > .form-actions { margin: 0; }
 }
+
+.verification-code-modal {
+  .form-item--code {
+    display: flex; gap: 0 1rem; justify-content: center;
+    input.code {
+      font-size: $font-size-large; text-align: center;
+      width: 60px;
+    }
+  }
+}

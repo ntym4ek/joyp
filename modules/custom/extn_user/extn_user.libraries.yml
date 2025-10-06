@@ -1,0 +1,8 @@
+verification-code-modal:
+  version: VERSION
+  js:
+    js/verification-code-modal.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+

@@ -209,7 +209,8 @@
 }
 
 .cart-block {
-  position: relative;
+  height: 100%;
+  &__inner { position: relative; }
  .badge {
   font-family: $font-name2;
  }

@@ -1,0 +1,8 @@
+services:
+  func_helper.phone_normalizer:
+    class: Drupal\func_helper\Phone\PhoneNormalizer
+    arguments: ['RU']
+
+  func_helper.flood:
+    class: Drupal\func_helper\Service\FloodHelper
+    arguments: ['@flood', '@database', '@datetime.time']
