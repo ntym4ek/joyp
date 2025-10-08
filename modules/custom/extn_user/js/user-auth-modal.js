@@ -1,9 +1,11 @@
+var timer = null;
+
 (function ($, Drupal, once) {
 
   Drupal.behaviors.verificationCodeModal = {
     attach: function (context) {
 
-      once('verification-code-modal-once', '.verification-code-modal', context).forEach(
+      once('user-auth-modal-once', '.user-auth-modal.code', context).forEach(
         (element) => {
 
           let $wrapper = $(element).closest('#drupal-modal');
@@ -11,22 +13,46 @@
           /**
            * Обратный отсчёт до появления кнопки отправки нового кода.
            */
-          let $countdown = $wrapper.find('.countdown');
-          let $counter = $countdown.find('.counter');
+          let $resend_countdown = $wrapper.find('.resend-countdown');
+          let $counter = $resend_countdown.find('.counter');
           let time = parseInt($counter.text());
 
           let endTime = Date.now() + time * 1000;
 
-          let timer = setInterval(function () {
+          clearInterval(timer);
+          timer = setInterval(function () {
             let remaining = Math.max(0, Math.floor((endTime - Date.now()) / 1000));
             $counter.text(remaining);
 
             if (remaining <= 0) {
               clearInterval(timer);
-              $countdown.hide();
+              $resend_countdown.hide();
               $wrapper.find('.form-with-verification-dialog-button.resend').removeClass('hide');
             }
-          }, 500);
+          }, 100);
+
+          /**
+           * Обратный отсчёт до возможности нового ввода кода
+           */
+          $wrapper.find('.input-countdown').each((key, el) => {
+            let $counter = $(el).find('.counter');
+            let time = parseInt($counter.text());
+
+            let endTime = Date.now() + time * 1000;
+
+            clearInterval(timer);
+            timer = setInterval(function () {
+              let remaining = Math.max(0, Math.floor((endTime - Date.now()) / 1000));
+              $counter.text(remaining);
+
+              // закрываем окно, жмём сабмит для вывода обновлённого окна
+              if (remaining <= 0) {
+                clearInterval(timer);
+                $wrapper.dialog('close');
+                $('.form-with-verification-submit').trigger('mousedown').trigger('click');
+              }
+            }, 100);
+          });
 
 
           /**
@@ -75,7 +101,7 @@
 
               // Если число в поле уже есть, то нажатие нового не приведёт к замене,
               // меняем вручную.
-              if (key.length) $(e.target).val(key);
+              if (key.length === 1) $(e.target).val(key);
 
               let id = $(e.target).data('id');
 
@@ -104,6 +130,36 @@
           });
 
       });
+
+
+      once('user-auth-modal-once', '.user-auth-modal.pass', context).forEach(
+        (element) => {
+
+          let $wrapper = $(element).closest('#drupal-modal');
+
+          /**
+           * Обработчик нажатия кнопок.
+           */
+          $wrapper.find('.form-with-verification-dialog-button').each((key, el) => {
+            $(el).on('click', () => {
+              let $input = $('.form-with-verification-dialog-input input');
+              let pass = $input.val();
+
+              if (pass.trim().length === 0) {
+                $wrapper.find('.message').html('<span class="text-danger">Пароль не может быть пустым.</span>');
+                $input.focus();
+                return;
+              }
+
+              // передать форме значение и нажать submit
+              $('.form-with-verification-pass').val(pass);
+              $('.form-with-verification-submit').trigger('mousedown').trigger('click');
+              $wrapper.dialog('close');
+            });
+          });
+
+        });
+
     }
   }
 

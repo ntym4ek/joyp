@@ -101,9 +101,10 @@ function project_preprocess_page(array &$vars): void
   $vars['site']['logo']['standart'] = \Drupal::service('file_url_generator')->generateString($path_theme . '/images/logo/logo.png');
 
   // для страницы Чекаута подавить сообщения о количестве ошибок во всплывающем окне
-  if ($route_name == 'commerce_checkout.form') {
-    \Drupal::messenger()->deleteByType(MessengerInterface::TYPE_ERROR);
-  }
+  // пока убрано, так как неочевидно наличие ошибок без всплывающего сообщения
+//  if ($route_name == 'commerce_checkout.form') {
+//    \Drupal::messenger()->deleteByType(MessengerInterface::TYPE_ERROR);
+//  }
 
   // подготовить блок корзины
   $products_count = CommerceHelper::getCurrentUserCartProductsCount();

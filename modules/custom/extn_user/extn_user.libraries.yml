@@ -1,7 +1,7 @@
-verification-code-modal:
+user-auth-modal:
   version: VERSION
   js:
-    js/verification-code-modal.js: {}
+    js/user-auth-modal.js: {}
   dependencies:
     - core/drupal
     - core/once

@@ -2504,12 +2504,12 @@ a {
   margin: 0;
 }
 
-.verification-code-modal .form-item--code {
+.user-auth-modal .form-item--code {
   display: flex;
   gap: 0 1rem;
   justify-content: center;
 }
-.verification-code-modal .form-item--code input.code {
+.user-auth-modal .form-item--code input.code {
   font-size: 1.25rem;
   text-align: center;
   width: 60px;

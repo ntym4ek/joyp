@@ -6,3 +6,7 @@ services:
   func_helper.flood:
     class: Drupal\func_helper\Service\FloodHelper
     arguments: ['@flood', '@database', '@datetime.time']
+
+  func_helper.secret:
+    class: Drupal\func_helper\Service\SecretHelper
+    arguments: ['@cache.data', '@datetime.time']

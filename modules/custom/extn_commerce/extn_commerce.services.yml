@@ -1,10 +1,6 @@
 services:
   _defaults:
     autowire: true
-  extn_commerce.guest_checkout_completion_subscriber:
-    class: Drupal\extn_commerce\EventSubscriber\GuestCheckoutCompletionSubscriber
-    tags:
-      - { name: event_subscriber }
 
   extn_commerce.route_subscriber:
     class: Drupal\extn_commerce\Routing\RouteSubscriber
