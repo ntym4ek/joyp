@@ -8,6 +8,7 @@
 use Drupal\commerce_product\Entity\ProductVariationInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Render\Markup;
+use Drupal\Core\StringTranslation\PluralTranslatableMarkup;
 use Drupal\func_helper\Helper\CommerceHelper;
 
 /**
@@ -210,5 +211,27 @@ function project_preprocess_node__article(&$vars)
   }
 }
 
+/**
+ * Реализация hook_preprocess_taxonomy_term().
+ */
+function project_preprocess_taxonomy_term(array &$variables)
+{
+  // Получаем термин
+  $term = $variables['term'];
 
+  if ($variables["view_mode"] == 'kartochka_kategorii') {
+    // Подсчитываем количество материалов, привязанных к этому термину.
+    $count = \Drupal::entityQuery('commerce_product')
+      ->condition('field_p_application', $term->id()) // Замените на поле, которое связывает материал с термином.
+      ->accessCheck(FALSE)
+      ->count()
+      ->execute();
 
+    // Добавляем значение в переменные для шаблона.
+    if ($count) {
+      $variables['content']['products_count'] = [
+        '#markup' => '<div class="field field-name--field-products-count">' . $count . ' ' . new PluralTranslatableMarkup($count, 'item', 'items', ['@context' => 'Категории']) . '</div>'
+      ];
+    }
+  }
+}

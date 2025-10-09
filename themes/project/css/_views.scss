@@ -1,5 +1,9 @@
 @import "variables";                                                            // чтобы переменные не подсвечивались
 
+.view {
+  .view-empty { padding-top: 2rem; }
+}
+
 .view-katalog {
   .view-content {
     @include row('true', $gutter-xs);
@@ -88,5 +92,10 @@
     flex: auto;
     padding: 2rem 0 0 2rem;
   }
+  p { color: $text-muted; }
   h2 { font-size: $font-size-large; }
+  .field-name--field-products-count {
+    color: $text-muted;
+    padding-top: 4rem;
+  }
 }
