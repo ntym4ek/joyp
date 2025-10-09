@@ -6,17 +6,16 @@
 //}
 
 .page-header {
-  border-bottom: 1px solid $gray-lightest;
   display: flex; align-items: center;
-  height: $header-height;
 
   .page-header__inner { width: 100%; }
   .page-header__row {
+    border-bottom: 1px solid $gray-lightest;
     display: flex;
   }
   &__brand {
-    flex: 0 0 190px;
-    display: flex; align-items: center;
+    display: flex; justify-content: center; align-items: center;
+    padding: 1rem 0;
   }
   &__content {
     flex: auto;

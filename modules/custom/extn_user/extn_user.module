@@ -101,7 +101,7 @@ function extn_user_sms_send_code($form_state)
   if ($send_code['allowed'] && $check_code['allowed'] && !$secret->exists($user_phone)) {
     $secret_code = rand(1111, 9999);
     $secret->set($user_phone, $secret_code, 600);
-    $sms_text = 'Код для входа на сайт JOY PREMIUM: ' . $secret_code;
+    $sms_text = $secret_code . ' - JOY PREMIUM, код для входа на сайт.';
 
     // инициализация и отправка смс
     $smsru_auth = new ApiIdAuth('036AD662-0400-7EAE-FF5C-E7B548FFA439');
