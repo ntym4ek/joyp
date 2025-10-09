@@ -58,3 +58,35 @@
     box-sizing: border-box;
   }
 }
+
+.view-kategorii {
+  .view-content {
+    border-left: 1px solid $gray-lightest;
+
+    @include row('true', $gutter-xs);
+
+    @media #{$tablet}   {
+      @include row('true', $gutter-md);
+    }
+  }
+
+  .views-row {
+    flex-basis: 33.3%;
+    max-width: 33.3%;
+
+    border-right: 1px solid $gray-lightest;
+    border-bottom: 1px solid $gray-lightest;
+    box-sizing: border-box;
+  }
+
+  .content {
+    display: flex;
+    padding: 1rem 4rem;
+  }
+  .image { flex: 0 0 40%; }
+  .text {
+    flex: auto;
+    padding: 2rem 0 0 2rem;
+  }
+  h2 { font-size: $font-size-large; }
+}

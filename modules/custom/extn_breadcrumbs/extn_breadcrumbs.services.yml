@@ -37,3 +37,8 @@ services:
     tags:
       - { name: breadcrumb_builder}
 
+  extn_breadcrumbs.categories_list_breadcrumb:
+    class: Drupal\extn_breadcrumbs\Breadcrumb\CateroryListBreadcrumbBuilder
+    tags:
+      - { name: breadcrumb_builder}
+
