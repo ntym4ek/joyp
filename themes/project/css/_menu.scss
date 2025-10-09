@@ -1,11 +1,11 @@
 @import "variables";                                                            // чтобы переменные не подсвечивались
 
-.menu-wrapper {
-  .menu {
+.block-menu {
+  > .menu {
     display: flex; align-items: center;
     height: $header-height;
     gap: 40px;
-    .menu-item {
+    > .menu-item {
       border-bottom: 1px solid transparent;
       height: 100%;
       transition: border-color 200ms;
@@ -19,5 +19,15 @@
         border-bottom: 1px solid $brand-cocoa;
       }
     }
+  }
+}
+
+// выпадающее меню
+ul.menu .menu {
+  border: 1px solid $gray-lightest;
+  margin-top: 1px;
+  transition: opacity 200ms;
+  > .menu-item {
+    transition: background-color 200ms;
   }
 }

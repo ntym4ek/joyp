@@ -46,6 +46,7 @@ $header-shadow:           none;
 $menu-item-color:         $text-color;
 $menu-item-hover-color:   lighten($menu-item-color, 10%);
 $menu-item-active-color:  lighten($menu-item-color, 10%);
+$submenu-item-hover-bkg:  $gray-lightest;
 
 // подвал
 //
