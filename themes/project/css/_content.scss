@@ -1,20 +1,22 @@
 @import "variables";                                                            // чтобы переменные не подсвечивались
 
 .node.node--view-mode-full {
-  .node__content {
-    line-height: 1.5;
+}
 
-    ul li {
-      list-style-type: none;
-    }
+.text-formatted {
+  line-height: 1.5;
 
-    ul li:before {
-      content: '\2014';
-      position: absolute;
-      margin-left: -20px;
-    }
+  ul li {
+    list-style-type: none;
+  }
+
+  ul li:before {
+    content: '\2014';
+    position: absolute;
+    margin-left: -20px;
   }
 }
+
 
 .node--type-article {
 

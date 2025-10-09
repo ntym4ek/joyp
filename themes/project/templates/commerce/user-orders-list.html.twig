@@ -1,39 +1,43 @@
 <div class="orders-list">
-  {% for order in orders %}
-    <details class="orders-list__order">
-      <summary class="order__header">
-        <div class="order__number "><span>№{{ order.number }}</span> от {{ order.created|date('d.m.Y') }}</div>
-        <div class="order__state">{{ order.state }}</div>
-        <div class="order__total">{{ order.items|length }} шт. на {{ order.total_price }}</div>
-      </summary>
-      <div class="order__content">
-        <div class="order__items">
-          {% for item in order.items %}
-            <div class="order_item">
-              {{ item.product }}
-              <div class="order_item__price col--1">{{ item.price }}</div>
-              <div class="order_item__qty col--2">{{ item.quantity }} шт.</div>
-              <div class="order_item__total_price col--3">{{ item.total_price }}</div>
-            </div>
-          {% endfor %}
-        </div>
-      </div>
-      <div class="order__footer">
-        <div class="order__actions">
-          {% for action in order.actions %}
-            {{ action }}
-          {% endfor %}
-        </div>
-        <div class="order__summary">
-          {% for item in order.summary %}
-          <div class="summary__row">
-            <div class="label col--1">{{ item.label }}</div>
-            <div class="notes col--2">{{ item.notes }}</div>
-            <div class="amount col--3">{{ item.amount }}</div>
+  {% if orders %}
+    {% for order in orders %}
+      <details class="orders-list__order">
+        <summary class="order__header">
+          <div class="order__number "><span>№{{ order.number }}</span> от {{ order.created|date('d.m.Y') }}</div>
+          <div class="order__state">{{ order.state }}</div>
+          <div class="order__total">{{ order.items|length }} шт. на {{ order.total_price }}</div>
+        </summary>
+        <div class="order__content">
+          <div class="order__items">
+            {% for item in order.items %}
+              <div class="order_item">
+                {{ item.product }}
+                <div class="order_item__price col--1">{{ item.price }}</div>
+                <div class="order_item__qty col--2">{{ item.quantity }} шт.</div>
+                <div class="order_item__total_price col--3">{{ item.total_price }}</div>
+              </div>
+            {% endfor %}
           </div>
-          {% endfor %}
         </div>
-      </div>
-    </details>
-  {% endfor %}
+        <div class="order__footer">
+          <div class="order__actions">
+            {% for action in order.actions %}
+              {{ action }}
+            {% endfor %}
+          </div>
+          <div class="order__summary">
+            {% for item in order.summary %}
+            <div class="summary__row">
+              <div class="label col--1">{{ item.label }}</div>
+              <div class="notes col--2">{{ item.notes }}</div>
+              <div class="amount col--3">{{ item.amount }}</div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </details>
+    {% endfor %}
+  {% else %}
+    <p>Вы ещё не сделали ни одного заказа.</p>
+  {% endif %}
 </div>
