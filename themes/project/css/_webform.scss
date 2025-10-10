@@ -17,11 +17,18 @@
 
   .row { padding: 2rem 0; }
 
-  .webform-type-email { flex: auto; }
+  .webform-type-email { margin-top: 0; }
+  .form-actions .form-submit { width: 100%; }
+  .js-form-item-fz152-agreement { margin-bottom: 0; }
 
-  .text {
-    display: flex; flex-wrap: wrap; align-content: center;
-    height: 100%;
-    > * { flex: 100%; }
+  @media #{$laptop}  {
+    .webform-type-email { flex: auto; }
+    .text {
+      display: flex; flex-wrap: wrap; align-content: center;
+      height: 100%;
+      > * { flex: 100%; }
+    }
+    .form-actions .form-submit { width: initial; }
   }
+
 }

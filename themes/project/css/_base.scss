@@ -12,8 +12,8 @@ html * {
 }
 
 html {
-  font-size: 12px;
-  @media #{$smart}    { font-size: 14px; }
+  font-size: 14px;
+  @media #{$smart}    { font-size: 16px; }
   @media #{$pad}      { font-size: 16px; }
   @media #{$tablet}   { font-size: 16px; }
   @media #{$laptop}   { font-size: 16px; }
@@ -22,6 +22,12 @@ html {
 h1, h2, h3, h4,
 .h1, .h2, .h3, .h4 {
   font-family: $font-name2; font-weight: 400; text-transform: uppercase;
+}
+
+h2, .h2 {
+  font-size: $font-size-h3;
+
+  @media #{$laptop}   { font-size: $font-size-h2; }
 }
 
 a {

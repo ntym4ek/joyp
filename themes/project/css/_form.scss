@@ -37,11 +37,13 @@
 }
 
 .form-items-inline {
-  display: flex; gap: 0 1rem;
-  margin: 1rem 0;
+  @media #{$laptop}  {
+    display: flex; flex-wrap: wrap; gap: 0 1rem;
+    margin: 1rem 0;
 
-  > .form-item,
-  > .form-actions { margin: 0; }
+    > .form-item,
+    > .form-actions { margin: 0; }
+  }
 }
 
 .user-auth-modal {
