@@ -1,21 +1,30 @@
 @import "variables";                                                            // чтобы переменные не подсвечивались
 
-i.icon {
+// класс picon, чтобы не пересекаться с иконками из base9
+i.picon {
   display: inline-block;
   font-style: normal;
   position: relative;
-  padding-left: 30px;
+  width: 22px; height: 22px;
 
   &::before {
-    background-size: contain; background-repeat: no-repeat;
+    background-color: $text-color;
     content: '';
-    position: absolute; left: 0; top: 50%;
-    transform: translateY(-50%);
-    width: 22px; height: 22px;
+    position: absolute; left: 0; top: 0;
+    transition: all 200ms;
+
+    width: 100%; height: 100%;
+    mask-repeat: no-repeat; mask-position: center; mask-size: contain;
   }
 
-  &--account::before { background-image: url('../images/icons/user.svg'); }
-  &--bag::before { background-image: url('../images/icons/bag.svg'); }
+  &--account::before { mask-image: url('../images/icons/user.svg'); }
+  &--bag::before { mask-image: url('../images/icons/bag.svg'); }
+  &--arrow-left::before { mask-image: url('../images/icons/arrow-left.svg'); }
+  &--arrow-right::before { mask-image: url('../images/icons/arrow-right.svg'); }
+  &--arrow-down::before { mask-image: url('../images/icons/arrow-down.svg'); }
+
+  &--left { margin-right: 10px; }
+  &--right { margin-left: 10px; }
 }
 
 

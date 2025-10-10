@@ -210,10 +210,11 @@
 
 .cart-block {
   height: 100%;
-  &__inner { position: relative; }
- .badge {
-  font-family: $font-name2;
- }
+  &__inner {
+    display: flex; align-items: center;
+    position: relative;
+  }
+  .badge { font-family: $font-name2; }
 }
 
 .orders-list {

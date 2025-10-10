@@ -242,10 +242,17 @@ function project_preprocess_taxonomy_term(array &$variables)
 function project_preprocess_menu(array &$vars)
 {
   // Добавить иконки пунктам меню.
+  if ($vars['menu_name'] == 'main') {
+    foreach ($vars['items'] as &$item) {
+      if ($item['below']) {
+        $item['title'] = Markup::create($item['title'] . '<i class="picon picon--arrow-down picon--right"></i>');
+      }
+    }
+  }
   if ($vars['menu_name'] == 'account') {
     foreach ($vars['items'] as &$item) {
       if (in_array($item['title'], ['Войти', 'Личный кабинет'])) {
-        $item['title'] = Markup::create('<i class="icon icon--account">' . $item['title'] . '</i>');
+        $item['title'] = Markup::create('<i class="picon picon--account picon--left"></i>' . $item['title']);
       }
     }
   }

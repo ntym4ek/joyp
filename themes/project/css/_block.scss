@@ -102,8 +102,12 @@
     width: 235px;
     transition: all 0.3s;
     &:hover { transform: translateY(-4px); }
+
     &__more {
-      color: $brand-cocoa;
+      i.picon {
+        width: 60px; height: 10px;
+        &::before { background-color: $brand-cocoa; }
+      }
     }
   }
 }

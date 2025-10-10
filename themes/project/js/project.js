@@ -12,7 +12,7 @@
   Drupal.behaviors.project = {
     attach(context) {
 
-      // Повестить обработчик для кнопок закрытия,
+      // Повесить обработчик для кнопок закрытия диалога,
       // создаваемых через OpenModalDialogCommand
       once('body-once', '#buttonDialogClose', context).forEach(
         (element) => {
@@ -21,6 +21,7 @@
           });
         }
       );
+
     },
   };
 

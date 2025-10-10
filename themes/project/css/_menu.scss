@@ -5,6 +5,11 @@
     display: flex; align-items: center;
     height: $header-height;
     gap: 40px;
+
+    i.picon--arrow-down::before { background-color: $brand-cocoa;  }
+
+
+
     > .menu-item {
       border-bottom: 1px solid transparent;
       height: 100%;
@@ -21,6 +26,14 @@
     }
   }
 }
+
+// динамические иконки
+.menu-item--expanded:hover {
+  i.picon--arrow-down::before {
+    transform: rotate(180deg);
+  }
+}
+
 
 // выпадающее меню
 ul.menu .menu {
