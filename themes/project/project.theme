@@ -216,13 +216,13 @@ function project_preprocess_node__article(&$vars)
  */
 function project_preprocess_taxonomy_term(array &$variables)
 {
-  // Получаем термин
   $term = $variables['term'];
 
+  // На странице списка Категорий
   if ($variables["view_mode"] == 'kartochka_kategorii') {
     // Подсчитываем количество материалов, привязанных к этому термину.
     $count = \Drupal::entityQuery('commerce_product')
-      ->condition('field_p_application', $term->id()) // Замените на поле, которое связывает материал с термином.
+      ->condition('field_p_application', $term->id())
       ->accessCheck(FALSE)
       ->count()
       ->execute();
@@ -230,8 +230,24 @@ function project_preprocess_taxonomy_term(array &$variables)
     // Добавляем значение в переменные для шаблона.
     if ($count) {
       $variables['content']['products_count'] = [
-        '#markup' => '<div class="field field-name--field-products-count">' . $count . ' ' . new PluralTranslatableMarkup($count, 'item', 'items', ['@context' => 'Категории']) . '</div>'
+        '#markup' => '<div class="field field-name--field-products-count">' . $count . ' ' . new PluralTranslatableMarkup($count, 'item', 'items') . '</div>'
       ];
     }
   }
 }
+
+/**
+ * Implements hook_preprocess_menu().
+ */
+function project_preprocess_menu(array &$vars)
+{
+  // Добавить иконки пунктам меню.
+  if ($vars['menu_name'] == 'account') {
+    foreach ($vars['items'] as &$item) {
+      if (in_array($item['title'], ['Войти', 'Личный кабинет'])) {
+        $item['title'] = Markup::create('<i class="icon icon--account">' . $item['title'] . '</i>');
+      }
+    }
+  }
+}
+

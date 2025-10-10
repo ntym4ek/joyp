@@ -89,17 +89,25 @@ function extn_user_user_load_by_phone($phone)
 }
 
 
+/**
+ * Отправить СМС код через API SMS.ru.
+ * Отправка кода возможна раз в 2 минуты.
+ *
+ * @param $form_state
+ * @return void
+ */
 function extn_user_sms_send_code($form_state)
 {
   $user_phone = $form_state->get('sms_verification_phone');
   $secret = \Drupal::service('func_helper.secret');
 
-  // Проверка на Частоту отправки кодов (запросить новый код можно раз в 2 минуты)
+  // Проверка на частоту отправки кодов
   $flood = \Drupal::service('func_helper.flood');
   $send_code = $flood->check('sms_verification_send_code', 1, 120, $user_phone);
   $check_code = $flood->check('sms_verification_check_code', USER_FLOOD_ATTEMPTS, USER_FLOOD_COOLDOWN, $user_phone);
 
-  // генерируем и отправляем сообщение с кодом
+  // Если код устарел или удалён из кэша при запросе повторной отправки,
+  // генерируем и отправляем сообщение с кодом.
   if ($send_code['allowed'] && $check_code['allowed'] && !$secret->exists($user_phone)) {
     $secret_code = rand(1111, 9999);
     $secret->set($user_phone, $secret_code, 600);
@@ -114,7 +122,7 @@ function extn_user_sms_send_code($form_state)
     $response = $smsru->smsSend($message);
 
     if ($response->getStatusCode() == 100) {
-      // Регистрируем отправку кода
+      // Регистрируем отправку кода для контроля перебора.
       $flood->register('sms_verification_send_code', 120, $user_phone);
     }
   }

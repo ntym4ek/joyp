@@ -1,0 +1,21 @@
+@import "variables";                                                            // чтобы переменные не подсвечивались
+
+i.icon {
+  display: inline-block;
+  font-style: normal;
+  position: relative;
+  padding-left: 30px;
+
+  &::before {
+    background-size: contain; background-repeat: no-repeat;
+    content: '';
+    position: absolute; left: 0; top: 50%;
+    transform: translateY(-50%);
+    width: 22px; height: 22px;
+  }
+
+  &--account::before { background-image: url('../images/icons/user.svg'); }
+  &--bag::before { background-image: url('../images/icons/bag.svg'); }
+}
+
+
