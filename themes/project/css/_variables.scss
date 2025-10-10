@@ -3,9 +3,9 @@
 // Grid
 $grid-columns:            10;
 $gutter-xl:               1rem;
-$gutter-sm:               75px;
-$gutter-md:               75px;
-$gutter-lg:               75px;
+$gutter-sm:               1rem;
+$gutter-md:               20px;
+$gutter-lg:               30px;
 $gutter-xl:               75px;
 
 
@@ -34,6 +34,7 @@ $text-muted:              $gray;
 //
 $page-bkg:                #fff;
 
+
 // шапка
 //
 $header-height:           90px;
@@ -47,6 +48,12 @@ $menu-item-color:         $text-color;
 $menu-item-hover-color:   lighten($menu-item-color, 10%);
 $menu-item-active-color:  lighten($menu-item-color, 10%);
 $submenu-item-hover-bkg:  $gray-lightest;
+
+$menu-mobile-width:       90%;
+$menu-mobile-color:       $text-color;
+$menu-mobile-bkg:         #fff;
+$menu-mobile-divider-clr: $gray-lightest;
+$menu-item-color:         $text-color;
 
 // подвал
 //

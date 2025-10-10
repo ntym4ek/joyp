@@ -13,17 +13,17 @@
     padding: 1rem 0;
   }
   &__content {
-    flex: auto;
     display: flex; justify-content: space-between;
   }
-  &__col1 {
+  &__col21 {
     display: flex; align-items: center;
   }
-  &__col2 {
+  &__col12,
+  &__col22 {
     display: flex; justify-content: right; align-items: center;
-    gap: 40px;
+    gap: 1.5rem;
   }
-  .page-header__info {
+  .page-header__item {
     display: flex; align-items: center;
     height: 100%;
     transition: border-color 200ms;
@@ -35,6 +35,11 @@
 
       &:hover { border-bottom: 1px solid $brand-cocoa; }
     }
+  }
+
+  @media #{$laptop}   {
+    &__col11 { flex: 100%; }
+    &__col22 { gap: 40px; }
   }
 }
 

@@ -212,9 +212,19 @@
   height: 100%;
   &__inner {
     display: flex; align-items: center;
+    text-indent: -9999px;
     position: relative;
+
+    .picon--left { margin-right: 0; }
   }
   .badge { font-family: $font-name2; }
+
+  @media #{$laptop}   {
+    &__inner {
+      text-indent: 0;
+      .picon--left { margin-right: 10px; }
+    }
+  }
 }
 
 .orders-list {

@@ -10,7 +10,7 @@ libraries:
   - core/drupal.dialog.ajax
   - project/base
   - project/iconfont
-  - base9/layout-kccc
+  - base9/mobile-menu
   - base9/back-to-top
   - base9/click-to-copy
   - base9/swiper-thumbs

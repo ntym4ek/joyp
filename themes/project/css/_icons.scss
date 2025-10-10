@@ -2,7 +2,7 @@
 
 // класс picon, чтобы не пересекаться с иконками из base9
 i.picon {
-  display: inline-block;
+  display: block;
   font-style: normal;
   position: relative;
   width: 22px; height: 22px;
@@ -22,6 +22,7 @@ i.picon {
   &--arrow-left::before { mask-image: url('../images/icons/arrow-left.svg'); }
   &--arrow-right::before { mask-image: url('../images/icons/arrow-right.svg'); }
   &--arrow-down::before { mask-image: url('../images/icons/arrow-down.svg'); }
+  &--menu::before { mask-image: url('../images/icons/menu.svg'); }
 
   &--left { margin-right: 10px; }
   &--right { margin-left: 10px; }

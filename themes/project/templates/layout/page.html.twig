@@ -64,19 +64,42 @@
 
         <div class="page-header__row">
           <div class="container-fluid">
-            <div class="page-header__brand">
-              <div class="branding">
-                <div class="branding__logo"><a href="/"><img src="{{ site.logo.standart }}" alt="JOY PREMIUM" /></a></div>
+            <div class="page-header__content">
+
+              <div class="page-header__col11">
+                <div class="page-header__brand">
+                  <div class="branding">
+                    <div class="branding__logo"><a href="/"><img src="{{ site.logo.standart }}" alt="JOY PREMIUM" /></a></div>
+                  </div>
+                </div>
               </div>
+
+
+              <div class="page-header__col12 hide-xl">
+                <div class="page-header__item">
+                  <a href="/user"><i class="picon picon--account"></i></a>
+                </div>
+
+                <div class="page-header__item">
+                  {{ cart_block }}
+                </div>
+
+                <div class="page-header__item">
+                  <div class="page-offside-label">
+                    <i class="picon picon--menu"></i>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
 
-        <div class="page-header__row">
+        <div class="page-header__row hide show-xl">
           <div class="container-fluid">
             <div class="page-header__content">
 
-              <div class="page-header__col1">
+              <div class="page-header__col21">
                 <div class="page-header__menu">
                   <div class="menu-wrapper">
                     {{ page.primary_menu }}
@@ -84,8 +107,8 @@
                 </div>
               </div>
 
-              <div class="page-header__col2">
-                <div class="page-header__info">
+              <div class="page-header__col22">
+                <div class="page-header__item">
                   8 922 922-67-74
                 </div>
 
@@ -95,7 +118,7 @@
                   </div>
                 </div>
 
-                <div class="page-header__info">
+                <div class="page-header__item">
                   {{ cart_block }}
                 </div>
               </div>
@@ -118,17 +141,17 @@
 
           <div class="row">
             {% if page.sidebar_first %}
-              <aside class="col-xs-10 col-md-{{ sidebar_first_col }}" role="complementary">
+              <aside class="col-xs-10 col-xl-{{ sidebar_first_col }}" role="complementary">
                 {{ page.sidebar_first }}
               </aside>
             {% endif %}
 
-            <main class="col-xs-10 col-md-fill" role="main">
+            <main class="col-xs-10 col-xl-fill" role="main">
               {{ page.content }}
             </main>
 
             {% if page.sidebar_second %}
-              <aside class="col-xs-10 col-md-{{ sidebar_second_col }}" role="complementary">
+              <aside class="col-xs-10 col-xl-{{ sidebar_second_col }}" role="complementary">
                 {{ page.sidebar_second }}
               </aside>
             {% endif %}
@@ -148,7 +171,7 @@
         <div class="page-footer__row1">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-xs-10 col-md-5 col-lg-2">
+            <div class="col-xl-2 hide show-xl">
               <div class="page-footer__menu">
                 <h4>Каталог</h4>
                 <ul>
@@ -162,7 +185,7 @@
                 </ul>
               </div>
             </div>
-            <div class="col-xs-10 col-md-5 col-lg-2">
+            <div class="col-xl-2 hide show-xl">
               <div class="page-footer__menu">
                 <h4>Клиентам</h4>
                 <ul>
@@ -177,7 +200,7 @@
                 </ul>
               </div>
             </div>
-            <div class="col-xs-10 col-md-fill">
+            <div class="col-xl-fill hide show-xl">
               <div class="page-footer__menu">
                 <h4>Информация</h4>
                 <ul>
@@ -188,7 +211,7 @@
                 </ul>
               </div>
             </div>
-            <div class="col-xs-10 col-md">
+            <div class="col-xl hide show-xl">
               <div class="page-footer__menu">
                 <h4>Контакты</h4>
                 <ul>
@@ -204,14 +227,14 @@
         <div class="page-footer__row2">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-xs-10 col-md-8">
+            <div class="col-xs-10 col-md-5 col-xl-8">
               <div class="production">
                 КОСМЕТИКА РАЗРАБОТАНА GREEN GROW CHEMICAL TRADING FZE (Dubai United Arab Emirates)<br>
                 Производство частично локализовано в России.<br>
                 Фабрика-партнер ООО "Страда".
               </div>
             </div>
-            <div class="col-xs-10 col-md-2">
+            <div class="col-xs-10 col-md-5 col-xl-2">
               <div class="copyright">
                 Joy Premium © 2025
               </div>
@@ -225,4 +248,5 @@
     <div id="back-to-top" data-drupal-selector="back-to-top"><i class="icon icon-back-to-top"></i></div>
 
   </div>
+
 </div>{# /.page-wrapper #}

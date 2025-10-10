@@ -2,16 +2,24 @@
 
 .view {
   .view-empty { padding-top: 2rem; }
-}
 
-.view-katalog {
   .view-content {
     @include row('true', $gutter-xs);
 
-    @media #{$tablet}   {
+    @media #{$pad}   {
       @include row('true', $gutter-md);
     }
+    @media #{$tablet}   {
+      @include row('true', $gutter-lg);
+    }
+    @media #{$laptop}   {
+      @include row('true', $gutter-xl);
+    }
   }
+}
+
+
+.view-katalog {
   .views-row {
     flex-basis: 25%;
     max-width: 25%;
@@ -26,31 +34,18 @@
 .view-karusel-produktov,
 .view-novosti {
   .view-content {
-
-    @include row('true', $gutter-xs);
-
     .swiper-container {
       border-top: 1px solid $gray-lightest;
       width: 100%;
     }
     .swiper-slide:first-child { border-left: 1px solid $gray-lightest; }
     .swiper-slide { border-right: 1px solid $gray-lightest; }
-
-    @media #{$tablet}   {
-      @include row('true', $gutter-md);
-    }
   }
 }
 
 .view-blog {
   .view-content {
     border-left: 1px solid $gray-lightest;
-
-    @include row('true', $gutter-xs);
-
-    @media #{$tablet}   {
-      @include row('true', $gutter-md);
-    }
   }
 
   .views-row {
@@ -66,12 +61,6 @@
 .view-kategorii {
   .view-content {
     border-left: 1px solid $gray-lightest;
-
-    @include row('true', $gutter-xs);
-
-    @media #{$tablet}   {
-      @include row('true', $gutter-md);
-    }
   }
 
   .views-row {

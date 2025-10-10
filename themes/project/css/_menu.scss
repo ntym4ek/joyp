@@ -1,46 +1,48 @@
 @import "variables";                                                            // чтобы переменные не подсвечивались
 
-.block-menu {
-  > .menu {
-    display: flex; align-items: center;
-    height: $header-height;
-    gap: 40px;
 
-    i.picon--arrow-down::before { background-color: $brand-cocoa;  }
+.page {
 
+  .block-menu {
+    > .menu {
+      display: flex; align-items: center;
+      height: $header-height;
+      gap: 40px;
 
+      i.picon--arrow-down::before { background-color: $brand-cocoa;  }
 
-    > .menu-item {
-      border-bottom: 1px solid transparent;
-      height: 100%;
-      transition: border-color 200ms;
-      > a {
-        display: flex; align-items: center;
+      > .menu-item {
+        border-bottom: 1px solid transparent;
         height: 100%;
-        padding: 0;
-      }
-      &--active-trail,
-      &:hover {
-        border-bottom: 1px solid $brand-cocoa;
+        transition: border-color 200ms;
+        > a {
+          display: flex; align-items: center;
+          height: 100%;
+          padding: 0;
+        }
+        &--active-trail,
+        &:hover {
+          border-bottom: 1px solid $brand-cocoa;
+        }
       }
     }
   }
-}
 
-// динамические иконки
-.menu-item--expanded:hover {
-  i.picon--arrow-down::before {
-    transform: rotate(180deg);
+  // динамические иконки
+  .menu-item--expanded:hover {
+    i.picon--arrow-down::before {
+      transform: rotate(180deg);
+    }
   }
-}
 
 
-// выпадающее меню
-ul.menu .menu {
-  border: 1px solid $gray-lightest;
-  margin-top: 1px;
-  transition: opacity 200ms;
-  > .menu-item {
-    transition: background-color 200ms;
+  // выпадающее меню
+  ul.menu .menu {
+    border: 1px solid $gray-lightest;
+    margin-top: 1px;
+    transition: opacity 200ms;
+    > .menu-item {
+      transition: background-color 200ms;
+    }
   }
 }
