@@ -4,6 +4,9 @@
   .view-empty { padding-top: 2rem; }
 
   .view-content {
+
+    h3, h4 { margin-top: 0;}
+
     @include row('true', $gutter-xs);
 
     @media #{$pad}   {
@@ -32,6 +35,7 @@
 
 .view-aromas,
 .view-karusel-produktov,
+.view-karusel-kategoriy,
 .view-novosti {
   .view-content {
     .swiper-container {
@@ -40,6 +44,22 @@
     }
     .swiper-slide:first-child { border-left: 1px solid $gray-lightest; }
     .swiper-slide { border-right: 1px solid $gray-lightest; }
+  }
+}
+
+.view-karusel-kategoriy {
+  .swiper-slide {
+    padding: 1rem $gutter-xs;
+
+    @media #{$pad}   {
+      padding: 1rem $gutter-md;
+    }
+    @media #{$tablet}   {
+      padding: 1rem $gutter-lg;
+    }
+    @media #{$laptop}   {
+      padding: 2rem $gutter-xl;
+    }
   }
 }
 

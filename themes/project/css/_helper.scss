@@ -8,4 +8,9 @@
 .text--accent { color: $gray; }
 .text--notes { color: $gray; font-size: $font-size-small; }
 
-
+.show-more {
+  i.picon {
+    width: 60px; height: 10px;
+    &::before { background-color: $brand-cocoa; }
+  }
+}

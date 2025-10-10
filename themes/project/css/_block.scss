@@ -60,7 +60,7 @@
   }
   .text { margin: 1rem 0 .5rem; }
 
-  @media #{$tablet}  {
+  @media #{$pad}  {
     .col-xs-10 { border-right: 1px solid $gray-lightest; }
   }
   @media #{$laptop}  {
