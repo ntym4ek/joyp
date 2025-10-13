@@ -11,11 +11,17 @@
 .block-page-title-block {
   border-bottom: 1px solid $gray-lightest;
 
-  @include row('true', $gutter-lg);
-
   .page-title {
-    @include col('xs', 10, $gutter-lg);
+    @include col('xs', 10, $gutter-xs);
+    @include col('md', 10, $gutter-md);
+    @include col('lg', 10, $gutter-lg);
+    @include col('xl', 10, $gutter-xl);
   }
+
+  @include row('true', $gutter-xs);
+  @media #{$pad} { @include row('true', $gutter-md); }
+  @media #{$tablet} { @include row('true', $gutter-lg); }
+  @media #{$laptop} { @include row('true', $gutter-xl); }
 }
 
 .block-views {
@@ -146,14 +152,22 @@
 .block-user-links-block,
 .block-info-links-block {
   ul {
-    @include row('true', $gutter-md);
+    @include row('true', $gutter-xs);
+    @media #{$pad} { @include row('true', $gutter-md); }
+    @media #{$tablet} { @include row('true', $gutter-lg); }
+    @media #{$laptop} { @include row('true', $gutter-xl); }
   }
   li {
     border-bottom: 1px solid $gray-lightest;
     flex: 100%;
-    font-size: $font-size-h3; font-family: $font-name2; text-transform: uppercase;
+    font-size: $font-size-h3; font-family: $font-name2; text-transform: uppercase; text-align: center;
     list-style: none;
     margin: 0;
+
+    @include col('xs', 10, $gutter-xs);
+    @include col('md', 10, $gutter-md);
+    @include col('lg', 10, $gutter-lg);
+    @include col('xl', 10, $gutter-xl);
 
     &.item--current {
       background: $brand-green;
@@ -163,7 +177,14 @@
     a, span {
       color: inherit;
       display: inline-block;
-      padding: 2rem $gutter-md;
+      padding-top: 1rem; padding-bottom: 1rem;
+    }
+
+    @media #{$tablet} {
+      padding-top: 2rem; padding-bottom: 2rem;
+    }
+    @media #{$laptop} {
+      text-align: left;
     }
   }
 }
