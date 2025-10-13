@@ -1,6 +1,16 @@
 @import "variables";                                                            // чтобы переменные не подсвечивались
 
 .node.node--view-mode-full {
+  h1 {
+    font-size: $font-size-h3;
+    margin-top: 0;
+  }
+  h3 { margin-top: 2rem; }
+
+  @media #{$laptop} {
+    h1 { font-size: $font-size-h2; }
+    h3 { margin-top: 3rem; }
+  }
 }
 
 .text-formatted {
@@ -32,56 +42,59 @@
     }
 
     .field--name-field-image {
+      height: 250px;
       img {
         object-fit: cover;
-        width: 100%; height: 300px;
+        width: 100%; height: 100%;
       }
     }
     .field--name-title {
-      display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
       font-family: $font-name; text-overflow: ellipsis;
-      height: 4rem;
-      overflow: hidden;
     }
     .node__date {
       font-size: $font-size-large;
       margin-bottom: 1rem;
     }
+    .node__content { padding-top: 1rem; padding-bottom: 1rem; }
     .node__tags { text-transform: lowercase; }
+
+    @media #{$laptop} {
+      .node__content { padding-top: 2rem; padding-bottom: 2rem; }
+      .field--name-field-image { height: 300px; }
+      .field--name-title {
+        display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+        height: 4rem;
+        overflow: hidden;
+      }
+
+    }
   }
 
   &.node--view-mode-full {
     margin-bottom: 2rem;
 
-    h1 {
-      font-size: $font-size-h2;
-      margin-top: 0;
-    }
-
-    h3 { margin-top: 3rem; }
-
     .node__header {
       display: flex; gap: 2rem;
-      font-size: $font-size-large;
-      margin: 2rem 0;
+      font-size: $font-size-h5;
+      margin: 1rem 0;
     }
 
     .field--name-field-image {
       margin-bottom: 2rem;
-
+      height: 250px;
       img {
         object-fit: cover;
-        width: 100%;
-        height: 500px;
+        width: 100%; height: 100%;
       }
     }
 
     footer {
-      display: flex; justify-content: space-between;
+      display: flex; flex-wrap: wrap; justify-content: space-between;
       margin-top: 2rem;
     }
     .node__back {
-      font-size: $font-size-large; font-family: $font-name2;
+      font-family: $font-name2;
+      margin-bottom: 1rem;
       span {
         border: 1px solid $gray-lightest;
         display: inline-flex; justify-content: center; align-items: center;
@@ -95,16 +108,28 @@
       .socials__title { margin: 0 1rem 0 0; }
     }
 
+    @media #{$pad} {
+      .field--name-field-image { height: 300px; }
+    }
     @media #{$laptop} {
       margin-bottom: 4rem;
+      .node__header {
+        font-size: $font-size-large;
+        margin: 2rem 0;
+      }
+      .field--name-field-image { height: 500px; }
+      footer { flex-wrap: nowrap; }
+      .node__back {
+        font-size: $font-size-large;
+        margin-bottom: 0;
+      }
     }
   }
 }
 
 .node--issledovaniya {
-
   .node__image {
-    height: 100%;
+    height: 100%; min-height: 300px;
     img {
       object-fit: cover;
       width: 100%; height: 100%;
@@ -113,10 +138,14 @@
   .row--1 .node__image { max-height: 530px; }
   .row--3 .node__image { max-height: 430px; }
 
-  .node__text { padding: 60px 0; }
+  .node__text { padding: 1rem 0; }
 
   a {
     color: $brand-cocoa; text-decoration: underline;
+  }
+
+  @media #{$laptop} {
+    .node__text { padding: 60px 0; }
   }
 }
 
@@ -161,18 +190,32 @@
 }
 
 .node--kontakty {
-
   .node__block {
-    flex: 0 0 25%;
-    padding: 2rem $gutter-md 1rem;
-    &:not(:last-child) { border-right: 1px solid $gray-lightest; }
+    border-top: 1px solid $gray-lightest;
+    flex: 0 0 100%;
+    padding-top: 2rem; padding-bottom: 1rem;
+    &:nth-child(1) { border-top: none; }
   }
 
   a:hover,
   a:active { color: $brand-cocoa; }
 
-
   .h3 { color: $gray; }
+
+  @media #{$pad} {
+    .node__block {
+      border-right: 1px solid $gray-lightest;
+      flex: 0 0 50%;
+
+      &:nth-child(2) { border-top: none; }
+    }
+  }
+  @media #{$laptop} {
+    .node__block {
+      border-top: none;
+      flex: 0 0 25%;
+    }
+  }
 }
 
 [data-history-node-id="3"],

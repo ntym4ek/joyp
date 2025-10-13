@@ -33,6 +33,10 @@ h2, .h2 {
   font-size: $font-size-h3;
   @media #{$laptop}   { font-size: $font-size-h2; }
 }
+h3, .h3 {
+  font-size: $font-size-h5;
+  @media #{$laptop}   { font-size: $font-size-h3; }
+}
 
 a {
   color: inherit;

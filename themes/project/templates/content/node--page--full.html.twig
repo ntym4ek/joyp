@@ -68,36 +68,31 @@
     node.isSticky() ? 'node--sticky',
     not node.isPublished() ? 'node--unpublished',
     view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
-    'node--kontakty',
   ]
 %}
 {{ attach_library('base9/node') }}
 <article{{ attributes.addClass(classes) }}>
 
+  {{ title_prefix }}
+  {% if label  %}
+    <h1{{ title_attributes }}>
+      {{ label }}
+    </h1>
+  {% endif %}
+  {{ title_suffix }}
+
+  {% if display_submitted %}
+    <footer class="node__meta">
+      {{ author_picture }}
+      <div{{ author_attributes.addClass('node__submitted') }}>
+        {% trans %}Submitted by {{ author_name }} on {{ date }}{% endtrans %}
+        {{ metadata }}
+      </div>
+    </footer>
+  {% endif %}
+
   <div{{ content_attributes.addClass('node__content') }}>
-
-    <div class="row">
-      <div class="node__block project-padding">
-        <div class="h3">Контактный телефон</div>
-        <p><a href="tel:+79229226774">8 (922) 922-67-74</a></p>
-      </div>
-      <div class="node__block project-padding">
-        <div class="h3">Электронная почта</div>
-        <p><a href="mailto:joypremium_zakaz@kccc.ru">joypremium_zakaz@kccc.ru</a></p>
-      </div>
-      <div class="node__block project-padding">
-        <div class="h3">Адрес</div>
-        <p>Фабрика-партнер ООО "Страда":</p>
-        <p>613048, Россия, г. Кирово-Чепецк, ул. Производственная д.6</p>
-      </div>
-      <div class="node__block project-padding">
-        <div class="h3">Реквизиты</div>
-        <p>ИНН: 4312136043</p>
-        <p>ОГРН: 1074312001444</p>
-      </div>
-    </div>
+    {{ content }}
   </div>
-
-  <div class="node__meta">{{ metadata }}</div>
 
 </article>

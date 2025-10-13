@@ -44,6 +44,9 @@ function extn_block_block_access($block, $operation, AccountInterface $account)
             if ($node->bundle() === 'article') {
               return AccessResult::forbidden();
             }
+            if ($node->bundle() === 'page' && !in_array($node->id(), [5, 6, 7, 8, 10, 17])) {
+              return AccessResult::forbidden();
+            }
           }
         }
         if (in_array($route_match->getRouteName(), ['entity.commerce_product.canonical', 'fnc_helper.page404', 'fnc_helper.page403'])) {

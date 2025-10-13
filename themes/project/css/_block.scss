@@ -138,7 +138,8 @@
     &:hover img { transform: scale(1.02); }
   }
   .views-field-name {
-    height: 100px;
+    height: 60px;
+    padding-top: 1rem;
     .field-content {
       display: block;
       transition: all 0.3s;
@@ -146,6 +147,13 @@
       a {
         color: inherit; font-family: $font-name2; font-size: $font-size-h3; text-transform: uppercase;
       }
+    }
+  }
+
+  @media #{$laptop} {
+    .views-field-name {
+      height: 100px;
+      padding-top: 2rem;
     }
   }
 }

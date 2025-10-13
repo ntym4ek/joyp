@@ -2,7 +2,7 @@
 
 .socials {
   &__title {
-    font-family: $font-name2; font-size: $font-size-large;
+    font-family: $font-name2;
     margin-bottom: 1rem;
   }
   &__items { display: flex; }
@@ -20,5 +20,9 @@
     .vb { background-image: url(../images/icons/vb.svg); }
     .vk { background-image: url(../images/icons/vk.svg); }
   }
+
+  @media #{$laptop} {
+    &__title { font-size: $font-size-large; }
+    }
 }
 
