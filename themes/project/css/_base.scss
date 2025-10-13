@@ -24,9 +24,13 @@ h1, h2, h3, h4,
   font-family: $font-name2; font-weight: 400; text-transform: uppercase;
 }
 
+h1, .h1 {
+  font-size: $font-size-h2;
+  @media #{$laptop}   { font-size: $font-size-h1; }
+}
+
 h2, .h2 {
   font-size: $font-size-h3;
-
   @media #{$laptop}   { font-size: $font-size-h2; }
 }
 

@@ -8,28 +8,33 @@
     h3, h4 { margin-top: 0;}
 
     @include row('true', $gutter-xs);
-
-    @media #{$pad}   {
-      @include row('true', $gutter-md);
-    }
-    @media #{$tablet}   {
-      @include row('true', $gutter-lg);
-    }
-    @media #{$laptop}   {
-      @include row('true', $gutter-xl);
-    }
+    @media #{$pad}      { @include row('true', $gutter-md); }
+    @media #{$tablet}   { @include row('true', $gutter-lg); }
+    @media #{$laptop}   { @include row('true', $gutter-xl); }
   }
 }
 
 
 .view-katalog {
   .views-row {
-    flex-basis: 25%;
-    max-width: 25%;
-    padding: 0 $gutter-md;
-
-    border-right: 1px solid $gray-lightest;
+    flex-basis: 100%; max-width: 100%;
+    border-top: 1px solid $gray-lightest;
     box-sizing: border-box;
+
+    &:nth-child(1) { border-top: none; }
+
+    padding: 1rem $gutter-xs;
+    @media #{$pad}      {
+      border-right: 1px solid $gray-lightest;
+      &:nth-child(2) { border-top: none; }
+      flex-basis: 50%; max-width: 50%;
+      padding: 2rem $gutter-md;
+    }
+    @media #{$tablet}   { padding: 2rem $gutter-lg; }
+    @media #{$laptop}   {
+      flex-basis: 25%; max-width: 25%;
+      padding: 3rem $gutter-xl;
+    }
   }
 }
 
@@ -51,16 +56,9 @@
 .view-karusel-kategoriy {
   .swiper-slide {
     padding: 1rem $gutter-xs;
-
-    @media #{$pad}   {
-      padding: 1rem $gutter-md;
-    }
-    @media #{$tablet}   {
-      padding: 1rem $gutter-lg;
-    }
-    @media #{$laptop}   {
-      padding: 2rem $gutter-xl;
-    }
+    @media #{$pad}      { padding: 2rem $gutter-md; }
+    @media #{$tablet}   { padding: 2rem $gutter-lg; }
+    @media #{$laptop}   { padding: 3rem $gutter-xl; }
   }
 }
 
@@ -70,8 +68,7 @@
   }
 
   .views-row {
-    flex-basis: 20%;
-    max-width: 20%;
+    flex-basis: 20%; max-width: 20%;
 
     border-right: 1px solid $gray-lightest;
     border-bottom: 1px solid $gray-lightest;
@@ -85,8 +82,7 @@
   }
 
   .views-row {
-    flex-basis: 33.3%;
-    max-width: 33.3%;
+    flex-basis: 100%; max-width: 100%;
 
     border-right: 1px solid $gray-lightest;
     border-bottom: 1px solid $gray-lightest;
@@ -95,17 +91,30 @@
 
   .content {
     display: flex;
-    padding: 1rem 4rem;
+    padding: .5rem 2rem;
   }
-  .image { flex: 0 0 40%; }
+  .image { flex: 0 0 35%; }
   .text {
     flex: auto;
-    padding: 2rem 0 0 2rem;
+    padding: 0 0 0 2rem;
   }
   p { color: $text-muted; }
   h2 { font-size: $font-size-large; }
   .field-name--field-products-count {
     color: $text-muted;
-    padding-top: 4rem;
+    padding-top: 1rem;
+  }
+
+  @media #{$pad}   {
+    .views-row { flex-basis: 50%; max-width: 50%; }
+    .content { padding: 1rem 2rem; }
+  }
+  @media #{$laptop}   {
+    .views-row { flex-basis: 33.3%; max-width: 33.3%; }
+    .content { padding: 1rem 4rem; }
+    .image { flex: 0 0 40%; }
+    .text { padding: 2rem 0 0 2rem; }
+
+    .field-name--field-products-count { padding-top: 4rem; }
   }
 }

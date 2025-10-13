@@ -45,12 +45,18 @@
     background: $brand-primary;
     border-radius: 35px;
     color: white; font-family: $font-name2; font-size: $font-size-h3;
-    position: absolute; top: 2rem; right: -2rem;
+    position: absolute; top: 2rem; right: 0;
     width: 70px; height: 70px;
   }
   .product-care__price {
     font-size: $font-size-large;
     gap: 1rem;
+  }
+
+  @media #{$pad}      {
+  }
+  @media #{$laptop}      {
+    .product-care__discount { right: -2rem; }
   }
 }
 
