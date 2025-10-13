@@ -9,6 +9,11 @@ function extn_form_form_alter(&$form, FormStateInterface $form_state, $form_id):
 {
   $form['#attributes']['novalidate'] = 'novalidate';
   $form['#attributes']['autocomplete'] = 'off';
+
+  if ($form_id == 'views_exposed_form') {
+    $form["actions"]["submit"]["#attributes"]['class'][] = 'button--primary button--full-width';
+    $form["actions"]["reset"]["#attributes"]['class'][] = 'button--default button--outline button--full-width';
+  }
 }
 
 

@@ -41,12 +41,13 @@
     }
   }
   .form-actions {
-    input[name="reset"] {
-      @include btn();
-      @include button-variant($btn-default-color, transparent, $btn-default-color, $btn-default-h-color, transparent, $btn-default-h-color);
-      font-family: $font-name2; text-transform: uppercase;
-      margin: 2rem 0 0 0;
-      width: 233px;
+    float: left;
+    margin-top: 2rem;
+    width: 100%;
+
+    input {
+      margin: 0 0 1rem 0;
+      &:last-child { margin-bottom: 0; }
     }
   }
 }

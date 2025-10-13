@@ -16,15 +16,15 @@
 }
 
 .project-padding {
-  padding: 1rem $gutter-xs;
+  padding-left: $gutter-xs; padding-right: $gutter-xs;
 
   @media #{$pad}   {
-    padding: 1rem $gutter-md;
+    padding-left: $gutter-md; padding-right: $gutter-md;
   }
   @media #{$tablet}   {
-    padding: 1rem $gutter-lg;
+    padding-left: $gutter-lg; padding-right: $gutter-lg;
   }
   @media #{$laptop}   {
-    padding: 2rem $gutter-xl;
+    padding-left: $gutter-xl; padding-right: $gutter-xl;
   }
 }

@@ -20,10 +20,10 @@
     flex-basis: 100%; max-width: 100%;
     border-top: 1px solid $gray-lightest;
     box-sizing: border-box;
+    padding: 1rem $gutter-xs;
 
     &:nth-child(1) { border-top: none; }
 
-    padding: 1rem $gutter-xs;
     @media #{$pad}      {
       border-right: 1px solid $gray-lightest;
       &:nth-child(2) { border-top: none; }
@@ -37,6 +37,41 @@
     }
   }
 }
+
+.mobile-exposed {
+  background: #fff;
+  position: absolute; top: 0; bottom: 0; left: 0; right: 0; z-index: 99;
+  visibility: hidden; opacity: 0;
+  transition: opacity 200ms;
+
+  &--open { visibility: visible; opacity: 1; }
+
+  &__header {
+    color: $brand-cocoa;
+    display: flex; justify-content: space-between;
+    padding-top: 1rem; padding-bottom: 1rem;
+    i.picon:before { background-color: $brand-cocoa; }
+  }
+
+  form { padding: 1rem; }
+}
+
+.mobile-exposed-trigger {
+
+  i.picon:before {
+    background-color: $brand-cocoa;
+    width: 40px;
+  }
+
+  .mobile-exposed--sort,
+  .mobile-exposed--filters { padding: 1rem 0; }
+  .mobile-exposed--filters {
+    display: flex; justify-content: space-between;
+  }
+
+}
+
+
 
 .view-aromas,
 .view-karusel-produktov,
