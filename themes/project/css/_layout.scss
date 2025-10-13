@@ -43,6 +43,10 @@
   }
 }
 
+.page-offside {
+  border-left: 1px solid $gray-lightest;
+}
+
 .page-title {
   line-height: 1;
   margin-top: 0;
@@ -58,11 +62,12 @@
   }
 
   &__row1 {
-    padding: 3rem 0;
+    padding: 1rem 0;
     margin-top: -1px; // скрыть нижнюю границу нижних блоков
   }
   &__row2 {
     color: $text-muted; font-size: $font-size-xs;
+
     .container-fluid { height: 100%; }
     .row {
       align-items: center;
@@ -73,7 +78,10 @@
       border-bottom: 1px solid $gray-lightest;
       padding: 1rem 0;
     }
-    .copyright { padding: 1rem 0; }
+    .copyright {
+      height: 46px;     // для синхронизации с высотой back-to-top
+      padding: 1rem 0;
+    }
   }
   &__menu {
     ul { margin: 0; padding: 0; }
@@ -100,79 +108,31 @@
     }
   }
   @media #{$laptop} {
+    &__row1 {
+      padding: 3rem 0;
+    }
     &__row2 {
       .production { padding: 1rem 0; }
-    }
-  }
-}
-
-.ui-dialog {
-  padding: 60px;
-
-  .ui-dialog-titlebar {
-    background: none; border: none;
-    padding: 0;
-    h1 { font-family: $font-name2; font-size: $font-size-h2; text-align: center; }
-    button {
-      top: -1rem; right: -1rem;
-      margin: 0;
-      span.ui-icon-closethick {
-        background-image: url(../images/icons/cross.svg);
-        background-position: 0 0;
-        cursor: pointer;
-        margin: 0;
-        top: 0; left: 0;
-        width: 20px; height: 20px;
+      .copyright {
+        display: flex; align-items: center;
+        height: 76px;    // для синхронизации с высотой back-to-top
       }
     }
   }
-  .ui-dialog-title {
-    float: none;
-    width: initial;
-    white-space: initial;
-  }
-  .ui-dialog-content {
-    padding: 0; margin-top: 2rem;
-    overflow: visible;
-    input {
-      font-size: $font-size-base;
-      width: 100%;
-    }
-  }
-  .ui-dialog-actions {
-    padding-top: 2rem;
-  }
-  .ui-dialog-notes {
-    color: $text-muted; font-size: $font-size-small; text-align: center;
-    margin-top: 1rem;
-  }
-  .ui-dialog-buttonpane {
-    background: none; border: none;
-    padding: 0;
-    width: 100%;
-    .ui-dialog-buttonset {
-      float: none;
-      margin-top: 2rem;
-    }
-
-    button { margin: 0; }
-  }
-  .button {
-    width: 100%;
-    margin: 0;
-    &:not(:first-child) {
-      margin-top: 1rem;
-    }
-  }
-  a.button--primary {
-    @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border, $btn-primary-h-color, $btn-primary-h-bg, $btn-primary-h-border);
-  }
-}
-
-.ui-widget button {
-  font-family: $font-name2;
 }
 
 aside:first-child {
   border-right: 1px solid $gray-lightest;
+}
+
+#back-to-top {
+  background: #fff;
+  border: 1px solid $gray-lightest;
+  display: flex; align-items: center; justify-content: center;
+  bottom: -1px; right: 0;
+  width: 48px; height: 48px;
+
+  @media #{$laptop} {
+    width: 78px; height: 78px;
+  }
 }

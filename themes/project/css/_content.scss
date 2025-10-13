@@ -37,9 +37,6 @@
         width: 100%; height: 300px;
       }
     }
-    .node__content {
-      padding: 2rem $gutter-md 2.5rem;
-    }
     .field--name-title {
       display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
       font-family: $font-name; text-overflow: ellipsis;

@@ -45,16 +45,40 @@
 <div class="page-wrapper">
 
   <div class="page-offside">
-    <div class="branding">
-      <div class="branding__logo"><a href="/"><img src="{{ site.logo.standart }}" alt="KCCC GROUP" /></a></div>
-      <div class="branding__brand">
-        <div class="name nowrap">KCCC GROUP</div>
-        <div class="site-name">{{ site_name }}</div>
+    <div class="page-offside__header">
+      <div class="branding">
+        <div class="branding__logo"><a href="/"><img src="{{ site.logo.standart }}" alt="JOY PREMIUM" /></a></div>
       </div>
     </div>
-    <div class="menu-mobile-wrapper">
-      {{ page.primary_menu }}
-      {{ page.secondary_menu }}
+
+    <div class="page-offside__content">
+      <ul class="menu">
+        <li><a href="{{ path('entity.taxonomy_term.canonical', {'taxonomy_term': 26}) }}">Подарочные наборы</a></li>
+        <li><a href="{{ path('entity.taxonomy_term.canonical', {'taxonomy_term': 21}) }}">Для волос</a></li>
+        <li><a href="{{ path('entity.taxonomy_term.canonical', {'taxonomy_term': 22}) }}">Для рук</a></li>
+        <li><a href="{{ path('entity.taxonomy_term.canonical', {'taxonomy_term': 23}) }}">Для тела</a></li>
+        <li><a href="{{ path('entity.taxonomy_term.canonical', {'taxonomy_term': 24}) }}">Для дома</a></li>
+        <li><a href="{{ path('entity.taxonomy_term.canonical', {'taxonomy_term': 25}) }}">Travel</a></li>
+        <li><a href="/">Сертификаты</a></li>
+      </ul>
+    </div>
+
+    <div class="page-offside__footer">
+      <div class="page-offside__row">
+        <ul class="menu">
+          <li><a href="tel:+79229226774">8 (922) 922-67-74</a></li>
+          <li><a href="mailto:joypremium_zakaz@kccc.ru">joypremium_zakaz@kccc.ru</a></li>
+        </ul>
+      </div>
+      <div class="page-offside__row">
+        <ul class="menu menu--info">
+          <li><a href="{{ path('entity.node.canonical', {'node': 12}) }}">Согласие на обработку персональных данных</a></li>
+          <li><a href="/sites/default/files/attachments/misc/personal-data-policy.pdf" title="Файл в формате PDF">Политика в отношении обработки персональных данных</a></li>
+          <li><a href="{{ path('entity.node.canonical', {'node': 3}) }}">Политика конфиденциальности</a></li>
+          <li><a href="{{ path('entity.node.canonical', {'node': 11}) }}">Договор публичной оферты</a></li>
+        </ul>
+        <a href="{{ path('entity.node.canonical', {'node': 13}) }}" class="button button--primary">Задать вопрос</a>
+      </div>
     </div>
   </div>
 
@@ -168,73 +192,76 @@
 
     <footer class="page-footer">
       <div class="page-footer__inner">
-        <div class="page-footer__row1">
+        <div class="page-footer__row1 hide show-md">
           <div class="container-fluid">
-          <div class="row">
-            <div class="col-xl-2 hide show-xl">
-              <div class="page-footer__menu">
-                <h4>Каталог</h4>
-                <ul>
-                  <li><a href="{{ path('entity.taxonomy_term.canonical', {'taxonomy_term': 26}) }}">Подарочные наборы</a></li>
-                  <li><a href="{{ path('entity.taxonomy_term.canonical', {'taxonomy_term': 21}) }}">Для волос</a></li>
-                  <li><a href="{{ path('entity.taxonomy_term.canonical', {'taxonomy_term': 22}) }}">Для рук</a></li>
-                  <li><a href="{{ path('entity.taxonomy_term.canonical', {'taxonomy_term': 23}) }}">Для тела</a></li>
-                  <li><a href="{{ path('entity.taxonomy_term.canonical', {'taxonomy_term': 24}) }}">Для дома</a></li>
-                  <li><a href="{{ path('entity.taxonomy_term.canonical', {'taxonomy_term': 25}) }}">Travel</a></li>
-                  <li><a href="/">Сертификаты</a></li>
-                </ul>
+            <div class="row">
+              <div class="col-xl-2 hide show-xl">
+                <div class="page-footer__menu">
+                  <h4>Каталог</h4>
+                  <ul>
+                    <li><a href="{{ path('entity.taxonomy_term.canonical', {'taxonomy_term': 26}) }}">Подарочные наборы</a></li>
+                    <li><a href="{{ path('entity.taxonomy_term.canonical', {'taxonomy_term': 21}) }}">Для волос</a></li>
+                    <li><a href="{{ path('entity.taxonomy_term.canonical', {'taxonomy_term': 22}) }}">Для рук</a></li>
+                    <li><a href="{{ path('entity.taxonomy_term.canonical', {'taxonomy_term': 23}) }}">Для тела</a></li>
+                    <li><a href="{{ path('entity.taxonomy_term.canonical', {'taxonomy_term': 24}) }}">Для дома</a></li>
+                    <li><a href="{{ path('entity.taxonomy_term.canonical', {'taxonomy_term': 25}) }}">Travel</a></li>
+                    <li><a href="/">Сертификаты</a></li>
+                  </ul>
+                </div>
               </div>
-            </div>
-            <div class="col-xl-2 hide show-xl">
-              <div class="page-footer__menu">
-                <h4>Клиентам</h4>
-                <ul>
-                  <li><a href="{{ path('entity.node.canonical', {'node': 17}) }}">О нас</a></li>
-                  <li><a href="{{ path('entity.node.canonical', {'node': 6}) }}">Доставка</a></li>
-                  <li><a href="{{ path('entity.node.canonical', {'node': 7}) }}">Оплата</a></li>
-                  <li><a href="{{ path('entity.node.canonical', {'node': 8}) }}">Обмен и возврат</a></li>
-                  <li><a href="{{ path('entity.node.canonical', {'node': 9}) }}">Сотрудничество</a></li>
-                  <li><a href="{{ path('entity.node.canonical', {'node': 5}) }}">Исследования</a></li>
-                  <li><a href="/blog">Новости</a></li>
-                  <li><a href="{{ path('entity.node.canonical', {'node': 10}) }}">Контакты</a></li>
-                </ul>
+              <div class="col-xl-2 hide show-xl">
+                <div class="page-footer__menu">
+                  <h4>Клиентам</h4>
+                  <ul>
+                    <li><a href="{{ path('entity.node.canonical', {'node': 17}) }}">О нас</a></li>
+                    <li><a href="{{ path('entity.node.canonical', {'node': 6}) }}">Доставка</a></li>
+                    <li><a href="{{ path('entity.node.canonical', {'node': 7}) }}">Оплата</a></li>
+                    <li><a href="{{ path('entity.node.canonical', {'node': 8}) }}">Обмен и возврат</a></li>
+                    <li><a href="{{ path('entity.node.canonical', {'node': 9}) }}">Сотрудничество</a></li>
+                    <li><a href="{{ path('entity.node.canonical', {'node': 5}) }}">Исследования</a></li>
+                    <li><a href="/blog">Новости</a></li>
+                    <li><a href="{{ path('entity.node.canonical', {'node': 10}) }}">Контакты</a></li>
+                  </ul>
+                </div>
               </div>
-            </div>
-            <div class="col-xl-fill hide show-xl">
-              <div class="page-footer__menu">
-                <h4>Информация</h4>
-                <ul>
-                  <li><a href="{{ path('entity.node.canonical', {'node': 12}) }}">Согласие на обработку персональных данных</a></li>
-                  <li><a href="/sites/default/files/attachments/misc/personal-data-policy.pdf" title="Файл в формате PDF">Политика в отношении обработки персональных данных</a></li>
-                  <li><a href="{{ path('entity.node.canonical', {'node': 3}) }}">Политика конфиденциальности</a></li>
-                  <li><a href="{{ path('entity.node.canonical', {'node': 11}) }}">Договор публичной оферты</a></li>
-                </ul>
+              <div class="col-xl-fill hide show-xl">
+                <div class="page-footer__menu">
+                  <h4>Информация</h4>
+                  <ul>
+                    <li><a href="{{ path('entity.node.canonical', {'node': 12}) }}">Согласие на обработку персональных данных</a></li>
+                    <li><a href="/sites/default/files/attachments/misc/personal-data-policy.pdf" title="Файл в формате PDF">Политика в отношении обработки персональных данных</a></li>
+                    <li><a href="{{ path('entity.node.canonical', {'node': 3}) }}">Политика конфиденциальности</a></li>
+                    <li><a href="{{ path('entity.node.canonical', {'node': 11}) }}">Договор публичной оферты</a></li>
+                  </ul>
+                </div>
               </div>
-            </div>
-            <div class="col-xl hide show-xl">
-              <div class="page-footer__menu">
-                <h4>Контакты</h4>
-                <ul>
-                  <li><a href="tel:+79229226774">8 (922) 922-67-74</a></li>
-                  <li><a href="mailto:joypremium_zakaz@kccc.ru">joypremium_zakaz@kccc.ru</a></li>
-                  <li><a href="{{ path('entity.node.canonical', {'node': 13}) }}" class="button button--primary">Задать вопрос</a></li>
-                </ul>
+              <div class="col-md-5 col-lg col-xl hide show-md">
+                <div class="page-footer__menu">
+                  <h4 class="hide show-xl">Контакты</h4>
+                  <ul>
+                    <li><a href="tel:+79229226774">8 (922) 922-67-74</a></li>
+                    <li><a href="mailto:joypremium_zakaz@kccc.ru">joypremium_zakaz@kccc.ru</a></li>
+                    <li class="hide show-xl"><a href="{{ path('entity.node.canonical', {'node': 13}) }}" class="button button--primary">Задать вопрос</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-5 hide show-md-only">
+                <a href="{{ path('entity.node.canonical', {'node': 13}) }}" class="button button--primary">Задать вопрос</a>
               </div>
             </div>
           </div>
         </div>
-        </div>
         <div class="page-footer__row2">
           <div class="container-fluid">
             <div class="row">
-              <div class="col-xs-10 col-md-7 col-xl-8">
+              <div class="col-xs-10 col-md-10 col-xl-8">
                 <div class="production">
                   КОСМЕТИКА РАЗРАБОТАНА GREEN GROW CHEMICAL TRADING FZE (Dubai United Arab Emirates)<br>
                   Производство частично локализовано в России.<br>
                   Фабрика-партнер ООО "Страда".
                 </div>
               </div>
-              <div class="col-xs-10 col-md-3 col-xl-2">
+              <div class="col-xs-10 col-md-10 col-xl-2">
                 <div class="copyright">
                   Joy Premium © 2025
                 </div>
@@ -245,7 +272,7 @@
       </div>
     </footer>
 
-    <div id="back-to-top" data-drupal-selector="back-to-top"><i class="icon icon-back-to-top"></i></div>
+    <div id="back-to-top" data-drupal-selector="back-to-top"><i class="picon picon--arrow-up"></i></div>
 
   </div>
 

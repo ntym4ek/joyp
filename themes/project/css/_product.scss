@@ -11,12 +11,10 @@
 }
 
 .product-care--summary {
-  margin: 0 auto; padding: 50px 0;
-  width: 233px;
   position: relative;
 
   .product-care__title {
-    display: flex; align-items: center; justify-content: space-between;
+    display: flex; align-items: self-end; justify-content: space-between;
     a {
       color: inherit;
       padding-right: 1rem;

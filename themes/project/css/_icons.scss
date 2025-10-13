@@ -22,6 +22,7 @@ i.picon {
   &--arrow-left::before { mask-image: url('../images/icons/arrow-left.svg'); }
   &--arrow-right::before { mask-image: url('../images/icons/arrow-right.svg'); }
   &--arrow-down::before { mask-image: url('../images/icons/arrow-down.svg'); }
+  &--arrow-up::before { mask-image: url('../images/icons/arrow-up.svg'); }
   &--menu::before { mask-image: url('../images/icons/menu.svg'); }
 
   &--left { margin-right: 10px; }

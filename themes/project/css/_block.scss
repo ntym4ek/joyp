@@ -131,12 +131,9 @@
     &:hover img { transform: scale(1.02); }
   }
   .views-field-name {
-    padding: 30px 0;
     height: 100px;
     .field-content {
       display: block;
-      margin: 0 auto;
-      width: 235px;
       transition: all 0.3s;
       &:hover { transform: translateY(-4px); }
       a {

@@ -14,3 +14,17 @@
     &::before { background-color: $brand-cocoa; }
   }
 }
+
+.project-padding {
+  padding: 1rem $gutter-xs;
+
+  @media #{$pad}   {
+    padding: 1rem $gutter-md;
+  }
+  @media #{$tablet}   {
+    padding: 1rem $gutter-lg;
+  }
+  @media #{$laptop}   {
+    padding: 2rem $gutter-xl;
+  }
+}
