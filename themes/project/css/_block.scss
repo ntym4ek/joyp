@@ -1,6 +1,7 @@
 @import "variables";                                                            // чтобы переменные не подсвечивались
 
 .block {
+  &:first-of-type > h2 { margin-top: 0; }
   .section-title {
     display: flex; justify-content: space-between; align-items: center;
     padding: 2rem 0;

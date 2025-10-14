@@ -217,7 +217,7 @@
 
     .picon--left { margin-right: 0; }
   }
-  .badge { font-family: $font-name2; }
+  .badge { font-family: $font-name2; text-indent: 0; }
 
   @media #{$laptop}   {
     &__inner {

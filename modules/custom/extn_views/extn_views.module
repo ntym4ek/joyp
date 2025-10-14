@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * Implements hook_views_data_alter().
+ */
+function extn_views_views_data_alter(array &$data)
+{
+  if (isset($data['node_field_data'])) {
+    $data['node_field_data']['recent_nodes_filter'] = [
+      'title' => t('Recent nodes'),
+      'help' => t('Filter recent nodes excluding current context.'),
+      'filter' => [
+        'id' => 'recent_nodes_filter',
+      ],
+    ];
+  }
+}
+
+
+
+

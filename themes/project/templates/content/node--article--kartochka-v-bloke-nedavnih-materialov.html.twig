@@ -73,10 +73,6 @@
 {{ attach_library('base9/node') }}
 <article{{ attributes.addClass(classes) }}>
 
-  <div class="node__image">
-    {{ content.field_image }}
-  </div>
-
   <div{{ content_attributes.addClass('node__content') }}>
     <div class="node__date">{{ date }}</div>
     <h2><a href="{{ url }}">{{ label }}</a></h2>

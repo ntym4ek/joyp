@@ -35,19 +35,13 @@
     color: $gray-light; font-family: $font-name2; text-transform: uppercase;
   }
 
-  &.node--view-mode-teaser {
+  &.node--view-mode-teaser,
+  &.node--view-mode-kartochka-v-bloke-nedavnih-materialov {
     h2 {
       font-size: $font-size-base; text-transform: none;
       margin: 0 0 1rem 0;
     }
 
-    .field--name-field-image {
-      height: 250px;
-      img {
-        object-fit: cover;
-        width: 100%; height: 100%;
-      }
-    }
     .field--name-title {
       font-family: $font-name; text-overflow: ellipsis;
     }
@@ -55,20 +49,39 @@
       font-size: $font-size-large;
       margin-bottom: 1rem;
     }
-    .node__content { padding-top: 1rem; padding-bottom: 1rem; }
     .node__tags { text-transform: lowercase; }
 
+  }
+
+  &.node--view-mode-teaser {
+    .field--name-field-image {
+      height: 250px;
+      img {
+        object-fit: cover;
+        width: 100%; height: 100%;
+      }
+    }
+    .node__content {
+      @include padding-block(16, 32, 32);
+    }
+
     @media #{$laptop} {
-      .node__content { padding-top: 2rem; padding-bottom: 2rem; }
       .field--name-field-image { height: 300px; }
       .field--name-title {
         display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
         height: 4rem;
         overflow: hidden;
       }
-
     }
   }
+
+  &.node--view-mode-kartochka-v-bloke-nedavnih-materialov {
+    padding: 1rem $gutter-xs;
+
+    @media #{$pad} { padding: 1rem $gutter-md; }
+    @media #{$laptop} { padding: 2rem; }
+  }
+
 
   &.node--view-mode-full {
     margin-bottom: 2rem;

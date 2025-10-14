@@ -1,0 +1,7 @@
+name: Extn Views
+type: module
+description: 'Расширение функционала Views'
+package: xCustom
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:views
