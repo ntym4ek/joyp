@@ -74,7 +74,7 @@
 <article{{ attributes.addClass(classes) }}>
 
   {{ title_prefix }}
-  {% if label  %}
+  {% if label and content.body|render|trim  %}
     <h1{{ title_attributes }}>
       {{ label }}
     </h1>

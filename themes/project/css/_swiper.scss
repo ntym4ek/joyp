@@ -17,9 +17,9 @@
 
 
 .slider {
-  display: flex;
+  display: grid;
+  grid-template-columns: 15% 85%;
   &__thumbs {
-    flex: 0 0 auto;
     img {
       height: 80px; width: 80px;
       object-fit: cover;

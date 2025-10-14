@@ -2,31 +2,45 @@
 
 .taxonomy-term {
   .field--name-field-image img {
-    object-fit: contain;
-    width: 100%;
+    object-fit: cover;
+    width: 100%; height: 100%;
   }
 }
 
 .taxonomy-term--full.vocabulary-aromas {
-
   .field--name-field-teaser {
-    font-size: $font-size-h2; font-family: $font-name2; text-transform: uppercase;
+    font-size: $font-size-h3; font-family: $font-name2; text-transform: uppercase;
   }
 
-  .description {
-    border-bottom: 1px solid $gray-lightest;
-    padding: $gutter-md;
+  .image--aroma {
+    height: 300px;
+
+    > .field--name-field-image { height: 100%; }
   }
+  .description { border-bottom: 1px solid $gray-lightest; }
 
   .field--name-field-smells {
-    padding: $gutter-md;
-
     .field__label {
-      font-size: $font-size-h2; font-family: $font-name2; font-weight: 400; text-transform: uppercase;
+      font-size: $font-size-h3; font-family: $font-name2; font-weight: 400; text-transform: uppercase;
       margin-bottom: 1rem;
     }
     .field__items {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+      @media #{$pad} { grid-template-columns: 1fr 1fr 1fr; }
     }
+  }
+
+  .description,
+  .field--name-field-smells {
+    @include padding-block(20, 50, 70);
+  }
+
+  @media #{$pad} {
+    .image--aroma { height: 500px; }
+  }
+  @media #{$laptop} {
+    .field--name-field-teaser,
+    .field--name-field-smells .field__label { font-size: $font-size-h2;  }
+    .image--aroma { height: initial; }
   }
 }

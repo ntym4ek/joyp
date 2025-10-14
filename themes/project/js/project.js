@@ -46,7 +46,7 @@
               '</div>');
 
             $(element).prepend(
-              '<div class="mobile-exposed__header project-padding border-b">' +
+              '<div class="mobile-exposed__header padding-side border-b">' +
                 '<div class="h4">Фильтры</div>' +
                 '<i class="picon picon--cross"></i>' +
               '</div>'

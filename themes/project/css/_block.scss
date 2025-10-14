@@ -138,6 +138,7 @@
     &:hover img { transform: scale(1.02); }
   }
   .views-field-name {
+    font-size: $font-size-h4;
     height: 60px;
     padding-top: 1rem;
     .field-content {
@@ -145,13 +146,16 @@
       transition: all 0.3s;
       &:hover { transform: translateY(-4px); }
       a {
-        color: inherit; font-family: $font-name2; font-size: $font-size-h3; text-transform: uppercase;
+        color: inherit; font-family: $font-name2; text-transform: uppercase;
       }
     }
+
+    @include padding-side();
   }
 
   @media #{$laptop} {
     .views-field-name {
+      font-size: $font-size-h3;
       height: 100px;
       padding-top: 2rem;
     }
