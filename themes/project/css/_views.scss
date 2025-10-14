@@ -4,9 +4,19 @@
   .view-empty { padding: 2rem 0; }
 
   .view-content {
-
     h3, h4 { margin-top: 0;}
+  }
+}
 
+
+.view-katalog,
+.view-kategorii,
+.view-aromas,
+.view-karusel-produktov,
+.view-karusel-kategoriy,
+.view-novosti,
+.view-blog {
+  .view-content {
     @include row('true', $gutter-xs);
     @media #{$pad}      { @include row('true', $gutter-md); }
     @media #{$tablet}   { @include row('true', $gutter-lg); }

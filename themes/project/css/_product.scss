@@ -217,8 +217,8 @@
 .product-care--mini {
   .product-care__image {
     border: 1px solid $gray-lightest;
-    margin-right: 2rem;
-    width: 70px;
+    margin-right: 1rem;
+    width: 50px;
   }
   .product-care__row {
     display: flex;
@@ -232,6 +232,13 @@
   .product-care__price {
     font-size: $font-size-large;
     gap: 1rem;
+  }
+
+  @media #{$laptop} {
+    .product-care__image {
+      margin-right: 2rem;
+      width: 70px;
+    }
   }
 }
 
