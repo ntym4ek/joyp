@@ -23,21 +23,26 @@
  * @ingroup themeable
  */
 #}
-<article{{ attributes.addClass(['product', 'product--summary', 'product-care', 'product-care--summary']) }}>
-  <div class="product-care__image">
+<article{{ attributes.addClass(['product', 'product--summary', 'product--sertifikat']) }}>
+  <div class="product__image">
     {{- product.field_p_images[0] -}}
     {% if product.discount %}
-      <div class="product-care__discount">
+      <div class="product__discount">
         {{- product.discount -}}
       </div>
     {% endif %}
   </div>
-  <div class="product-care__title">
-    <a href="{{ product_url }}"><h4>{{- product.title -}}</h4></a>
-    {{- product.variations -}}
-  </div>
-  <div class="product-care__price">
-    {{- product.variation_price -}}
-    {{- product.variation_list_price -}}
+  <div class="product__content">
+    <div class="product__title">
+      <a href="{{ product_url }}"><h4>{{- product.title -}}</h4></a>
+      {{- product.variations -}}
+    </div>
+    <div class="product__price">
+      {{- product.variation_price -}}
+      {{- product.variation_list_price -}}
+    </div>
+    <div class="product__actions">
+      <a href="{{ product_url }}" class="button button--primary button--full-width">Подробнее</a>
+    </div>
   </div>
 </article>

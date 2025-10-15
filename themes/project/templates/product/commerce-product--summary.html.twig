@@ -23,17 +23,23 @@
  * @ingroup themeable
  */
 #}
-<article{{ attributes.addClass(['product-care', 'product-care--mini']) }}>
-  <div class="product-care__row">
-    <div class="product-care__image">
-      {{- product.field_p_images[0] -}}
-    </div>
-    <div class="product-care__summary">
-      <div class="product-care__title">{{- product.title -}}</div>
-      <div class="product-care__price">
-        {{- product.variation_price -}}
-        {{- product.variation_list_price -}}
+<article{{ attributes.addClass(['product', 'product--summary']) }}>
+  <div class="product__image">
+    {{- product.field_p_images[0] -}}
+    {% if product.discount %}
+      <div class="product__discount">
+        {{- product.discount -}}
       </div>
+    {% endif %}
+  </div>
+  <div class="product__content">
+    <div class="product__title">
+      <a href="{{ product_url }}"><h4>{{- product.title -}}</h4></a>
+      {{- product.variations -}}
+    </div>
+    <div class="product__price">
+      {{- product.variation_price -}}
+      {{- product.variation_list_price -}}
     </div>
   </div>
 </article>

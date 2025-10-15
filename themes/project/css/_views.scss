@@ -8,7 +8,7 @@
   }
 }
 
-
+.view-front-slider,
 .view-katalog,
 .view-kategorii,
 .view-aromas,
@@ -25,7 +25,7 @@
 }
 
 
-.view-katalog {
+.view-katalog.view-display-id-page_1 {
   .views-row {
     flex-basis: 100%; max-width: 100%;
     border-top: 1px solid $gray-lightest;
@@ -44,6 +44,25 @@
     @media #{$laptop}   {
       flex-basis: 25%; max-width: 25%;
       padding: 3rem $gutter-xl;
+    }
+  }
+}
+.view-katalog.view-display-id-page_2 {
+  .views-row {
+    flex-basis: 100%; max-width: 100%;
+    border-top: 1px solid $gray-lightest;
+    box-sizing: border-box;
+    &:nth-child(1) { border-top: none; }
+
+    .product__content { @include padding-block(16, 20, 32); }
+
+    @media #{$pad}      {
+      border-right: 1px solid $gray-lightest;
+      &:nth-child(2) { border-top: none; }
+      flex-basis: 50%; max-width: 50%;
+    }
+    @media #{$laptop}   {
+      flex-basis: 33.3%; max-width: 33.3%;
     }
   }
 }

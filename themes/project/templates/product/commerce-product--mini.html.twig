@@ -23,14 +23,17 @@
  * @ingroup themeable
  */
 #}
-<article{{ attributes.addClass(['product-care', 'product-care--cart']) }}>
-  <div class="product-care__row">
-    <div class="product-care__image">
+<article{{ attributes.addClass(['product', 'product--mini']) }}>
+  <div class="product__row">
+    <div class="product__image">
       {{- product.field_p_images[0] -}}
     </div>
-    <div class="product-care__summary">
-      {{- product.title -}}
-      {{- product.field_p_volume -}}
+    <div class="product__summary">
+      <div class="product__title">{{- product.title -}}</div>
+      <div class="product__price">
+        {{- product.variation_price -}}
+        {{- product.variation_list_price -}}
+      </div>
     </div>
   </div>
 </article>

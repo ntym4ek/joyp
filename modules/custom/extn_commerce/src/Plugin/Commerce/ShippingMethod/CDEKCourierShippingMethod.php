@@ -115,9 +115,6 @@ class CDEKCourierShippingMethod extends ShippingMethodBase {
       }
     }
 
-//    $subtotal = $shipment->getOrder()->getSubTotalPrice()->getNumber();
-//    if ($subtotal > 2500) { }
-
     $amount = new Price((string) $shipping_amount, $shipment->getOrder()->getTotalPrice()->getCurrencyCode());
     $amount = $this->rounder->round($amount);
 

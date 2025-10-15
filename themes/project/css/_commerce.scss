@@ -1,5 +1,10 @@
 @import "variables";                                                            // чтобы переменные не подсвечивались
 
+// форма добавления в корзину в карточке товара
+.commerce-order-item-add-to-cart-form {
+  .form-actions { margin: 0; }
+}
+
 .cart-form,
 .commerce-checkout-flow {
 
@@ -327,7 +332,7 @@
       &__qty { text-align: center; }
       &__total_price { text-align: right; }
 
-      .product-care { flex: auto; }
+      .product { flex: auto; }
       img { width: 50px; }
     }
 

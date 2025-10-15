@@ -23,7 +23,7 @@
  * @ingroup themeable
  */
 #}
-<article{{ attributes.addClass(['product', 'product--full', 'product-care']) }}>
+<article{{ attributes.addClass(['product', 'product--full', 'product-sertifikat']) }}>
   <div class="row border-t">
     <div class="col-xs-10 col-md-10 col-lg-10 col-xl-4 border-r">
       <div class="product__image">
@@ -59,40 +59,8 @@
   </div>
 
   <div class="product__description row border-t">
-    <div class="tabs-js">
-      <div class="tabs-js__nav scrollable page-offside-disabled">
-        <a class="tabs-js__link tabs-js__link--active" data-target-id="1">Описание</a>
-        <a class="tabs-js__link" data-target-id="2">Состав</a>
-        <a class="tabs-js__link" data-target-id="3">Аромат</a>
-        <a class="tabs-js__link" data-target-id="4">Секретный ингредиент</a>
-        <a class="tabs-js__link" data-target-id="5">Способ применения</a>
-      </div>
-
-      <div class="tabs-js__content tabs-js__content--visible" data-id="1">
-        <div class="col-xs-10 col-md-10 col-lg-10 col-xl-6">
-          {{- product.body -}}
-        </div>
-      </div>
-      <div class="tabs-js__content" data-id="2">
-        <div class="col-xs-10 col-md-10 col-lg-10 col-xl-6">
-          {{- product.field_p_composition -}}
-        </div>
-      </div>
-      <div class="tabs-js__content" data-id="3">
-        <div class="col-xs-10 col-md-10 col-lg-10 col-xl-6">
-          {{- product.field_p_aroma[0]['#entity']|view('product_aroma') -}}
-        </div>
-      </div>
-      <div class="tabs-js__content" data-id="4">
-        <div class="col-xs-10 col-md-10 col-lg-10 col-xl-6">
-          Содержимое 4... Lorem ipsum dolor sit, amet consectetur adipisicing elit. Similique eaque iure debitis nostrum, vero ad totam ratione sequi! Suscipit, labore repellat cum soluta ullam dignissimos perspiciatis sequi rerum sapiente ex.
-        </div>
-      </div>
-      <div class="tabs-js__content" data-id="5">
-        <div class="col-xs-10 col-md-10 col-lg-10 col-xl-6">
-          {{- product.field_p_instructions -}}
-        </div>
-      </div>
+    <div class="col-xs-10 col-md-10 col-lg-10 col-xl-6">
+      {{- product.body -}}
     </div>
   </div>
 </article>
