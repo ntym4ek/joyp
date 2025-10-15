@@ -1,6 +1,7 @@
 /**
  * @file
- * Скрипты на странице Оформления заказа
+ * Подключение виджета СДЭК
+ * https://widget.cdek.ru/
  */
 
 var widget = null;
@@ -33,12 +34,12 @@ var timer = null;
         (element) => {
 
           document.addEventListener('inputDropdownFilterKeyUp', (event) => {
+            let menu = event.detail.source[0].parentElement.querySelector('.input-dropdown-menu');
             let current_city = event.detail.dest[0].value;
             if (current_city.length > 2) {
               clearTimeout(timer);
               timer = setTimeout(() => {
                 // заблюрить список
-                let menu = event.detail.source[0].parentElement.querySelector('.input-dropdown-menu');
                 menu.classList.add('processing');
 
                 // добавить ajax throbber

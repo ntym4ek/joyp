@@ -27,7 +27,7 @@ class GiftMessagePane extends CheckoutPaneBase {
       '#markup' =>  '<div class="gift-message">' .
                       '<div class="gift-message__intro">' .
                         '<div class="gift-message__image"><img src="' . $image_url . '" /></div>' .
-                        '<div class="gift-message__message">В заказ можно вложить подписанную открытку.<br />Если хотите, напишите текст открытки, но не более 200 знаков.</div>' .
+                        '<div class="gift-message__message">В заказ можно вложить подписанную открытку. Если хотите, напишите текст открытки, но&nbsp;не&nbsp;более 200&nbsp;знаков.</div>' .
                       '</div>' .
                     '</div>',
     ];

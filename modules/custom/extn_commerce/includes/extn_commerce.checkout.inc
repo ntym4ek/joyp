@@ -34,7 +34,7 @@ function extn_commerce_form_commerce_checkout_flow_multistep_default_alter(&$for
   // модальное окно ввода сертификата
   if (isset($form["commerce_giftcard_redemption"])) {
     $form['#attached']['library'][] = 'extn_commerce/commerce-giftcard-modal';
-    $form["commerce_giftcard_redemption"]["#prefix"] = '<div class="checkout-pane">';
+    $form["commerce_giftcard_redemption"]["#prefix"] = '<div class="checkout-pane checkout-pane--promotions"><div class="checkout-pane__content">';
     $form["commerce_giftcard_redemption"]["form"]["code"]["#type"] = 'hidden';
     $form["commerce_giftcard_redemption"]["form"]["apply"]["#attributes"]['class'][] = 'js-hide';
     $form["commerce_giftcard_redemption"]["form"]["#element_validate"][] = 'extn_commerce_commerce_giftcard_redemption_element_validate';
@@ -49,7 +49,7 @@ function extn_commerce_form_commerce_checkout_flow_multistep_default_alter(&$for
   // модальное окно ввода промокода
   if (isset($form["coupon_redemption"])) {
     $form['#attached']['library'][] = 'extn_commerce/commerce-promocode-modal';
-    $form["coupon_redemption"]["#suffix"] = '</div>';
+    $form["coupon_redemption"]["#suffix"] = '</div></div>';
     $form["coupon_redemption"]["form"]["code"]["#type"] = 'hidden';
     $form["coupon_redemption"]["form"]["apply"]["#attributes"]['class'][] = 'js-hide';
     $form["coupon_redemption"]["form"]["#element_validate"][] = 'extn_commerce_coupon_redemption_element_validate';

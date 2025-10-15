@@ -5,7 +5,6 @@
 }
 
 .webform-submission-sotrudnichestvo-form {
-
   .webform-section-wrapper {
     display: flex; flex-wrap: wrap; gap: 0 1rem;
     > div { flex: 1 0 48%; }
@@ -15,7 +14,6 @@
 }
 
 .webform-submission-podpisatsya-na-novosti-form {
-
   .row { padding: 2rem 0; }
 
   .webform-type-email { margin-top: 0; }
@@ -30,6 +28,13 @@
       > * { flex: 100%; }
     }
     .form-actions .form-submit { width: initial; }
+  }
+}
+
+.webform-submission-contact-add-form {
+  .form-actions .form-submit {
+    width: 100%;
+    @media #{$laptop}  { width: initial; }
   }
 
 }

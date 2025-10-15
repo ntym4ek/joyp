@@ -4,8 +4,8 @@
 .commerce-checkout-flow {
 
   .sidebar {
-    border-left: 1px solid $gray-lightest;
-    padding-top: 4rem; padding-bottom: 4rem;
+    border-top: 1px solid $gray-lightest;
+    padding-top: 25px; padding-bottom: 25px;
     h3 { margin-top: 0; }
     .form-actions {
       margin-top: 2rem;
@@ -13,6 +13,11 @@
         margin: 0;
         width: 100%;
       }
+    }
+
+    @media #{$laptop} {
+      border-left: 1px solid $gray-lightest; border-top: none;
+      padding-top: 4rem; padding-bottom: 4rem;
     }
   }
 
@@ -35,10 +40,10 @@
 
     > .checkout-pane,
     #shipping-information-wrapper > .checkout-pane {
-      @include row('true', $gutter-md);
       border-bottom: 1px solid $gray-lightest;
       flex: 100%;
-      padding: 2rem 0;
+      padding: 25px 0;
+      @media #{$laptop} { padding: 40px 0; }
     }
 
     .checkout-pane--complete,
@@ -47,51 +52,70 @@
     }
   }
 
-  .form-radios {
-    display: flex;
-    .form-type-radio {
-      flex: 0 0 50%;
-      border: 1px solid $gray-lightest;
-      &:last-of-type:not(:first-child) { border-left: none; }
-      margin: 0; padding: 50px;
-    }
-  }
-
   .checkout-pane {
     &__title,
     &__content {
-      @include col('xs', 10, $gutter-md);
+      @include padding-side();
     }
 
     &__title {
-      font-family: $font-name2; font-size: $font-size-h2; text-transform: uppercase;
-      padding-bottom: 2rem;
-    }
+      font-family: $font-name2; font-size: $font-size-h3; text-transform: uppercase;
+      padding-bottom: 1rem;
 
+      @media #{$laptop} {
+        font-size: $font-size-h3;
+        padding-bottom: 2rem;
+      }
+    }
+  }
+
+  .form-radios {
+    display: flex; flex-wrap: wrap;
+    .form-type-radio {
+      flex: 0 0 100%;
+      border: 1px solid $gray-lightest; border-bottom: 0;
+      &:last-child { border-bottom: 1px solid $gray-lightest; }
+      margin: 0; padding: 1rem;
+
+      @media #{$laptop} {
+        border-bottom: 1px solid $gray-lightest; border-left: none;
+        &:first-child { border-left: 1px solid $gray-lightest; }
+        flex: 0 0 50%;
+        padding: 50px;
+      }
+    }
   }
 }
 
 .checkout-pane-contact-information {
-  .checkout-pane__content {
-    display: flex; flex-wrap: wrap;
-    column-gap: 1rem;
-  }
-  .form-item-contact-information-email,
-  .form-item-contact-information-phone {
-    flex: 1 0 45%;
-  }
-  .form-item-contact-information-surname,
-  .form-item-contact-information-name,
-  .form-item-contact-information-name2 {
-    flex: 1 0 30%;
+  @media #{$pad} {
+    .checkout-pane__content {
+      display: flex; flex-wrap: wrap;
+      column-gap: 1rem;
+    }
+    .form-item-contact-information-email,
+    .form-item-contact-information-phone {
+      flex: 1 0 45%;
+    }
+    .form-item-contact-information-surname,
+    .form-item-contact-information-name,
+    .form-item-contact-information-name2 {
+      flex: 1 0 30%;
+    }
   }
 }
 
 #shipping-information-wrapper { width: 100%; }
 
+.checkout-pane--promotions > .checkout-pane__content {
+  display: grid; gap: 1rem; grid-template-columns: 1fr;
+
+  @media #{$pad} { grid-template-columns: 1fr 1fr; }
+}
 .checkout-pane-commerce-giftcard-redemption,
 .checkout-pane-coupon-redemption {
   flex: 0 0 50%;
+  .checkout-pane__content { padding: 0; }
   .item {
     display: flex;
     &__action { flex: 0 0 auto; }
@@ -109,8 +133,6 @@
   }
 }
 
-.checkout-pane-commerce-giftcard-redemption .checkout-pane__content { padding-right: 2rem; }
-.checkout-pane-coupon-redemption .checkout-pane__content { padding-left: 2rem; }
 .checkout-pane-payment-information,
 .checkout-pane-shipping-information {
   fieldset {
@@ -124,12 +146,25 @@
 .checkout-pane-extn-commerce-gift-message {
   .gift-message {
     &__intro {
-      display: flex; align-items: center;
-      width: 630px;
+      display: flex; flex-wrap: wrap;
     }
     &__image {
-      flex: 0 0 180px;
-      margin-right: 2rem;
+      flex: 0 0 100%;
+      margin-bottom: 1rem;
+      img { width: 100%; }
+    }
+
+    @media #{$pad} {
+      flex-wrap: nowrap;
+      &__intro {
+        flex-wrap: nowrap; align-items: center;
+        max-width: 630px;
+      }
+      &__image {
+        flex: 0 0 180px;
+        margin: 0 2rem 0 0;
+      }
+
     }
   }
 }
