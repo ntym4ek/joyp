@@ -20,11 +20,6 @@
           </div>
         </div>
         <div class="order__footer">
-          <div class="order__actions">
-            {% for action in order.actions %}
-              {{ action }}
-            {% endfor %}
-          </div>
           <div class="order__summary">
             {% for item in order.summary %}
             <div class="summary__row">
@@ -32,6 +27,11 @@
               <div class="notes col--2">{{ item.notes }}</div>
               <div class="amount col--3">{{ item.amount }}</div>
             </div>
+            {% endfor %}
+          </div>
+          <div class="order__actions">
+            {% for action in order.actions %}
+              {{ action }}
             {% endfor %}
           </div>
         </div>
