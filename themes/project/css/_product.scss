@@ -192,6 +192,11 @@
           width: 100%;
         }
       }
+      .field--name-field-teaser {
+        font-size: $font-size-h3; font-family: $font-name2; text-transform: uppercase;
+        margin-bottom: 1rem;
+        @media #{$laptop} { font-size: $font-size-h2; }
+        }
       .field--name-description { margin-bottom: 1rem; }
       .field--name-field-smells {
         display: grid; gap: 1rem; grid-template-columns: 1fr 1fr;

@@ -1,5 +1,7 @@
 <?php
 
+use Drupal\views\ViewExecutable;
+
 /**
  * Implements hook_views_data_alter().
  */
@@ -16,6 +18,22 @@ function extn_views_views_data_alter(array &$data)
   }
 }
 
-
+/**
+ * Implements hook_views_pre_view().
+ */
+function extn_views_views_pre_view(ViewExecutable $view, $display_id, array &$args)
+{
+  // На странице Продукта выводится блок Будет интересно с релевантными по Аромату продуктами.
+  // Так как нужного контекста в URL нет, добавляем аргумент (ID аромата из поля field_p_aroma Продукта) вручную.
+  // Также исключаем из вывода продукт, на странице которого находимся.
+  if ($view->id() === 'karusel_produktov' && $display_id === 'block_3') {
+    $commerce_product = \Drupal::routeMatch()->getParameter('commerce_product');
+    if ($commerce_product && $commerce_product->hasField('field_p_aroma') && !$commerce_product->get('field_p_aroma')->isEmpty()) {
+      $term_id = $commerce_product->get('field_p_aroma')->target_id;
+      $args[0] = $term_id;
+    }
+    $view->query->addWhere('AND', 'product_id', $commerce_product->id(), '!=');
+  }
+}
 
 
