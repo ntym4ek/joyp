@@ -26,6 +26,7 @@ i.picon {
   &--menu::before { mask-image: url('../images/icons/menu.svg'); }
   &--filter::before { mask-image: url('../images/icons/filter.svg'); }
   &--cross::before { mask-image: url('../images/icons/cross.svg'); }
+  &--search::before { mask-image: url('../images/icons/search.svg'); }
 
   &--left { margin-right: 10px; }
   &--right { margin-left: 10px; }

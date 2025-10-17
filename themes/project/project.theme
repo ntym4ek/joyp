@@ -132,6 +132,10 @@ function project_preprocess_page(array &$vars): void
   // (по-умолчанию рядом с элементом)
   $vars['attributes']['data-drupal-ajax-container'] = '';
 
+
+  // форма поиска
+  $vars['search_form'] = \Drupal::formBuilder()->getForm(\Drupal\extn_form\Form\SearchForm::class);
+
 }
 
 /**
