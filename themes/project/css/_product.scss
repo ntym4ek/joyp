@@ -120,6 +120,7 @@
         color: $brand-cocoa; font-weight: 400;
         &:after { content: none; }
       }
+      &__items { text-align: right; }
       div { padding: 0; }
       &:after { content: none; }
     }

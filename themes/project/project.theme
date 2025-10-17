@@ -267,11 +267,13 @@ function project_preprocess_swiper_formatter(array &$vars): void
   if ($vars["id"] == 'swiper-front-slider-block-1') {
     foreach ($vars['content'] as &$item) {
       $term = $item["#slide"]["#taxonomy_term"];
-      $file = $term->get('field_image_mobile')->entity;
+      if ($term->hasField('field_image_mobile')) {
+        $file = $term->get('field_image_mobile')->entity;
 
-      if ($file) {
-        $uri = $file->getFileUri();
-        $item['#thumb'] = ImageStyle::load('thumbnail')->buildUrl($uri);
+        if ($file) {
+          $uri = $file->getFileUri();
+          $item['#thumb'] = ImageStyle::load('thumbnail')->buildUrl($uri);
+        }
       }
     }
   }
