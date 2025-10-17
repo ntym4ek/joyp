@@ -59,7 +59,7 @@
   }
   .col-xs-10 {
     border-bottom: 1px solid $gray-lightest;
-    display: flex; justify-content: center; align-items: center;
+    display: flex; align-items: center;
     &:last-child { border-bottom: none; }
   }
   .content { padding: 1rem 0; }
@@ -105,6 +105,9 @@
   .row { border-top: 1px solid $gray-lightest; }
 }
 
+.block-luxury-symbol {
+  .image { max-height: 380px; }
+}
 
 
 .block-product-categories {
