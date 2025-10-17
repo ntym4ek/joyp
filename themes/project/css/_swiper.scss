@@ -43,9 +43,10 @@
 .view {
   .swiper-container { margin: 0; }
 }
+
 .view-front-slider {
   .slider {
-    display: flex;
-    &__thumbs { flex: 0 0 11.5%; }
+    grid-template-columns: 0 100%;
+    @media #{$laptop} { grid-template-columns: 12% 88%; }
   }
 }

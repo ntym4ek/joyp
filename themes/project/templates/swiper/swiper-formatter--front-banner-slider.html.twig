@@ -18,15 +18,14 @@
   {% if content is not empty %}
 
     <div class="slider">
-      <div class="slider__thumbs hide show-xl">
+      <div class="slider__thumbs">
         <div class="swiper-thumbs" data-parent-swiper-id="{{ id }}">
           <div class="swiper-wrapper">
+            {% for item in content %}
             <div class="swiper-slide">
-              <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
+              <img src="{{ item['#thumb'] }}" />
             </div>
-            <div class="swiper-slide">
-              <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-            </div>
+            {% endfor %}
           </div>
         </div>
       </div>

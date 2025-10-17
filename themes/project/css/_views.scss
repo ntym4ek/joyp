@@ -8,7 +8,6 @@
   }
 }
 
-.view-front-slider,
 .view-katalog,
 .view-kategorii,
 .view-aromas,
@@ -24,6 +23,14 @@
   }
 }
 
+// слайдер нервно реагирует на flex обёртку (row)
+// поэтому прописываем отрицательный отступ ручками
+.view-front-slider {
+  margin: 0 (-$gutter-xs);
+  @media #{$pad}      { margin: 0 (-$gutter-md); }
+  @media #{$tablet}   { margin: 0 (-$gutter-lg); }
+  @media #{$laptop}   { margin: 0 (-$gutter-xl); }
+}
 
 .view-katalog.view-display-id-page_1 {
   .views-row {
