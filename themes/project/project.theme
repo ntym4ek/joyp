@@ -255,6 +255,9 @@ function project_preprocess_menu(array &$vars)
       if (in_array($item['title'], ['Войти', 'Личный кабинет'])) {
         $item['title'] = Markup::create('<i class="picon picon--account picon--left"></i>' . $item['title']);
       }
+      if ($item['below']) {
+        $item['title'] = Markup::create($item['title'] . '<i class="picon picon--arrow-down picon--right"></i>');
+      }
     }
   }
 }
