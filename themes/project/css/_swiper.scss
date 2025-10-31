@@ -1,5 +1,9 @@
 @import "variables";                                                            // чтобы переменные не подсвечивались
 
+:root {
+  --swiper-pagination-bottom: 14px;
+}
+
 .swiper-outsource-navigation {
   span {
     display: inline-block;
