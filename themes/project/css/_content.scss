@@ -236,3 +236,27 @@
 [data-history-node-id="12"] {
   padding-bottom: 2rem;
 }
+
+.paragraph--type--mnenie-eksperta {
+  .content { display: flex; flex-wrap: wrap; }
+  .col--1 { flex: 0 0 100%; }
+
+  .field--name-field-expert-name {
+    font-size: $font-size-large; font-family: $font-name2; text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+  .field--name-field-expert-office {
+    color: $text-muted;
+    margin-bottom: 1rem;
+  }
+
+  @media #{$pad} {
+    .content { flex-wrap: nowrap; }
+    .col--1 { flex: 0 0 80px; }
+    .col--2 { padding-left: 20px; }
+  }
+  @media #{$tablet} {
+    .col--1 { flex: 0 0 120px; }
+    .col--2 { padding-left: 30px; }
+  }
+}

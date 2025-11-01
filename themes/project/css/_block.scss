@@ -82,6 +82,7 @@
 
 .block-luxury-symbol,
 .block-our-destiny,
+.block-catalog-hair,
 .block-joy-premium,
 .block-training,
 .block--professionals,
@@ -106,6 +107,7 @@
 }
 .block-luxury-symbol,
 .block-our-destiny,
+.block-catalog-hair,
 .block--professionals,
 .block--profjoin,
 .block-expression {
@@ -113,7 +115,17 @@
 }
 
 .block-luxury-symbol {
-  .image { max-height: 380px; }
+  .image { max-height: 400px; }
+}
+
+.block-our-destiny,
+.block-catalog-hair {
+  @media #{$laptop}  {
+    .image {
+      max-height: 400px;
+      img { object-position: top; }
+    }
+  }
 }
 
 .block--profconditions {
