@@ -32,7 +32,7 @@
 %}
 <div{{ attributes.setAttribute('id', 'taxonomy-term-' ~ term.id).addClass(classes) }}>
   <div class="content">
-    <div class="banner__text" style="color:#{{ content.field_text_color[0]["#markup"] }}">
+    <div class="banner__text" style="color:#{{ content.field_text_color[0]['#context']['value'] }}">
       <div class="h1">{{ term.name.value|replace({'&nbsp;': ' '}) }}</div>
       <div class="show-more">Подробнее <i class="picon picon--arrow-right"></i></div>
     </div>

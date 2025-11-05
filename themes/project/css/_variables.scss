@@ -1,60 +1,62 @@
 @import "../../base9/css/supplies/variables";                                  // чтобы переменные не подсвечивались
 
 // Grid
-$grid-columns:            10;
-$gutter-sm:               1rem;
-$gutter-pd:               20px;
-$gutter-tb:               30px;
-$gutter-lp:               40px;
-$gutter-dt:               70px;
-$gutter-wd:               70px;
+$content-well-max-width:        1900px;
+
+$grid-columns:                  10;
+$gutter-sm:                     1rem;
+$gutter-pd:                     20px;
+$gutter-tb:                     30px;
+$gutter-lp:                     40px;
+$gutter-dt:                     55px;
+$gutter-wd:                     70px;
 
 
-$font-url:                'https://fonts.googleapis.com/css2?family=Raleway:wght@400&display=swap';
-$font-url2:               'https://fonts.googleapis.com/css2?family=Tenor+Sans:wght@400&display=swap';
+$font-url:                      'https://fonts.googleapis.com/css2?family=Raleway:wght@400&display=swap';
+$font-url2:                     'https://fonts.googleapis.com/css2?family=Tenor+Sans:wght@400&display=swap';
 
-$font-name:               'Raleway';
-$font-name2:              'Tenor Sans';
+$font-name:                     'Raleway';
+$font-name2:                    'Tenor Sans';
 
 // colors
 //
-$gray-darkest:            #606060!default;
-$gray-dark:               #7D7C7C!default;
-$gray:                    #9a9a9a;
-$gray-light:              #ccc!default;
-$gray-lightest:           #E8E8E8;
+$gray-darkest:                  #606060!default;
+$gray-dark:                     #7D7C7C!default;
+$gray:                          #9a9a9a;
+$gray-light:                    #ccc!default;
+$gray-lightest:                 #E8E8E8;
 
-$brand-cocoa:             #B2A8A3;
-$brand-green:             #667A6E;
+$brand-cocoa:                   #B2A8A3;
+$brand-green:                   #667A6E;
 
-$brand-primary:           #667A6E;
+$brand-primary:                 #667A6E;
 
-$text-muted:              $gray;
+$text-muted:                    $gray;
 
 // страница
 //
-$page-bkg:                #fff;
+$page-bkg:                      #fff;
 
 
 // шапка
 //
-$header-height:           90px;
-$header-text:             $text-color;
-$header-bkg:              transparent;
-$header-shadow:           none;
+$header-height:                 90px;
+$header-text:                   $text-color;
+$header-bkg:                    transparent;
+$header-shadow:                 none;
 
 // меню
 //
-$menu-item-color:         $text-color;
-$menu-item-hover-color:   lighten($menu-item-color, 10%);
-$menu-item-active-color:  lighten($menu-item-color, 10%);
-$submenu-item-hover-bkg:  $gray-lightest;
+$menu-item-color:               $text-color;
+$menu-item-hover-color:         lighten($menu-item-color, 10%);
+$menu-item-active-color:        lighten($menu-item-color, 10%);
+$submenu-item-hover-bkg:        $gray-lightest;
 
-$menu-mobile-width:       90%;
-$menu-mobile-color:       $text-color;
-$menu-mobile-bkg:         #fff;
-$menu-mobile-divider-clr: $gray-lightest;
-$menu-item-color:         $text-color;
+$menu-mobile-width:             90%;
+$menu-mobile-color:             $text-color;
+$menu-mobile-bkg:               #fff;
+$menu-mobile-divider-clr:       $gray-lightest;
+$menu-item-color:               $text-color;
 
 // подвал
 //
@@ -119,23 +121,23 @@ $btn-info-h-color:              $btn-info-color;
 $btn-info-h-bg:                 darken($btn-info-bg, 10%);
 $btn-info-h-border:             darken($btn-info-border, 10%);
 
-$btn-warning-color:              #fff;
-$btn-warning-bg:                 $brand-warning;
-$btn-warning-border:             darken($btn-warning-bg, 5%);
-$btn-warning-h-color:            $btn-warning-color;
-$btn-warning-h-bg:               darken($btn-warning-bg, 10%);
-$btn-warning-h-border:           darken($btn-warning-border, 10%);
+$btn-warning-color:             #fff;
+$btn-warning-bg:                $brand-warning;
+$btn-warning-border:            darken($btn-warning-bg, 5%);
+$btn-warning-h-color:           $btn-warning-color;
+$btn-warning-h-bg:              darken($btn-warning-bg, 10%);
+$btn-warning-h-border:          darken($btn-warning-border, 10%);
 
-$btn-danger-color:               #fff;
-$btn-danger-bg:                  $brand-danger;
-$btn-danger-border:              darken($btn-danger-bg, 5%);
-$btn-danger-h-color:             $btn-danger-color;
-$btn-danger-h-bg:                darken($btn-danger-bg, 10%);
-$btn-danger-h-border:            darken($btn-danger-border, 10%);
+$btn-danger-color:              #fff;
+$btn-danger-bg:                 $brand-danger;
+$btn-danger-border:             darken($btn-danger-bg, 5%);
+$btn-danger-h-color:            $btn-danger-color;
+$btn-danger-h-bg:               darken($btn-danger-bg, 10%);
+$btn-danger-h-border:           darken($btn-danger-border, 10%);
 
-$btn-border-radius-base:         0;
-$btn-border-radius-large:        0;
-$btn-border-radius-small:        0;
+$btn-border-radius-base:        0;
+$btn-border-radius-large:       0;
+$btn-border-radius-small:       0;
 
 
 // формы

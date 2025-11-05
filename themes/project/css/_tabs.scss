@@ -4,7 +4,7 @@ nav.tabs {
   @include row('true', $gutter-pd);
 
   ul.tabs {
-    @include col('md', 10, $gutter-tb);
+    @include col('pd', 10, $gutter-pd);
   }
 
 }

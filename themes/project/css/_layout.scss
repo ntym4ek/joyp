@@ -37,7 +37,7 @@
     }
   }
 
-  @media #{$desktop} {
+  @media #{$laptop} {
     &__col11 { flex: 100%; }
     &__col22 { gap: 40px; }
   }
@@ -68,7 +68,6 @@
   &__row2 {
     color: $text-muted; font-size: $font-size-xs;
 
-    .container-fluid { height: 100%; }
     .row {
       align-items: center;
       height: 100%;

@@ -20,7 +20,7 @@
       }
     }
 
-    @media #{$desktop} {
+    @media #{$laptop} {
       border-left: 1px solid $gray-lightest; border-top: none;
       padding-top: 4rem; padding-bottom: 4rem;
     }
@@ -82,7 +82,7 @@
       &:last-child { border-bottom: 1px solid $gray-lightest; }
       margin: 0; padding: 1rem;
 
-      @media #{$desktop} {
+      @media #{$laptop} {
         border-bottom: 1px solid $gray-lightest; border-left: none;
         &:first-child { border-left: 1px solid $gray-lightest; }
         flex: 0 0 50%;
@@ -252,7 +252,7 @@
       .views-field { margin-left: 1rem; }
     }
   }
-  @media #{$desktop} {
+  @media #{$laptop} {
     .views-row {
       flex-wrap: nowrap;
       &:last-child { border-bottom: none; }
@@ -284,7 +284,7 @@
   }
   .badge { font-family: $font-name2; text-indent: 0; }
 
-  @media #{$desktop}   {
+  @media #{$laptop}   {
     &__inner {
       text-indent: 0;
       .picon--left { margin-right: 10px; }
@@ -397,7 +397,7 @@
 
   }
 
-  @media #{$desktop} {
+  @media #{$laptop} {
     .order_item {
       flex-wrap: nowrap; align-items: center;
       padding: 2rem;

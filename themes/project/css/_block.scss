@@ -13,16 +13,19 @@
   border-bottom: 1px solid $gray-lightest;
 
   .page-title {
-    @include col('xs', 10, $gutter-sm);
-    @include col('md', 10, $gutter-pd);
-    @include col('lg', 10, $gutter-tb);
-    @include col('xl', 10, $gutter-dt);
+    @include col('sm', 10, $gutter-sm);
+    @include col('pd', 10, $gutter-pd);
+    @include col('tb', 10, $gutter-tb);
+    @include col('lp', 10, $gutter-lp);
+    @include col('dt', 10, $gutter-dt);
+    @include col('wd', 10, $gutter-wd);
   }
 
-  @include row('true', $gutter-sm);
-  @media #{$pad} { @include row('true', $gutter-pd); }
-  @media #{$tablet} { @include row('true', $gutter-tb); }
-  @media #{$desktop} { @include row('true', $gutter-dt); }
+                        @include row('true', $gutter-sm);
+  @media #{$pad}      { @include row('true', $gutter-pd); }
+  @media #{$tablet}   { @include row('true', $gutter-tb); }
+  @media #{$laptop}   { @include row('true', $gutter-lp); }
+  @media #{$desktop}  { @include row('true', $gutter-dt); }
 }
 
 .block-views {
@@ -71,12 +74,16 @@
   @media #{$pad}  {
     .col-sm-10 { border-right: 1px solid $gray-lightest; }
   }
-  @media #{$desktop}  {
+  @media #{$laptop}  {
     .col-sm-10 {
       border-bottom: none;
-      height: 150px;
     }
     .content { padding: 1.5rem 0; }
+  }
+  @media #{$desktop}  {
+    .col-sm-10 {
+      height: 150px;
+    }
   }
 }
 
@@ -120,7 +127,7 @@
 
 .block-our-destiny,
 .block-catalog-hair {
-  @media #{$desktop}  {
+  @media #{$laptop}  {
     .image {
       max-height: 400px;
       img { object-position: top; }
@@ -166,7 +173,7 @@
   @media #{$pad}  {
     .col-sm-10 { border-right: 1px solid $gray-lightest; }
   }
-  @media #{$desktop}  {
+  @media #{$laptop}  {
     .row { flex-wrap: nowrap; }
     .col-sm-10 {
       border-bottom: none;
@@ -236,10 +243,11 @@
 .block-user-links-block,
 .block-info-links-block {
   ul {
-    @include row('true', $gutter-sm);
-    @media #{$pad} { @include row('true', $gutter-pd); }
-    @media #{$tablet} { @include row('true', $gutter-tb); }
-    @media #{$desktop} { @include row('true', $gutter-dt); }
+                          @include row('true', $gutter-sm);
+    @media #{$pad}      { @include row('true', $gutter-pd); }
+    @media #{$tablet}   { @include row('true', $gutter-tb); }
+    @media #{$laptop}   { @include row('true', $gutter-lp); }
+    @media #{$desktop}  { @include row('true', $gutter-dt); }
   }
   li {
     border-bottom: 1px solid $gray-lightest;
@@ -248,10 +256,12 @@
     list-style: none;
     margin: 0;
 
-    @include col('xs', 10, $gutter-sm);
-    @include col('md', 10, $gutter-pd);
-    @include col('lg', 10, $gutter-tb);
-    @include col('xl', 10, $gutter-dt);
+    @include col('sm', 10, $gutter-sm);
+    @include col('pd', 10, $gutter-pd);
+    @include col('tb', 10, $gutter-tb);
+    @include col('lp', 10, $gutter-lp);
+    @include col('dt', 10, $gutter-dt);
+    @include col('wd', 10, $gutter-wd);
 
     &.item--current {
       background: $brand-green;
@@ -267,7 +277,7 @@
     @media #{$pad} {
       flex: auto;
     }
-    @media #{$desktop} {
+    @media #{$laptop} {
       flex: 100%;
       padding-top: 2rem; padding-bottom: 2rem;
       text-align: left;

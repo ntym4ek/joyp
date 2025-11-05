@@ -67,7 +67,7 @@
   @media #{$pad} {
     .h1 { max-width: 70%; }
   }
-  @media #{$desktop} {
+  @media #{$laptop} {
     .h1 { padding: 0; }
     .banner__text {
       position: absolute; top: 30%; width: 30%;

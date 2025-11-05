@@ -10,7 +10,8 @@
 
   &__item {
     border: 1px solid $gray-lightest;
-    &:not(:last-child) { border-right: none; }
+    border-right: none;
+    &:last-child { border-right: 1px solid $gray-lightest; }
     i {
       background-position: center; background-repeat: no-repeat;
       border: 0;
