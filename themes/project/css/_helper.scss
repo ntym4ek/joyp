@@ -17,30 +17,30 @@
 
 
 @mixin padding-side() {
-  padding-left: $gutter-xs; padding-right: $gutter-xs;
+  padding-left: $gutter-sm; padding-right: $gutter-sm;
 
   @media #{$pad}   {
-    padding-left: $gutter-md; padding-right: $gutter-md;
+    padding-left: $gutter-pd; padding-right: $gutter-pd;
   }
   @media #{$tablet}   {
-    padding-left: $gutter-lg; padding-right: $gutter-lg;
+    padding-left: $gutter-tb; padding-right: $gutter-tb;
   }
-  @media #{$laptop}   {
-    padding-left: $gutter-xl; padding-right: $gutter-xl;
+  @media #{$desktop}   {
+    padding-left: $gutter-dt; padding-right: $gutter-dt;
   }
 }
 
 @mixin padding-block($xs, $md, $xl) {
-  padding: #{$xs}+px $gutter-xs;
+  padding: #{$xs}+px $gutter-sm;
 
   @media #{$pad}   {
-    padding: #{$md}+px $gutter-md;
+    padding: #{$md}+px $gutter-pd;
   }
   @media #{$tablet}   {
-    padding: #{$md}+px $gutter-lg;
+    padding: #{$md}+px $gutter-tb;
   }
-  @media #{$laptop}   {
-    padding: #{$xl}+px $gutter-xl;
+  @media #{$desktop}   {
+    padding: #{$xl}+px $gutter-dt;
   }
 }
 

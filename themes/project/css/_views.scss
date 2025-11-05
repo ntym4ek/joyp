@@ -17,20 +17,20 @@
 .view-novosti,
 .view-blog {
   .view-content {
-    @include row('true', $gutter-xs);
-    @media #{$pad}      { @include row('true', $gutter-md); }
-    @media #{$tablet}   { @include row('true', $gutter-lg); }
-    @media #{$laptop}   { @include row('true', $gutter-xl); }
+    @include row('true', $gutter-sm);
+    @media #{$pad}      { @include row('true', $gutter-pd); }
+    @media #{$tablet}   { @include row('true', $gutter-tb); }
+    @media #{$desktop}   { @include row('true', $gutter-dt); }
   }
 }
 
 // слайдер нервно реагирует на flex обёртку (row)
 // поэтому прописываем отрицательный отступ ручками
 .view-front-slider {
-  margin: 0 (-$gutter-xs);
-  @media #{$pad}      { margin: 0 (-$gutter-md); }
-  @media #{$tablet}   { margin: 0 (-$gutter-lg); }
-  @media #{$laptop}   { margin: 0 (-$gutter-xl); }
+  margin: 0 (-$gutter-sm);
+  @media #{$pad}      { margin: 0 (-$gutter-pd); }
+  @media #{$tablet}   { margin: 0 (-$gutter-tb); }
+  @media #{$desktop}   { margin: 0 (-$gutter-dt); }
 }
 
 .view-katalog.view-display-id-page_1 {
@@ -38,7 +38,7 @@
     flex-basis: 100%; max-width: 100%;
     border-top: 1px solid $gray-lightest;
     box-sizing: border-box;
-    padding: 1rem $gutter-xs;
+    padding: 1rem $gutter-sm;
 
     &:nth-child(1) { border-top: none; }
 
@@ -46,12 +46,12 @@
       border-right: 1px solid $gray-lightest;
       &:nth-child(2) { border-top: none; }
       flex-basis: 50%; max-width: 50%;
-      padding: 2rem $gutter-md;
+      padding: 2rem $gutter-pd;
     }
-    @media #{$tablet}   { padding: 2rem $gutter-lg; }
-    @media #{$laptop}   {
+    @media #{$tablet}   { padding: 2rem $gutter-tb; }
+    @media #{$desktop}   {
       flex-basis: 25%; max-width: 25%;
-      padding: 3rem $gutter-xl;
+      padding: 3rem $gutter-dt;
     }
   }
 }
@@ -69,7 +69,7 @@
       &:nth-child(2) { border-top: none; }
       flex-basis: 50%; max-width: 50%;
     }
-    @media #{$laptop}   {
+    @media #{$desktop}   {
       flex-basis: 33.3%; max-width: 33.3%;
     }
   }
@@ -125,10 +125,10 @@
 .view-karusel-produktov,
 .view-karusel-kategoriy {
   .swiper-slide {
-    padding: 1rem $gutter-xs;
-    @media #{$pad}      { padding: 2rem $gutter-md; }
-    @media #{$tablet}   { padding: 2rem $gutter-lg; }
-    @media #{$laptop}   { padding: 3rem $gutter-xl; }
+    padding: 1rem $gutter-sm;
+    @media #{$pad}      { padding: 2rem $gutter-pd; }
+    @media #{$tablet}   { padding: 2rem $gutter-tb; }
+    @media #{$desktop}   { padding: 3rem $gutter-dt; }
   }
 }
 
@@ -145,7 +145,7 @@
         flex-basis: 50%; max-width: 50%;
         &:nth-last-child(2) { border-bottom: none; }
       }
-      @media #{$laptop} { flex-basis: 20%; max-width: 20%; }
+      @media #{$desktop} { flex-basis: 20%; max-width: 20%; }
     }
 
   }
@@ -161,9 +161,9 @@
         &:nth-child(odd) article { border-right: 1px solid $gray-lightest; }
       }
 
-      @media #{$laptop} {
+      @media #{$desktop} {
         flex-basis: 100%; max-width: 100%;
-        padding: 0 $gutter-xl;
+        padding: 0 $gutter-dt;
         article {
           border-right: 1px solid $gray-lightest;
           border-left: 1px solid $gray-lightest;
@@ -207,7 +207,7 @@
     .views-row { flex-basis: 50%; max-width: 50%; }
     .content { padding: 1rem 2rem; }
   }
-  @media #{$laptop}   {
+  @media #{$desktop}   {
     .views-row { flex-basis: 33.3%; max-width: 33.3%; }
     .content { padding: 1rem 4rem; }
     .image { flex: 0 0 40%; }

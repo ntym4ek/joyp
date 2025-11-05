@@ -37,7 +37,7 @@
 }
 
 .form-items-inline {
-  @media #{$laptop}  {
+  @media #{$desktop}  {
     display: flex; flex-wrap: wrap; gap: 0 1rem;
     margin: 1rem 0;
 

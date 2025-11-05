@@ -23,7 +23,7 @@
     .vk { background-image: url(../images/icons/vk.svg); }
   }
 
-  @media #{$laptop} {
+  @media #{$desktop} {
     &__title { font-size: $font-size-large; }
   }
 }

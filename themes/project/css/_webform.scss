@@ -20,7 +20,7 @@
   .form-actions .form-submit { width: 100%; }
   .js-form-item-fz152-agreement { margin-bottom: 0; }
 
-  @media #{$laptop}  {
+  @media #{$desktop}  {
     .webform-type-email { flex: auto; }
     .text {
       display: flex; flex-wrap: wrap; align-content: center;
@@ -34,7 +34,7 @@
 .webform-submission-contact-add-form {
   .form-actions .form-submit {
     width: 100%;
-    @media #{$laptop}  { width: initial; }
+    @media #{$desktop}  { width: initial; }
   }
 
 }

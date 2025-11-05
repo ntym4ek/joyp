@@ -99,7 +99,7 @@
               </div>
 
 
-              <div class="page-header__col12 hide-xl">
+              <div class="page-header__col12 hide-lp">
                 <div class="page-header__item">
                   <a href="/user"><i class="picon picon--account"></i></a>
                 </div>
@@ -119,7 +119,7 @@
           </div>
         </div>
 
-        <div class="page-header__row hide show-xl">
+        <div class="page-header__row hide show-lp">
           <div class="container-fluid">
             <div class="page-header__content">
 
@@ -161,17 +161,17 @@
 
           <div class="row">
             {% if page.sidebar_first %}
-              <aside class="col-xs-10 col-xl-{{ sidebar_first_col }}" role="complementary">
+              <aside class="col-sm-10 col-pd-10 col-tb-10 col-lp-{{ sidebar_first_col }} col-dt-{{ sidebar_first_col }} col-wd-{{ sidebar_first_col }}" role="complementary">
                 {{ page.sidebar_first }}
               </aside>
             {% endif %}
 
-            <main class="col-xs-10 col-xl-fill" role="main">
+            <main class="col-sm-10 col-pd-10 col-tb-10 col-lp-fill col-dt-fill col-wd-fill" role="main">
               {{ page.content }}
             </main>
 
             {% if page.sidebar_second %}
-              <aside class="col-xs-10 col-xl-{{ sidebar_second_col }}" role="complementary">
+              <aside class="col-sm-10 col-pd-10 col-tb-10 col-lp-{{ sidebar_second_col }} col-dt-{{ sidebar_second_col }} col-wd-{{ sidebar_second_col }}" role="complementary">
                 {{ page.sidebar_second }}
               </aside>
             {% endif %}
@@ -188,10 +188,10 @@
 
     <footer class="page-footer">
       <div class="page-footer__inner">
-        <div class="page-footer__row1 hide show-md">
+        <div class="page-footer__row1 hide show-pd">
           <div class="container-fluid">
             <div class="row">
-              <div class="col-xl-2 hide show-xl">
+              <div class="col-lp-2 col-dt-2 col-wd-2 hide show-lp">
                 <div class="page-footer__menu">
                   <h4>Каталог</h4>
                   <ul>
@@ -205,7 +205,7 @@
                   </ul>
                 </div>
               </div>
-              <div class="col-xl-2 hide show-xl">
+              <div class="col-lp-2 col-dt-2 col-wd-2 hide show-lp">
                 <div class="page-footer__menu">
                   <h4>Клиентам</h4>
                   <ul>
@@ -220,7 +220,7 @@
                   </ul>
                 </div>
               </div>
-              <div class="col-xl-fill hide show-xl">
+              <div class="col-lp-fill hide show-lp">
                 <div class="page-footer__menu">
                   <h4>Информация</h4>
                   <ul>
@@ -231,17 +231,17 @@
                   </ul>
                 </div>
               </div>
-              <div class="col-md-5 col-lg col-xl hide show-md">
+              <div class="col-pd-5 col-tb col-lp hide show-pd">
                 <div class="page-footer__menu">
-                  <h4 class="hide show-xl">Контакты</h4>
+                  <h4 class="hide show-lp">Контакты</h4>
                   <ul>
                     <li><a href="tel:+79229226774">8 (922) 922-67-74</a></li>
                     <li><a href="mailto:joypremium_zakaz@kccc.ru">joypremium_zakaz@kccc.ru</a></li>
-                    <li class="hide show-xl"><a href="{{ path('entity.node.canonical', {'node': 13}) }}" class="button button--primary">Задать вопрос</a></li>
+                    <li class="hide show-lp"><a href="{{ path('entity.node.canonical', {'node': 13}) }}" class="button button--primary">Задать вопрос</a></li>
                   </ul>
                 </div>
               </div>
-              <div class="col-md-5 hide show-md-only">
+              <div class="col-pd-5 hide show-pd-only">
                 <a href="{{ path('entity.node.canonical', {'node': 13}) }}" class="button button--primary">Задать вопрос</a>
               </div>
             </div>
@@ -250,14 +250,14 @@
         <div class="page-footer__row2">
           <div class="container-fluid">
             <div class="row">
-              <div class="col-xs-10 col-md-10 col-xl-8">
+              <div class="col-sm-10 col-pd-10 col-lp-8 col-dt-8 col-wd-8">
                 <div class="production">
                   КОСМЕТИКА РАЗРАБОТАНА GREEN GROW CHEMICAL TRADING FZE (Dubai United Arab Emirates)<br>
                   Производство частично локализовано в России.<br>
                   Фабрика-партнер ООО "Страда".
                 </div>
               </div>
-              <div class="col-xs-10 col-md-10 col-xl-2">
+              <div class="col-sm-10 col-pd-10 col-lp-2 col-dt-2 col-wd-2">
                 <div class="copyright">
                   Joy Premium © 2025
                 </div>

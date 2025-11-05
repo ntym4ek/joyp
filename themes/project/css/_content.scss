@@ -7,7 +7,7 @@
   }
   h3 { margin-top: 2rem; }
 
-  @media #{$laptop} {
+  @media #{$desktop} {
     h1 { font-size: $font-size-h2; }
     h3 { margin-top: 3rem; }
   }
@@ -65,7 +65,7 @@
       @include padding-block(16, 32, 32);
     }
 
-    @media #{$laptop} {
+    @media #{$desktop} {
       .field--name-field-image { height: 300px; }
       .field--name-title {
         display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
@@ -76,10 +76,10 @@
   }
 
   &.node--view-mode-kartochka-v-bloke-nedavnih-materialov {
-    padding: 1rem $gutter-xs;
+    padding: 1rem $gutter-sm;
 
-    @media #{$pad} { padding: 1rem $gutter-md; }
-    @media #{$laptop} { padding: 2rem; }
+    @media #{$pad} { padding: 1rem $gutter-pd; }
+    @media #{$desktop} { padding: 2rem; }
   }
 
 
@@ -124,7 +124,7 @@
     @media #{$pad} {
       .field--name-field-image { height: 300px; }
     }
-    @media #{$laptop} {
+    @media #{$desktop} {
       margin-bottom: 4rem;
       .node__header {
         font-size: $font-size-large;
@@ -157,7 +157,7 @@
     color: $brand-cocoa; text-decoration: underline;
   }
 
-  @media #{$laptop} {
+  @media #{$desktop} {
     .node__text { padding: 60px 0; }
   }
 }
@@ -187,7 +187,7 @@
       .text { padding-left: 2rem; }
     }
   }
-  @media #{$laptop} {
+  @media #{$desktop} {
     .node__well {
       padding: 2rem 3rem;
       .image { flex: 0 0 auto; }
@@ -223,7 +223,7 @@
       &:nth-child(2) { border-top: none; }
     }
   }
-  @media #{$laptop} {
+  @media #{$desktop} {
     .node__block {
       border-top: none;
       flex: 0 0 25%;

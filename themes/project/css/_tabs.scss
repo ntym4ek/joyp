@@ -1,10 +1,10 @@
 @import "variables";                                                            // чтобы переменные не подсвечивались
 
 nav.tabs {
-  @include row('true', $gutter-md);
+  @include row('true', $gutter-pd);
 
   ul.tabs {
-    @include col('md', 10, $gutter-lg);
+    @include col('md', 10, $gutter-tb);
   }
 
 }

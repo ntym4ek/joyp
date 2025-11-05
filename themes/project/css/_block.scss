@@ -13,16 +13,16 @@
   border-bottom: 1px solid $gray-lightest;
 
   .page-title {
-    @include col('xs', 10, $gutter-xs);
-    @include col('md', 10, $gutter-md);
-    @include col('lg', 10, $gutter-lg);
-    @include col('xl', 10, $gutter-xl);
+    @include col('xs', 10, $gutter-sm);
+    @include col('md', 10, $gutter-pd);
+    @include col('lg', 10, $gutter-tb);
+    @include col('xl', 10, $gutter-dt);
   }
 
-  @include row('true', $gutter-xs);
-  @media #{$pad} { @include row('true', $gutter-md); }
-  @media #{$tablet} { @include row('true', $gutter-lg); }
-  @media #{$laptop} { @include row('true', $gutter-xl); }
+  @include row('true', $gutter-sm);
+  @media #{$pad} { @include row('true', $gutter-pd); }
+  @media #{$tablet} { @include row('true', $gutter-tb); }
+  @media #{$desktop} { @include row('true', $gutter-dt); }
 }
 
 .block-views {
@@ -57,7 +57,7 @@
   .row {
     border-top: 1px solid $gray-lightest;
   }
-  .col-xs-10 {
+  .col-sm-10 {
     border-bottom: 1px solid $gray-lightest;
     display: flex;
     &:last-child { border-bottom: none; }
@@ -69,10 +69,10 @@
   .text { margin: 1rem 0 .5rem; }
 
   @media #{$pad}  {
-    .col-xs-10 { border-right: 1px solid $gray-lightest; }
+    .col-sm-10 { border-right: 1px solid $gray-lightest; }
   }
-  @media #{$laptop}  {
-    .col-xs-10 {
+  @media #{$desktop}  {
+    .col-sm-10 {
       border-bottom: none;
       height: 150px;
     }
@@ -120,7 +120,7 @@
 
 .block-our-destiny,
 .block-catalog-hair {
-  @media #{$laptop}  {
+  @media #{$desktop}  {
     .image {
       max-height: 400px;
       img { object-position: top; }
@@ -151,7 +151,7 @@
   .row {
     border-top: 1px solid $gray-lightest;
   }
-  .col-xs-10 {
+  .col-sm-10 {
     border-bottom: 1px solid $gray-lightest;
     display: flex;
     &:last-child { border-bottom: none; }
@@ -164,11 +164,11 @@
   .text { margin: 1rem 0 .5rem; }
 
   @media #{$pad}  {
-    .col-xs-10 { border-right: 1px solid $gray-lightest; }
+    .col-sm-10 { border-right: 1px solid $gray-lightest; }
   }
-  @media #{$laptop}  {
+  @media #{$desktop}  {
     .row { flex-wrap: nowrap; }
-    .col-xs-10 {
+    .col-sm-10 {
       border-bottom: none;
       flex: 1 0 33%
       //height: 150px;
@@ -178,7 +178,7 @@
 }
 
 .block-product-categories {
-  .content .col-xs-10 {
+  .content .col-sm-10 {
     justify-content: center;
     padding: 40px 0 50px;
     &:not(:last-child) { border-right: 1px solid $gray-lightest; }
@@ -224,7 +224,7 @@
     @include padding-side();
   }
 
-  @media #{$laptop} {
+  @media #{$desktop} {
     .views-field-name {
       font-size: $font-size-h3;
       height: 100px;
@@ -236,10 +236,10 @@
 .block-user-links-block,
 .block-info-links-block {
   ul {
-    @include row('true', $gutter-xs);
-    @media #{$pad} { @include row('true', $gutter-md); }
-    @media #{$tablet} { @include row('true', $gutter-lg); }
-    @media #{$laptop} { @include row('true', $gutter-xl); }
+    @include row('true', $gutter-sm);
+    @media #{$pad} { @include row('true', $gutter-pd); }
+    @media #{$tablet} { @include row('true', $gutter-tb); }
+    @media #{$desktop} { @include row('true', $gutter-dt); }
   }
   li {
     border-bottom: 1px solid $gray-lightest;
@@ -248,10 +248,10 @@
     list-style: none;
     margin: 0;
 
-    @include col('xs', 10, $gutter-xs);
-    @include col('md', 10, $gutter-md);
-    @include col('lg', 10, $gutter-lg);
-    @include col('xl', 10, $gutter-xl);
+    @include col('xs', 10, $gutter-sm);
+    @include col('md', 10, $gutter-pd);
+    @include col('lg', 10, $gutter-tb);
+    @include col('xl', 10, $gutter-dt);
 
     &.item--current {
       background: $brand-green;
@@ -267,7 +267,7 @@
     @media #{$pad} {
       flex: auto;
     }
-    @media #{$laptop} {
+    @media #{$desktop} {
       flex: 100%;
       padding-top: 2rem; padding-bottom: 2rem;
       text-align: left;

@@ -51,6 +51,6 @@
 .view-front-slider {
   .slider {
     grid-template-columns: 0 100%;
-    @media #{$laptop} { grid-template-columns: 12% 88%; }
+    @media #{$desktop} { grid-template-columns: 12% 88%; }
   }
 }

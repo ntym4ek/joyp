@@ -18,7 +18,7 @@
     &__title { margin: 0 1rem 0 0; }
   }
 
-  @media #{$laptop} {
+  @media #{$desktop} {
     margin-top: 70px;
 
     .socials {
@@ -76,7 +76,7 @@
   }
   .product__actions { margin-top: 1rem; }
 
-  @media #{$laptop}      {
+  @media #{$desktop}      {
     .product__discount { right: -2rem; }
     .product__image { height: 350px; }
     .product__actions { margin-top: 25px; }
@@ -91,7 +91,7 @@
     .slider__content img { height: 300px; }
     .slider {
       grid-template-columns: 0 100%;
-      @media #{$laptop} { grid-template-columns: 15% 85%; }
+      @media #{$desktop} { grid-template-columns: 15% 85%; }
     }
   }
 
@@ -176,14 +176,14 @@
       }
 
       @media #{$pad} { height: 60px; }
-      @media #{$laptop} {
+      @media #{$desktop} {
         font-size: $font-size-h3;
         height: 100px;
       }
     }
     .tabs-js__content {
       padding: 20px 0;
-      @media #{$laptop} { padding: 60px 0; }
+      @media #{$desktop} { padding: 60px 0; }
     }
 
     .vocabulary-aromas {
@@ -197,7 +197,7 @@
       .field--name-field-teaser {
         font-size: $font-size-h3; font-family: $font-name2; text-transform: uppercase;
         margin-bottom: 1rem;
-        @media #{$laptop} { font-size: $font-size-h2; }
+        @media #{$desktop} { font-size: $font-size-h2; }
         }
       .field--name-description { margin-bottom: 1rem; }
       .field--name-field-smells {
@@ -213,7 +213,7 @@
       .slider__content img { height: 500px; }
     }
   }
-  @media #{$laptop} {
+  @media #{$desktop} {
     h1 { font-size: $font-size-h2; }
     .product__price { font-size: $font-size-h2; }
     .product__brief { padding: 70px 0; }
@@ -227,7 +227,7 @@
 .product-sertifikat--full {
   .product__description {
     padding-top: 20px; padding-bottom: 20px;
-    @media #{$laptop} { padding-top: 60px; padding-bottom: 60px; }
+    @media #{$desktop} { padding-top: 60px; padding-bottom: 60px; }
   }
 }
 
@@ -265,7 +265,7 @@
     gap: 1rem;
   }
 
-  @media #{$laptop} {
+  @media #{$desktop} {
     .product__image {
       margin-right: 2rem;
       width: 70px;

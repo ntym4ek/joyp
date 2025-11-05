@@ -43,7 +43,7 @@
 
   #edit-pass--description { text-align: right; }
 
-  @media #{$laptop}   {
+  @media #{$desktop}   {
     &__left,
     &__right {
       flex: 0 0 50%;

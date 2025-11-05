@@ -9,7 +9,7 @@
     padding: 0;
     h1 {
       font-family: $font-name2; font-size: $font-size-h3; text-align: center;
-      @media #{$laptop} { font-size: $font-size-h2; }
+      @media #{$desktop} { font-size: $font-size-h2; }
     }
     button {
       top: -1rem; right: 0;
@@ -23,7 +23,7 @@
         width: 20px; height: 20px;
       }
 
-      @media #{$laptop} { right: -1rem; }
+      @media #{$desktop} { right: -1rem; }
     }
   }
   .ui-dialog-title {

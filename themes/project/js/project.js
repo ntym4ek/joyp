@@ -36,10 +36,10 @@
             $(element).before(
               '<div class="mobile-exposed-trigger">' +
                 '<div class="row border-b">' +
-                  '<div class="col-xs-5 col-md-5 border-r">' +
+                  '<div class="col-sm-5 col-pd-5 border-r">' +
                     '<div class="mobile-exposed--sort"></div>' +
                   '</div>' +
-                  '<div class="col-xs-5 col-md-5">' +
+                  '<div class="col-sm-5 col-pd-5">' +
                     '<div class="mobile-exposed--filters"><i class="picon picon--filter"></i><div>Фильтры</div></div>' +
                   '</div>' +
                 '</div>' +

@@ -25,12 +25,12 @@
 #}
 <article{{ attributes.addClass(['product', 'product--full', 'product-care']) }}>
   <div class="row border-t">
-    <div class="col-xs-10 col-md-10 col-lg-10 col-xl-4 border-r">
+    <div class="col-sm-10 col-pd-10 col-tb-10 col-lp-4 col-dt-4 col-wd-4 border-r">
       <div class="product__image">
         {{- product.field_p_images -}}
       </div>
     </div>
-    <div class="col-xs-10 col-md-10 col-lg-10 col-xl-4">
+    <div class="col-sm-10 col-pd-10 col-tb-10 col-lp-4 col-dt-4 col-wd-4">
       <div class="product__brief">
         <h1>{{- product.title -}}</h1>
         <div class="product__summary">
@@ -52,7 +52,7 @@
         </div>
       </div>
     </div>
-    <div class="col-xs-10 col-md-10 col-lg-10 col-xl-2">
+    <div class="col-sm-10 col-pd-10 col-tb-10 col-lp-2 col-dt-2 col-wd-2">
       <div class="product__socials">
         {{- socials -}}
       </div>
@@ -73,33 +73,33 @@
       </div>
 
       <div class="tabs-js__content tabs-js__content--visible" data-id="1">
-        <div class="col-xs-10 col-md-10 col-lg-10 col-xl-6">
+        <div class="col-sm-10 col-pd-10 col-tb-10 col-lp-6 col-dt-6 col-wd-6">
           {{- product.body -}}
         </div>
       </div>
       <div class="tabs-js__content" data-id="2">
-        <div class="col-xs-10 col-md-10 col-lg-10 col-xl-6">
+        <div class="col-sm-10 col-pd-10 col-tb-10 col-lp-6 col-dt-6 col-wd-6">
           {{- product.field_p_composition -}}
         </div>
       </div>
       <div class="tabs-js__content" data-id="3">
-        <div class="col-xs-10 col-md-10 col-lg-10 col-xl-6">
+        <div class="col-sm-10 col-pd-10 col-tb-10 col-lp-6 col-dt-6 col-wd-6">
           {{- product.field_p_secret_ingredient -}}
         </div>
       </div>
       <div class="tabs-js__content" data-id="4">
-        <div class="col-xs-10 col-md-10 col-lg-10 col-xl-6">
+        <div class="col-sm-10 col-pd-10 col-tb-10 col-lp-6 col-dt-6 col-wd-6">
           {{- product.field_p_aroma[0]['#entity']|view('product_aroma') -}}
         </div>
       </div>
       <div class="tabs-js__content" data-id="5">
-        <div class="col-xs-10 col-md-10 col-lg-10 col-xl-6">
+        <div class="col-sm-10 col-pd-10 col-tb-10 col-lp-6 col-dt-6 col-wd-6">
           {{- product.field_p_instructions -}}
         </div>
       </div>
       {% if product.field_p_expert|render %}
       <div class="tabs-js__content" data-id="6">
-        <div class="col-xs-10 col-md-10 col-lg-10 col-xl-6">
+        <div class="col-sm-10 col-pd-10 col-tb-10 col-lp-6 col-dt-6 col-wd-6">
           {{- product.field_p_expert -}}
         </div>
       </div>

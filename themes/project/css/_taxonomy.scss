@@ -38,7 +38,7 @@
   @media #{$pad} {
     .image--aroma { height: 500px; }
   }
-  @media #{$laptop} {
+  @media #{$desktop} {
     .field--name-field-teaser,
     .field--name-field-smells .field__label { font-size: $font-size-h2;  }
     .image--aroma { height: initial; }
@@ -67,7 +67,7 @@
   @media #{$pad} {
     .h1 { max-width: 70%; }
   }
-  @media #{$laptop} {
+  @media #{$desktop} {
     .h1 { padding: 0; }
     .banner__text {
       position: absolute; top: 30%; width: 30%;
