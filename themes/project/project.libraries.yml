@@ -28,3 +28,11 @@ commerce-quantity-controls:
   dependencies:
     - core/drupal
     - core/once
+
+search-form:
+  version: VERSION
+  js:
+    js/search-form.js: {}
+  dependencies:
+    - core/drupal
+    - core/once

@@ -122,7 +122,9 @@ function project_preprocess_page(array &$vars): void
   // установить ширину сайдбаров в зависимости от контента
   $left_col = $right_col = 3;
   // Каталог (блок фильтров)
-  if ($route_name == 'entity.taxonomy_term.canonical') {
+  if ($route_name == 'entity.taxonomy_term.canonical'                         // Каталог
+      || $route_name == 'view.poisk.page_1' )                                 // Страница поиска
+  {
     $left_col = 2;
   }
   $vars['sidebar_first_col'] = $left_col;

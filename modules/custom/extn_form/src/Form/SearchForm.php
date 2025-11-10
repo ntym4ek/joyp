@@ -2,10 +2,12 @@
 
 namespace Drupal\extn_form\Form;
 
+use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Markup;
-use Drupal\Core\Url;
+use Drupal\Core\StringTranslation\PluralTranslatableMarkup;
 
 /**
  * Простейшая форма поиска с редиректом.
@@ -24,24 +26,34 @@ class SearchForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state): array
   {
-    $form['q'] = [
+    $form['#prefix'] = '<div id="extn-form-search-form-wrapper" class="extn-form-search-form-wrapper">';
+    $form['#suffix'] = '</div>';
+    $form['#attached']['library'] ='project/search-form';
+
+    $form['search'] = [
+      '#type' => 'markup',
+      '#markup' => Markup::create('<div class="search-icon"><i class="picon picon--search"></i></div>'),
+    ];
+
+    $form['key'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Search'),
       '#title_display' => 'invisible',
-      '#size' => 30,
       '#placeholder' => $this->t('Search...'),
+      '#theme' => 'input_dropdown_filter',
+      '#dropdown_options' => [],
+      '#attributes' => ['data-diacritics' => 'off'],
+      '#ajax' => [
+        'callback' => '::ajaxCallback',
+        'event' => 'custom:delayedInput',
+        'wrapper' => '',
+      ],
     ];
 
-    $form['submit'] = [
-      '#type' => 'submit',
-      '#attributes' => ['class' => ['button--link']],
-      '#prefix' => '<div class="button--icon">',
-      '#markup' => Markup::create('<label for="edit-submit"><i class="picon picon--search"></i></label>'),
-      '#suffix' => '</div>',
+    $form['close'] = [
+      '#type' => 'markup',
+      '#markup' => Markup::create('<div class="close-icon"><i class="picon picon--cross"></i></div>'),
     ];
-
-    // Чтобы форма отправлялась методом GET.
-    $form['#method'] = 'get';
 
     return $form;
   }
@@ -49,15 +61,58 @@ class SearchForm extends FormBase {
   /**
    * {@inheritdoc}
    */
+  public function validateForm(array &$form, FormStateInterface $form_state): void
+  {
+    // todo проверить поисковый запрос
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function submitForm(array &$form, FormStateInterface $form_state): void
   {
-    $query = trim($form_state->getValue('q'));
+  }
 
-    if (!empty($query)) {
-      // Кодируем запрос и делаем редирект.
-      $url = Url::fromUserInput('/search/' . rawurlencode($query));
-      $form_state->setRedirectUrl($url);
+  public function ajaxCallback(array $form, FormStateInterface $form_state)
+  {
+
+    $results_limit = 3; // количество выводимых в строке результатов
+    $output = '';
+    $results_count = 0;
+    if ($key = $form_state->getValue('key')) {
+      /** @var \Drupal\search_api\IndexInterface $index_storage */
+      $index = \Drupal\search_api\Entity\Index::load('product_index');
+      $query = $index->query();
+      $query->keys('*' . $key . '*');
+      /** @var \Drupal\search_api\Query\ResultSetInterface $search_result */
+      $results = $query->execute();
+      $results_count = $results->getResultCount();
+
+      // Выводим результаты
+      $counter = 0;
+      foreach ($results->getResultItems() as $result) {
+        $object = $result->getOriginalObject();
+        $entity = $object->getEntity();
+        $url = $entity->toUrl()->toString();
+        $title = $entity->getTitle();
+        $output .= Markup::create('<li class="input-dropdown-item"><a href="' . $url . '">' . $title . '</a></li>');
+        if (++$counter >= $results_limit) break;
+      }
     }
+
+    if ($output) {
+      if ($results_count > $results_limit) {
+        $output .= '<li class="input-dropdown-item"><a href="/poisk/' . $key . '">Показать все ' . $results_count . ' ' . new PluralTranslatableMarkup($results_count, 'result', 'results') . '</a></li>';
+      }
+    } else {
+      $output = '<li class="input-dropdown-item">Ничего не найдено, попробуйте изменить запрос.</li>';
+    }
+    $output = '<ul class="input-dropdown-menu">' . $output . '</ul>';
+
+    $response = new AjaxResponse();
+    $response->addCommand(new ReplaceCommand('.input-dropdown-menu', $output));
+
+    return $response;
   }
 
 }

@@ -26,6 +26,7 @@
   @media #{$tablet}   { @include row('true', $gutter-tb); }
   @media #{$laptop}   { @include row('true', $gutter-lp); }
   @media #{$desktop}  { @include row('true', $gutter-dt); }
+  @media #{$wide}     { @include row('true', $gutter-wd); }
 }
 
 .block-views {
@@ -46,12 +47,18 @@
   }
   .form-actions {
     float: left;
-    margin-top: 2rem;
+    margin: 2rem 0 0 0;
     width: 100%;
 
     input {
       margin: 0 0 1rem 0;
       &:last-child { margin-bottom: 0; }
+    }
+  }
+
+  &:not(:empty) {
+    @media #{$laptop}   {
+      padding-bottom: 2rem;
     }
   }
 }
@@ -121,17 +128,14 @@
   .row { border-top: 1px solid $gray-lightest; }
 }
 
-.block-luxury-symbol {
-  .image { max-height: 400px; }
-}
-
+.block-luxury-symbol,
+.block-joy-premium,
+.block-expression,
 .block-our-destiny,
 .block-catalog-hair {
-  @media #{$laptop}  {
-    .image {
-      max-height: 400px;
-      img { object-position: top; }
-    }
+  .content {
+    align-content: center;
+    height: 100%;
   }
 }
 
