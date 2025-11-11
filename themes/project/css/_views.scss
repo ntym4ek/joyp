@@ -223,3 +223,19 @@
     .field-name--field-products-count { padding-top: 4rem; }
   }
 }
+
+.pager {
+  font-size: $font-size-large; font-family: $font-name2;
+  .pager__items {
+    display: flex; justify-content: space-between;
+    margin: 1rem 0; padding : 0;
+  }
+  .pager__item--current {
+    font-weight: normal;
+    span { color: $brand-cocoa; }
+  }
+  i.picon {
+    width: 60px;
+    &:before { background-color: $brand-cocoa; }
+  }
+}
