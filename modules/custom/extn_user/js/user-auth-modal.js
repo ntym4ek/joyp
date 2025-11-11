@@ -34,7 +34,7 @@ var timer = null;
           /**
            * Обратный отсчёт до возможности нового ввода кода
            */
-          $wrapper.find('.input-countdown').each((key, el) => {
+          $wrapper.find('.input-countdown').each((index, el) => {
             let $counter = $(el).find('.counter');
             let time = parseInt($counter.text());
 
@@ -58,7 +58,7 @@ var timer = null;
           /**
            * Обработчик нажатия кнопок.
            */
-          $wrapper.find('.form-with-verification-dialog-button').each((key, el) => {
+          $wrapper.find('.form-with-verification-dialog-button').each((index, el) => {
             $(el).on('click', () => {
               let code = "";
               // нажата кнопка "получить новый код"
@@ -84,7 +84,7 @@ var timer = null;
             });
           });
 
-          $wrapper.find('.form-with-verification-dialog-input input').each((key, el) => {
+          $wrapper.find('.form-with-verification-dialog-input input').each((index, el) => {
             $(el).on('keydown', (e) => {
               // вводить можно только числовое значение
               let key = e.key;
@@ -136,13 +136,18 @@ var timer = null;
         (element) => {
 
           let $wrapper = $(element).closest('#drupal-modal');
+          let $input = $('.form-with-verification-dialog-input input');
 
-          /**
-           * Обработчик нажатия кнопок.
-           */
-          $wrapper.find('.form-with-verification-dialog-button').each((key, el) => {
+          // обработчик Enter в поле ввода пароля
+          $input.on('keydown', (event) => {
+            if (event.key === 'Enter') {
+              $('.form-with-verification-dialog-button').click();
+            }
+          });
+
+          // Обработчик нажатия кнопки Отправить в диалоговом окне.
+          $wrapper.find('.form-with-verification-dialog-button').each((index, el) => {
             $(el).on('click', () => {
-              let $input = $('.form-with-verification-dialog-input input');
               let pass = $input.val();
 
               if (pass.trim().length === 0) {

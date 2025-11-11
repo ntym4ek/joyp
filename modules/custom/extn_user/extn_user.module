@@ -264,7 +264,7 @@ function extn_user_pass_input_dialog($form_state)
           '</div>' .
         '</div>' .
         '<div class="form-actions">' .
-         '<button class="form-with-verification-dialog-button button button--primary">Отправить</button>' .
+         '<button class="form-with-verification-dialog-button button button--primary" type="submit">Отправить</button>' .
         '</div>' .
       '</div>' .
     '</div>';

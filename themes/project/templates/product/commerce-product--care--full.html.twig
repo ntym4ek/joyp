@@ -63,10 +63,18 @@
     <div class="tabs-js">
       <div class="tabs-js__nav scrollable page-offside-disabled">
         <a class="tabs-js__link tabs-js__link--active" data-target-id="1">Описание</a>
+        {% if product.field_p_composition|render %}
         <a class="tabs-js__link" data-target-id="2">Состав</a>
+        {% endif %}
+        {% if product.field_p_secret_ingredient|render %}
         <a class="tabs-js__link" data-target-id="3">Секретные ингредиенты</a>
+        {% endif %}
+        {% if product.field_p_aroma[0]['#entity']|view('product_aroma')|render %}
         <a class="tabs-js__link" data-target-id="4">Аромат</a>
+        {% endif %}
+        {% if product.field_p_instructions|render %}
         <a class="tabs-js__link" data-target-id="5">Способ применения</a>
+        {% endif %}
         {% if product.field_p_expert|render %}
         <a class="tabs-js__link" data-target-id="6">Мнение эксперта</a>
         {% endif %}
@@ -77,26 +85,34 @@
           {{- product.body -}}
         </div>
       </div>
+      {% if product.field_p_composition|render %}
       <div class="tabs-js__content" data-id="2">
         <div class="col-sm-10 col-pd-10 col-tb-10 col-lp-6 col-dt-6 col-wd-6">
           {{- product.field_p_composition -}}
         </div>
       </div>
+      {% endif %}
+      {% if product.field_p_secret_ingredient|render %}
       <div class="tabs-js__content" data-id="3">
         <div class="col-sm-10 col-pd-10 col-tb-10 col-lp-6 col-dt-6 col-wd-6">
           {{- product.field_p_secret_ingredient -}}
         </div>
       </div>
+      {% endif %}
+      {% if product.field_p_aroma[0]['#entity']|view('product_aroma')|render %}
       <div class="tabs-js__content" data-id="4">
         <div class="col-sm-10 col-pd-10 col-tb-10 col-lp-6 col-dt-6 col-wd-6">
           {{- product.field_p_aroma[0]['#entity']|view('product_aroma') -}}
         </div>
       </div>
+      {% endif %}
+      {% if product.field_p_instructions|render %}
       <div class="tabs-js__content" data-id="5">
         <div class="col-sm-10 col-pd-10 col-tb-10 col-lp-6 col-dt-6 col-wd-6">
           {{- product.field_p_instructions -}}
         </div>
       </div>
+      {% endif %}
       {% if product.field_p_expert|render %}
       <div class="tabs-js__content" data-id="6">
         <div class="col-sm-10 col-pd-10 col-tb-10 col-lp-6 col-dt-6 col-wd-6">
