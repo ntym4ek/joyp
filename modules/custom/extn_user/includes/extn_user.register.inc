@@ -23,6 +23,9 @@ use Drupal\smsru\SmsRu;
  */
 function extn_user_form_user_register_form_alter(&$form, FormStateInterface $form_state): void
 {
+  // в админке не меняем
+  if (\Drupal::currentUser()->hasPermission('administer site configuration'))  return;
+
   $form['#prefix'] = '<div id="user-register-form-wrapper">';
   $form['#suffix'] = '</div>';
   $form['#attributes']['class'][] = 'form-with-verification';

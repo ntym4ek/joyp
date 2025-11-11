@@ -32,7 +32,7 @@
 
   .description,
   .field--name-field-smells {
-    @include padding-block(20, 50, 70);
+    @include padding-block(20, 50, 60);
   }
 
   @media #{$pad} {

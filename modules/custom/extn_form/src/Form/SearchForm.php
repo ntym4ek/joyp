@@ -76,7 +76,7 @@ class SearchForm extends FormBase {
   public function ajaxCallback(array $form, FormStateInterface $form_state)
   {
 
-    $results_limit = 3; // количество выводимых в строке результатов
+    $results_limit = 5;                                      // количество выводимых в строке результатов
     $output = '';
     $results_count = 0;
     if ($key = $form_state->getValue('key')) {
@@ -95,14 +95,14 @@ class SearchForm extends FormBase {
         $entity = $object->getEntity();
         $url = $entity->toUrl()->toString();
         $title = $entity->getTitle();
-        $output .= Markup::create('<li class="input-dropdown-item"><a href="' . $url . '">' . $title . '</a></li>');
+        $output .= Markup::create('<li class="input-dropdown-item item--link"><a href="' . $url . '">' . $title . '</a></li>');
         if (++$counter >= $results_limit) break;
       }
     }
 
     if ($output) {
       if ($results_count > $results_limit) {
-        $output .= '<li class="input-dropdown-item"><a href="/poisk/' . $key . '">Показать все ' . $results_count . ' ' . new PluralTranslatableMarkup($results_count, 'result', 'results') . '</a></li>';
+        $output .= '<li class="input-dropdown-item item--link item--footer"><a href="/poisk/' . $key . '">Показать все ' . $results_count . ' ' . new PluralTranslatableMarkup($results_count, 'result', 'results') . '</a></li>';
       }
     } else {
       $output = '<li class="input-dropdown-item">Ничего не найдено, попробуйте изменить запрос.</li>';

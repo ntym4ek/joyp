@@ -55,12 +55,6 @@
       &:last-child { margin-bottom: 0; }
     }
   }
-
-  &:not(:empty) {
-    @media #{$laptop}   {
-      padding-bottom: 2rem;
-    }
-  }
 }
 
 .block-advantages-counter {
@@ -79,6 +73,7 @@
   .text { margin: 1rem 0 .5rem; }
 
   @media #{$pad}  {
+    .col-sm-10:first-child { border-left: 1px solid $gray-lightest; }
     .col-sm-10 { border-right: 1px solid $gray-lightest; }
   }
   @media #{$laptop}  {
@@ -241,6 +236,15 @@
       height: 100px;
       padding-top: 2rem;
     }
+  }
+}
+
+// копия блока Ароматов на странице ароматов
+#block-project-views-block-aromas-block-1-2 {
+  .view-header .row,
+  .swiper-slide {
+    background: #B59A7F;
+    color: #fff;
   }
 }
 

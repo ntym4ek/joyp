@@ -5,17 +5,26 @@
   .input-dropdown-menu:not(:empty) {
     border: 1px solid $gray-lightest;
     box-shadow: 1px 1px 10px $gray-lightest;
-    max-height: 13rem;
 
     .input-dropdown-item {
-      padding: 1rem;
       &:hover { background-color: $gray-lightest; }
-      span { color: $gray-light; font-size: $font-size-small; }
     }
 
     &.processing .input-dropdown-item {
       opacity: .2; pointer-events: none;
     }
+  }
+}
+
+.checkout-pane-shipping-information {
+  .input-dropdown-menu {
+    max-height: 20rem;
+
+    .input-dropdown-item {
+      padding: .8rem;
+      span { color: $gray-light; font-size: $font-size-small; }
+    }
+
   }
 }
 
@@ -76,10 +85,29 @@
     }
 
     .close-icon { cursor: pointer; }
+
+    .input-dropdown-menu:not(:empty) {
+      overflow-y: visible;
+      max-height: initial;
+
+      .input-dropdown-item {
+        padding: .5rem 1rem;
+        &.item--link {
+          padding: 0;
+          a {
+            display: block;
+            padding: .5rem 1rem;
+          }
+        }
+        &.item--footer {
+          border-top: 1px solid $gray-lightest;
+        }
+      }
+    }
   }
 
   &.open {
-    position: absolute; left: 0; right: -50px; z-index: 10;
+    position: absolute; left: 0; right: -50px; top: 0; bottom: 0; z-index: 10;
     padding: 0;
     background: #fff;
     display: flex; align-items: center;
