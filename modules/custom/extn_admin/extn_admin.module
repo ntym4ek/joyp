@@ -1,0 +1,45 @@
+<?php
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_FORM_ID_alter()
+ */
+function extn_form_form_entity_clone_form_alter(&$form, FormStateInterface $form_state, $form_id): void
+{
+  // для Контент менеджеров при клонировании Продукта установить галки
+  if (\Drupal::currentUser()->hasPermission('administer site configuration'))  return;
+
+  // клонирования Изображений
+  if (!empty($form["recursive"]["commerce_product.care.field_p_images"])) {
+    foreach ($form["recursive"]["commerce_product.care.field_p_images"]["references"] as $key => $field) {
+      $form["recursive"]["commerce_product.care.field_p_images"]["references"][$key]["clone"]["#default_value"] = TRUE;
+    }
+  }
+  // Мнение эксперта
+  if (!empty($form["recursive"]["commerce_product.care.field_p_expert"])) {
+    foreach ($form["recursive"]["commerce_product.care.field_p_expert"]["references"] as $key => $field) {
+      $form["recursive"]["commerce_product.care.field_p_expert"]["references"][$key]["clone"]["#default_value"] = TRUE;
+
+      // фото Эксперта тоже клонируем
+      if (!empty($form["recursive"]["commerce_product.care.field_p_expert"]["references"][$key]["children"]["recursive"]['paragraph.mnenie_eksperta.field_image']["references"])) {
+        foreach ($form["recursive"]["commerce_product.care.field_p_expert"]["references"][$key]["children"]["recursive"]['paragraph.mnenie_eksperta.field_image']["references"] as $key2 => $field2) {
+          $form["recursive"]["commerce_product.care.field_p_expert"]["references"][$key]["children"]["recursive"]['paragraph.mnenie_eksperta.field_image']["references"][$key2]["clone"]["#default_value"] = TRUE;
+        }
+      }
+    }
+  }
+
+  // убрать доступ к настройке
+  if (!empty($form["recursive"])) {
+    $form["description"]["#access"] = FALSE;
+    foreach (\Drupal\Core\Render\Element::children($form["recursive"]) as $key) {
+      $form["recursive"][$key]['#access'] = FALSE;
+    }
+  }
+
+}
+
+
+
+

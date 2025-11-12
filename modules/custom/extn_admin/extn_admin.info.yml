@@ -1,0 +1,5 @@
+name: Extn Admin
+type: module
+description: 'Изменение и дополнительный функционал для админки'
+package: xCustom
+core_version_requirement: ^10 || ^11

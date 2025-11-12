@@ -5,12 +5,11 @@
  * Functions to support theming.
  */
 
-use Drupal\commerce_product\Entity\ProductVariationInterface;
-use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Render\Markup;
 use Drupal\Core\StringTranslation\PluralTranslatableMarkup;
 use Drupal\func_helper\Helper\CommerceHelper;
 use Drupal\image\Entity\ImageStyle;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Implements hook_theme().
@@ -158,9 +157,10 @@ function project_preprocess_page_title(array &$vars): void
  */
 function project_preprocess_commerce_product(&$vars): void
 {
+  $product = $vars['elements']['#commerce_product'];
+
   if ($vars["elements"]["#view_mode"] == 'summary') {
     // Рассчитать скидку и добавить в переменные, если задана цена list_price.
-    $product = $vars['elements']['#commerce_product'];
     if ($product_variations = $product->getVariations()) {
       $product_variation = reset($product_variations);
       $price = $product_variation->getPrice();
@@ -177,18 +177,18 @@ function project_preprocess_commerce_product(&$vars): void
   if ($vars["elements"]["#view_mode"] == 'full') {
     $vars['socials'] = [
       '#theme' => 'socials',
-      '#items' => project_get_socials_links(),
+      '#items' => project_get_share_links($product->toUrl()->toString(), $product->getTitle()),
     ];
   }
 }
 
-function project_get_socials_links(): array
+function project_get_share_links($url, $title): array
 {
+
   return [
-    ['url' => '', 'icon_class' => 'vk'],
-    ['url' => '', 'icon_class' => 'tg'],
-    ['url' => '', 'icon_class' => 'vb'],
-    ['url' => '', 'icon_class' => 'wa'],
+    ['url' => 'https://vk.com/share.php?url=' . rawurlencode($url), 'icon_class' => 'vk'],
+    ['url' => 'https://t.me/share/url?url=' . rawurlencode($url) . '&text=' . $title, 'icon_class' => 'tg'],
+    ['url' => 'https://api.whatsapp.com/send?text=' . rawurlencode($url), 'icon_class' => 'wa'],
   ];
 }
 
@@ -213,7 +213,7 @@ function project_preprocess_node__article(&$vars)
   if ($vars["elements"]["#view_mode"] == 'full') {
     $vars['socials'] = [
       '#theme' => 'socials',
-      '#items' => project_get_socials_links(),
+      '#items' => project_get_share_links(),
     ];
   }
 }
@@ -285,5 +285,20 @@ function project_preprocess_swiper_formatter(array &$vars): void
         }
       }
     }
+  }
+}
+
+/**
+ * Implements hook_form_alter()
+ */
+function project_form_alter(&$form, FormStateInterface $form_state, $form_id): void
+{
+  $form['#attributes']['novalidate'] = 'novalidate';
+  $form['#attributes']['autocomplete'] = 'off';
+
+  // для Exposed форм добавить классы оформления
+  if ($form_id == 'views_exposed_form') {
+    $form["actions"]["submit"]["#attributes"]['class'][] = 'button--primary button--full-width';
+    $form["actions"]["reset"]["#attributes"]['class'][] = 'button--default button--outline button--full-width';
   }
 }
