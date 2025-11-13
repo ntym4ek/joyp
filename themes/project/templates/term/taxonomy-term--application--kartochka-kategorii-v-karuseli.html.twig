@@ -27,6 +27,7 @@
   set classes = [
     'taxonomy-term',
     'taxonomy-term--' ~ view_mode|clean_class,
+    'taxonomy-term--' ~ term.id,
     'vocabulary-' ~ term.bundle|clean_class,
   ]
 %}
