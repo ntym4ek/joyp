@@ -172,6 +172,8 @@
   }
 
   .product__description {
+    line-height: 1.5;
+
     p:first-child { margin-top: 0; }
     .tabs-js { margin: 0; }
     .tabs-js__nav {
