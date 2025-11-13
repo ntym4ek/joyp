@@ -167,10 +167,14 @@ function project_preprocess_commerce_product(&$vars): void
       if ($list_price = $product_variation->getListPrice()) {
         $discount = (($list_price->getNumber() - $price->getNumber()) / $price->getNumber()) * 100;
       }
+      if (!empty($discount)) {
+        $vars['product']['discount'] = ['#markup' => '-' . round($discount) . '%'];
+      }
     }
 
-    if (!empty($discount)) {
-      $vars['product']['discount'] = ['#markup' => '-' . round($discount) . '%'];
+    // определить категорию товара
+    if ($product->hasField('field_p_application') && !$product->field_p_application->isEmpty()) {
+      $vars['product']['category_id'] = $product->field_p_application[0]->getValue()['target_id'];
     }
   }
 
@@ -187,7 +191,7 @@ function project_get_share_links($url, $title): array
 
   return [
     ['url' => 'https://vk.com/share.php?url=' . rawurlencode($url), 'icon_class' => 'vk'],
-    ['url' => 'https://t.me/share/url?url=' . rawurlencode($url) . '&text=' . $title, 'icon_class' => 'tg'],
+    ['url' => 'https://t.me/share/url?url=' . rawurlencode($url) . '&text=' . rawurlencode($title), 'icon_class' => 'tg'],
     ['url' => 'https://api.whatsapp.com/send?text=' . rawurlencode($url), 'icon_class' => 'wa'],
   ];
 }
@@ -213,7 +217,7 @@ function project_preprocess_node__article(&$vars)
   if ($vars["elements"]["#view_mode"] == 'full') {
     $vars['socials'] = [
       '#theme' => 'socials',
-      '#items' => project_get_share_links(),
+      '#items' => project_get_share_links($vars["url"], $vars["title"]),
     ];
   }
 }

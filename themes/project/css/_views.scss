@@ -44,20 +44,14 @@
     flex-basis: 100%; max-width: 100%;
     border-bottom: 1px solid $gray-lightest;
     box-sizing: border-box;
-    padding: 1rem $gutter-sm;
 
     @media #{$pad}      {
       border-right: 1px solid $gray-lightest;
       flex-basis: 50%; max-width: 50%;
-      padding: 2rem $gutter-pd;
     }
-    @media #{$tablet}   { padding: 2rem $gutter-tb; }
     @media #{$laptop}   {
       flex-basis: 25%; max-width: 25%;
-      padding: 2.5rem $gutter-lp;
     }
-    @media #{$desktop}   { padding: 3rem $gutter-dt; }
-    @media #{$wide}      { padding: 3rem $gutter-wd; }
   }
 }
 .view-katalog.view-display-id-page_2 {
@@ -129,18 +123,6 @@
 }
 
 .view-aromas .swiper-container { border-top: none; }
-//
-//.view-karusel-produktov,
-//.view-karusel-kategoriy {
-//  .swiper-slide {
-//                          padding: 1rem $gutter-sm;
-//    @media #{$pad}      { padding: 2rem $gutter-pd; }
-//    @media #{$tablet}   { padding: 2rem $gutter-tb; }
-//    @media #{$laptop}   { padding: 2.5rem $gutter-lp; }
-//    @media #{$desktop}  { padding: 3rem $gutter-dt; }
-//    @media #{$wide}     { padding: 3rem $gutter-wd; }
-//  }
-//}
 
 .view-karusel-kategoriy {
   .show-more { margin-bottom: 0; }

@@ -23,23 +23,30 @@
  * @ingroup themeable
  */
 #}
-<article{{ attributes.addClass(['product', 'product--summary']) }}>
-  <div class="product__image">
-    {{- product.field_p_images[0] -}}
-    {% if product.discount %}
-      <div class="product__discount">
-        {{- product.discount -}}
-      </div>
-    {% endif %}
-  </div>
-  <div class="product__content">
-    <div class="product__title">
-      <a href="{{ product_url }}"><h4>{{- product.title -}}</h4></a>
-      {{- product.variations -}}
+{% set classes = ['product', 'product--summary'] %}
+{% if product.category_id  %}
+  {% set classes = classes|merge(['product-category--' ~ product.category_id]) %}
+{% endif %}
+
+<article{{ attributes.addClass(classes) }}>
+  <div class="product__inner">
+    <div class="product__image">
+      {{- product.field_p_images[0] -}}
+      {% if product.discount %}
+        <div class="product__discount">
+          {{- product.discount -}}
+        </div>
+      {% endif %}
     </div>
-    <div class="product__price">
-      {{- product.variation_price -}}
-      {{- product.variation_list_price -}}
+    <div class="product__content">
+      <div class="product__title">
+        <a href="{{ product_url }}"><h4>{{- product.title -}}</h4></a>
+        {{- product.variations -}}
+      </div>
+      <div class="product__price">
+        {{- product.variation_price -}}
+        {{- product.variation_list_price -}}
+      </div>
     </div>
   </div>
 </article>
