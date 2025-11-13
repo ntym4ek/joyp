@@ -43,7 +43,7 @@
   }
 }
 
-.product--summary {
+.product--teaser {
   height: 100%;
   position: relative;
 
@@ -325,7 +325,7 @@
   }
 }
 
-.karusel-produktov .product--summary {
+.karusel-produktov .product--teaser {
   &.product-category--21 { background: linear-gradient(#fff, $brand-hair); }
   &.product-category--22 { background: linear-gradient(#fff, $brand-hands); }
   &.product-category--23 { background: linear-gradient(#fff, $brand-body); }

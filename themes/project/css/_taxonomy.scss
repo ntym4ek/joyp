@@ -1,9 +1,12 @@
 @import "variables";                                                            // чтобы переменные не подсвечивались
 
 .taxonomy-term {
-  .field--name-field-image img {
-    object-fit: cover;
-    width: 100%; height: 100%;
+  .field--name-field-image {
+    height: 100%;
+    img {
+      object-fit: cover;
+      width: 100%; height: 100%;
+    }
   }
 }
 
@@ -90,6 +93,8 @@
     @media #{$wide}     { padding: 3rem $gutter-wd; }
   }
 
+  .image { height: 220px; }
+
   i.picon::before {
     background-color: $text-color;
   }
@@ -100,4 +105,8 @@
   &.taxonomy-term--24 { background: linear-gradient(#fff, $brand-home); }
   &.taxonomy-term--25 { background: linear-gradient(#fff, $brand-travel); }
   &.taxonomy-term--26 { background: linear-gradient(#fff, $brand-set); }
+
+  @media #{$desktop}      {
+    .image { height: 350px; }
+  }
 }

@@ -23,7 +23,7 @@
  * @ingroup themeable
  */
 #}
-{% set classes = ['product', 'product--summary'] %}
+{% set classes = ['product', 'product--teaser'] %}
 {% if product.category_id  %}
   {% set classes = classes|merge(['product-category--' ~ product.category_id]) %}
 {% endif %}
