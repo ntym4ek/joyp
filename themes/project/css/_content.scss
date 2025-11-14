@@ -64,6 +64,11 @@
     .node__content {
       @include padding-block(16, 32, 32);
     }
+    h2 a {
+      &:hover,
+      &:active { color: $brand-cocoa; }
+    }
+
 
     @media #{$desktop} {
       .field--name-field-image { height: 300px; }

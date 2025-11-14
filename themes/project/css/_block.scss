@@ -194,7 +194,6 @@
     margin: 0 auto;
     width: 235px;
     transition: all 0.3s;
-    &:hover { transform: translateY(-4px); }
 
     &__more {
       i.picon {
@@ -212,7 +211,6 @@
       transition: all 0.5s;
       min-width: 100%;
     }
-    &:hover img { transform: scale(1.02); }
   }
   .views-field-name {
     font-size: $font-size-h4;
@@ -221,9 +219,10 @@
     .field-content {
       display: block;
       transition: all 0.3s;
-      &:hover { transform: translateY(-4px); }
       a {
         color: inherit; font-family: $font-name2; text-transform: uppercase;
+        &:hover,
+        &:active { color: $brand-cocoa; }
       }
     }
 

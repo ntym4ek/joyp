@@ -66,6 +66,8 @@ var timer = null;
             let city_code = event.detail.source[0].dataset.code;
             let current_city = event.detail.dest[0].value;
 
+            if (!city_code) return;
+
             event.detail.dest[0].value = city;
 
             // если выбран другой город, стереть старый адрес ПВЗ
