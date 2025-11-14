@@ -1,0 +1,551 @@
+From 3d9d0f9cd2d863487e094606a9157b787016a8db Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Dezs=C5=91=20BICZ=C3=93?= <dezso.biczo@pronovix.com>
+Date: Tue, 6 May 2025 12:13:42 +0200
+Subject: [PATCH 1/5] Add failing test
+
+---
+ ...t_page_with_ajax_exposed_form_in_block.yml | 83 +++++++++++++++++++
+ .../src/Hook/ViewsTestExposedFormHooks.php    | 28 +++++++
+ .../views_test_exposed_form.info.yml          |  7 ++
+ .../BlockExposedFilterAJAXTest.php            | 31 ++++++-
+ 4 files changed, 147 insertions(+), 2 deletions(-)
+ create mode 100644 core/modules/views/tests/modules/views_test_config/test_views/views.view.test_page_with_ajax_exposed_form_in_block.yml
+ create mode 100644 core/modules/views/tests/modules/views_test_exposed_form/src/Hook/ViewsTestExposedFormHooks.php
+ create mode 100644 core/modules/views/tests/modules/views_test_exposed_form/views_test_exposed_form.info.yml
+
+diff --git a/core/modules/views/tests/modules/views_test_config/test_views/views.view.test_page_with_ajax_exposed_form_in_block.yml b/core/modules/views/tests/modules/views_test_config/test_views/views.view.test_page_with_ajax_exposed_form_in_block.yml
+new file mode 100644
+index 000000000000..b330ca0e4481
+--- /dev/null
++++ b/core/modules/views/tests/modules/views_test_config/test_views/views.view.test_page_with_ajax_exposed_form_in_block.yml
+@@ -0,0 +1,83 @@
++langcode: en
++status: true
++dependencies:
++  config:
++    - core.entity_view_mode.node.teaser
++  module:
++    - node
++id: test_page_with_ajax_exposed_form_in_block
++label: test_page_with_ajax_exposed_form_in_block
++module: views
++description: ''
++tag: ''
++base_table: node_field_data
++base_field: nid
++display:
++  default:
++    id: default
++    display_title: Default
++    display_plugin: default
++    position: 0
++    display_options:
++      pager:
++        type: full
++        options:
++          pagination_heading_level: h4
++      exposed_form:
++        type: basic
++        options:
++          submit_button: Apply
++          reset_button: true
++      access:
++        type: none
++      cache:
++        type: tag
++      filters:
++        type:
++          id: type
++          table: node_field_data
++          field: type
++          entity_type: node
++          entity_field: type
++          plugin_id: in_operator
++          exposed: true
++          expose:
++            operator_id: type_op
++            label: 'Content: Type'
++            identifier: type
++            reduce: false
++      style:
++        type: default
++      row:
++        type: 'entity:node'
++      query:
++        type: views_query
++        options:
++          query_comment: ''
++      use_ajax: true
++      display_extenders: {  }
++    cache_metadata:
++      max-age: -1
++      contexts:
++        - 'languages:language_interface'
++        - url
++        - url.query_args
++        - 'user.node_grants:view'
++      tags: {  }
++  page_1:
++    id: page_1
++    display_title: Page
++    display_plugin: page
++    position: 2
++    display_options:
++      exposed_block: true
++      display_extenders: {  }
++      path: test_page_with_ajax_exposed_form_in_block
++    cache_metadata:
++      max-age: -1
++      contexts:
++        - 'languages:language_interface'
++        - url
++        - url.query_args
++        - 'user.node_grants:view'
++      tags: {  }
+diff --git a/core/modules/views/tests/modules/views_test_exposed_form/src/Hook/ViewsTestExposedFormHooks.php b/core/modules/views/tests/modules/views_test_exposed_form/src/Hook/ViewsTestExposedFormHooks.php
+new file mode 100644
+index 000000000000..9017790595b9
+--- /dev/null
++++ b/core/modules/views/tests/modules/views_test_exposed_form/src/Hook/ViewsTestExposedFormHooks.php
+@@ -0,0 +1,28 @@
++<?php
++
++declare(strict_types=1);
++
++namespace Drupal\views_test_exposed_form\Hook;
++
++use Drupal\Core\Form\FormStateInterface;
++use Drupal\Core\Hook\Attribute\Hook;
++
++/**
++ * Hook implementations for views_test_exposed_form.
++ */
++class ViewsTestExposedFormHooks {
++
++  /**
++   * Implements hook_form_FORM_ID_alter() for the exposed form.
++   */
++  #[Hook('form_views_exposed_form_alter')]
++  public function formViewsExposedFormAlter(&$form, FormStateInterface $form_state) : void {
++    if ($form_state->get('view')->id() === 'test_page_with_ajax_exposed_form_in_block') {
++      $form['form_build_time'] = [
++        '#type' => 'item',
++        '#markup' => \Drupal::time()->getCurrentMicroTime(),
++      ];
++    }
++  }
++
++}
+diff --git a/core/modules/views/tests/modules/views_test_exposed_form/views_test_exposed_form.info.yml b/core/modules/views/tests/modules/views_test_exposed_form/views_test_exposed_form.info.yml
+new file mode 100644
+index 000000000000..c7c2e7ec6a18
+--- /dev/null
++++ b/core/modules/views/tests/modules/views_test_exposed_form/views_test_exposed_form.info.yml
+@@ -0,0 +1,7 @@
++name: 'Views Test Exposed form'
++type: module
++description: 'Provides hook to alter views exposed form for testing purposes.'
++package: Testing
++version: VERSION
++dependencies:
++  - drupal:views
+diff --git a/core/modules/views/tests/src/FunctionalJavascript/BlockExposedFilterAJAXTest.php b/core/modules/views/tests/src/FunctionalJavascript/BlockExposedFilterAJAXTest.php
+index 76b782fdf199..10f83bcc4bc9 100644
+--- a/core/modules/views/tests/src/FunctionalJavascript/BlockExposedFilterAJAXTest.php
++++ b/core/modules/views/tests/src/FunctionalJavascript/BlockExposedFilterAJAXTest.php
+@@ -22,14 +22,18 @@ class BlockExposedFilterAJAXTest extends WebDriverTestBase {
+   /**
+    * {@inheritdoc}
+    */
+-  protected static $modules = ['node', 'views', 'block', 'views_test_config'];
++  protected static $modules = ['node', 'views', 'block', 'views_test_config', 'views_test_exposed_form'];
+ 
+   /**
+    * The views to use for testing.
+    *
+    * @var string[]
+    */
+-  public static $testViews = ['test_block_exposed_ajax', 'test_block_exposed_ajax_with_page'];
++  public static $testViews = [
++    'test_block_exposed_ajax',
++    'test_block_exposed_ajax_with_page',
++    'test_page_with_ajax_exposed_form_in_block',
++  ];
+ 
+   /**
+    * {@inheritdoc}
+@@ -100,4 +104,27 @@ public function testExposedFilteringAndReset(): void {
+     $this->assertSession()->addressEquals('some-path');
+   }
+ 
++  /**
++   * Tests AJAX refreshes the exposed form when it is exposed in a block.
++   */
++  public function testExposedFormInBlockAjaxRefresh(): void {
++    $this->drupalPlaceBlock('views_exposed_filter_block:test_page_with_ajax_exposed_form_in_block-page_1');
++    $this->drupalGet('test_page_with_ajax_exposed_form_in_block');
++    $page = $this->getSession()->getPage();
++
++    $html = $page->getHtml();
++    $first_form_build_time = trim($page->find('xpath', '//div[contains(@class, "form-item-form-build-time")]')->getText());
++    self::assertNotEmpty($first_form_build_time, 'The form build time found on the page.');
++    $this->assertStringContainsString('Page A', $html);
++    $this->assertStringContainsString('Page B', $html);
++    $this->assertStringContainsString('Article A', $html);
++
++    $this->submitForm(['type' => 'page'], 'Apply');
++    $this->assertSession()->assertWaitOnAjaxRequest();
++
++    $second_form_build_time = trim($page->find('xpath', '//div[contains(@class, "form-item-form-build-time")]')->getText());
++    self::assertNotEmpty($second_form_build_time, 'The form build time found on the page.');
++    self::assertNotEquals($first_form_build_time, $second_form_build_time, 'The form was successfully rebuilt.');
++  }
++
+ }
+-- 
+GitLab
+
+
+From 5843ec957980d5207ce114355f50fb57997613d2 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Dezs=C5=91=20BICZ=C3=93?= <dezso.biczo@pronovix.com>
+Date: Tue, 6 May 2025 12:14:12 +0200
+Subject: [PATCH 2/5] Fix ajax refresh issue
+
+---
+ .../src/Controller/ViewAjaxController.php     | 26 +++++++++++++++++++
+ .../views/src/Form/ViewsExposedForm.php       |  6 ++++-
+ .../src/Functional/Plugin/ExposedFormTest.php |  4 +--
+ 3 files changed, 33 insertions(+), 3 deletions(-)
+
+diff --git a/core/modules/views/src/Controller/ViewAjaxController.php b/core/modules/views/src/Controller/ViewAjaxController.php
+index a4a3d2538dc2..7588127f5162 100644
+--- a/core/modules/views/src/Controller/ViewAjaxController.php
++++ b/core/modules/views/src/Controller/ViewAjaxController.php
+@@ -218,6 +218,32 @@ public function ajaxView(Request $request) {
+           $response->setAttachments($preview['#attached']);
+         }
+ 
++        // Ensure exposed filters in blocks are updated during AJAX requests.
++        // When a view has its exposed filters placed in a block (rather
++        // than inline with the view), we need to replace those blocks during
++        // AJAX updates to maintain consistency.
++        if ($view->display_handler->usesExposedFormInBlock()) {
++          $exposed_form_block_render_array = $view->display_handler->viewExposedFormBlocks();
++          $exposed_form_css_class = $exposed_form_block_render_array['#attributes']['data-drupal-exposed-form-wrapper-class'];
++
++          // When an exposed form is placed in a block, the block element
++          // inherits certain attributes from the form during the initial page
++          // render. We need to remove these attributes from our replacement
++          // content to prevent duplication and UI issues.
++          // The BlockViewBuilder has already applied these attributes to the
++          // block container in the DOM, so we don't need to include them again
++          // in our replacement content.
++          // @see \Drupal\block\BlockViewBuilder::preRender()
++          foreach (['#attributes', '#contextual_links'] as $property) {
++            if (isset($exposed_form_block_render_array[$property])) {
++              unset($exposed_form_block_render_array[$property]);
++            }
++          }
++          // The render element must be rendered before the form ID is accessed.
++          $exposed_form = $this->renderer->render($exposed_form_block_render_array);
++          $response->addCommand(new ReplaceCommand('.' . $exposed_form_css_class, $exposed_form));
++        }
++
+         return $response;
+       }
+       else {
+diff --git a/core/modules/views/src/Form/ViewsExposedForm.php b/core/modules/views/src/Form/ViewsExposedForm.php
+index d68b1dd5363c..7ee6f210549e 100644
+--- a/core/modules/views/src/Form/ViewsExposedForm.php
++++ b/core/modules/views/src/Form/ViewsExposedForm.php
+@@ -137,7 +137,11 @@ public function buildForm(array $form, FormStateInterface $form_state) {
+ 
+     $form['#action'] = $form_action;
+     $form['#theme'] = $view->buildThemeFunctions('views_exposed_form');
+-    $form['#id'] = Html::cleanCssIdentifier('views_exposed_form-' . $view->storage->id() . '-' . $display['id']);
++    $clean_form_id = Html::cleanCssIdentifier('views_exposed_form-' . $view->storage->id() . '-' . $display['id']);
++    $form['#id'] = $clean_form_id;
++    $form['#attributes']['data-drupal-exposed-form-wrapper-class'] = 'views-exposed-form-wrapper-' . $clean_form_id;
++    $form['#prefix'] = "<div class=\"views-exposed-form-wrapper {$form['#attributes']['data-drupal-exposed-form-wrapper-class']}\">";
++    $form['#suffix'] = '</div>';
+     // Labels are built too late for inline form errors to work, resulting
+     // in duplicated messages.
+     $form['#disable_inline_form_errors'] = TRUE;
+diff --git a/core/modules/views/tests/src/Functional/Plugin/ExposedFormTest.php b/core/modules/views/tests/src/Functional/Plugin/ExposedFormTest.php
+index 7d2af0f1a4dd..244c32e90b20 100644
+--- a/core/modules/views/tests/src/Functional/Plugin/ExposedFormTest.php
++++ b/core/modules/views/tests/src/Functional/Plugin/ExposedFormTest.php
+@@ -287,10 +287,10 @@ public function testExposedBlock($display): void {
+     $this->assertSession()->pageTextMatchesCount(1, '/' . $view->getTitle() . '/');
+ 
+     // Test there is an exposed form in a block.
+-    $this->assertSession()->elementsCount('xpath', '//div[@id="' . Html::getUniqueId('block-' . $block->id()) . '"]/form/@id', 1);
++    $this->assertSession()->elementsCount('xpath', '//div[@id="' . Html::getUniqueId('block-' . $block->id()) . '"]//form/@id', 1);
+ 
+     // Test there is not an exposed form in the view page content area.
+-    $xpath = $this->assertSession()->buildXPathQuery('//div[@class="view-content"]/form/@id', [
++    $xpath = $this->assertSession()->buildXPathQuery('//div[@class="view-content"]//form/@id', [
+       ':id' => Html::getUniqueId('block-' . $block->id()),
+     ]);
+     $this->assertSession()->elementNotExists('xpath', $xpath);
+-- 
+GitLab
+
+
+From 9de66548a959281e66748cc40da500737f5ab803 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Dezs=C5=91=20BICZ=C3=93?= <dezso.biczo@pronovix.com>
+Date: Wed, 7 May 2025 09:43:04 +0200
+Subject: [PATCH 3/5] Switch to data attribute approach
+
+---
+ .../src/Controller/ViewAjaxController.php     | 51 ++++++++++---------
+ .../views/src/Form/ViewsExposedForm.php       |  6 +--
+ .../exposed_form/ExposedFormPluginBase.php    |  3 ++
+ .../ExposedFormPluginInterface.php            | 26 ++++++++++
+ .../src/Functional/Plugin/ExposedFormTest.php |  4 +-
+ 5 files changed, 59 insertions(+), 31 deletions(-)
+
+diff --git a/core/modules/views/src/Controller/ViewAjaxController.php b/core/modules/views/src/Controller/ViewAjaxController.php
+index 7588127f5162..40b5f720b160 100644
+--- a/core/modules/views/src/Controller/ViewAjaxController.php
++++ b/core/modules/views/src/Controller/ViewAjaxController.php
+@@ -6,6 +6,7 @@
+ use Drupal\Component\Utility\UrlHelper;
+ use Drupal\Core\Ajax\PrependCommand;
+ use Drupal\Core\Ajax\ReplaceCommand;
++use Drupal\Core\Ajax\ScrollTopCommand;
+ use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
+ use Drupal\Core\Entity\EntityStorageInterface;
+ use Drupal\Core\EventSubscriber\MainContentViewSubscriber;
+@@ -13,13 +14,12 @@
+ use Drupal\Core\Path\CurrentPathStack;
+ use Drupal\Core\Render\RendererInterface;
+ use Drupal\Core\Routing\RedirectDestinationInterface;
+-use Drupal\Core\Ajax\ScrollTopCommand;
+ use Drupal\views\Ajax\ViewAjaxResponse;
+ use Drupal\views\ViewExecutableFactory;
+ use Symfony\Component\DependencyInjection\ContainerInterface;
+ use Symfony\Component\HttpFoundation\Request;
+-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
++use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+ 
+ /**
+  * Defines a controller to load a view via AJAX.
+@@ -205,7 +205,7 @@ public function ajaxView(Request $request) {
+           'theme_token' => TRUE,
+         ];
+         if (is_array($existing_page_state) &&
+-            ($temp_attributes = array_intersect_key($existing_page_state, $theme_keys))) {
++          ($temp_attributes = array_intersect_key($existing_page_state, $theme_keys))) {
+           $request->attributes->set('ajax_page_state', $temp_attributes);
+         }
+         $preview = $view->preview($display_id, $args);
+@@ -224,35 +224,38 @@ public function ajaxView(Request $request) {
+         // AJAX updates to maintain consistency.
+         if ($view->display_handler->usesExposedFormInBlock()) {
+           $exposed_form_block_render_array = $view->display_handler->viewExposedFormBlocks();
+-          $exposed_form_css_class = $exposed_form_block_render_array['#attributes']['data-drupal-exposed-form-wrapper-class'];
++          // Only act if the form is exposed in a block.
++          if ($exposed_form_block_render_array !== NULL) {
++            /** @var \Drupal\views\Plugin\views\exposed_form\ExposedFormPluginInterface $exposed_form_plugin */
++            $exposed_form_plugin = $view->display_handler->getPlugin('exposed_form');
++            $exposed_form_data_attribute_value = $exposed_form_block_render_array['#attributes'][$exposed_form_plugin::DATA_ATTRIBUTE_EXPOSED_FORM_IDENTIFIER];
+ 
+-          // When an exposed form is placed in a block, the block element
+-          // inherits certain attributes from the form during the initial page
+-          // render. We need to remove these attributes from our replacement
+-          // content to prevent duplication and UI issues.
+-          // The BlockViewBuilder has already applied these attributes to the
+-          // block container in the DOM, so we don't need to include them again
+-          // in our replacement content.
+-          // @see \Drupal\block\BlockViewBuilder::preRender()
+-          foreach (['#attributes', '#contextual_links'] as $property) {
+-            if (isset($exposed_form_block_render_array[$property])) {
+-              unset($exposed_form_block_render_array[$property]);
++            // When an exposed form is placed in a block, the block element
++            // inherits certain attributes from the form during the initial page
++            // render. We need to remove these attributes from our replacement
++            // content to prevent duplication and UI issues.
++            // The BlockViewBuilder has already applied these attributes to the
++            // block container in the DOM, so we don't need to include them again
++            // in our replacement content.
++            // @see \Drupal\block\BlockViewBuilder::preRender()
++            foreach (['#attributes', '#contextual_links'] as $property) {
++              if (isset($exposed_form_block_render_array[$property])) {
++                unset($exposed_form_block_render_array[$property]);
++              }
+             }
++            // The render element must be rendered before the form ID is accessed.
++            $exposed_form = $this->renderer->render($exposed_form_block_render_array);
++            $response->addCommand(new ReplaceCommand('[' . $exposed_form_plugin::DATA_ATTRIBUTE_EXPOSED_FORM_IDENTIFIER . '=' . $exposed_form_data_attribute_value . '] form', $exposed_form));
+           }
+-          // The render element must be rendered before the form ID is accessed.
+-          $exposed_form = $this->renderer->render($exposed_form_block_render_array);
+-          $response->addCommand(new ReplaceCommand('.' . $exposed_form_css_class, $exposed_form));
+         }
+ 
+         return $response;
+       }
+-      else {
+-        throw new AccessDeniedHttpException();
+-      }
+-    }
+-    else {
+-      throw new NotFoundHttpException();
++
++      throw new AccessDeniedHttpException();
+     }
++
++    throw new NotFoundHttpException();
+   }
+ 
+ }
+diff --git a/core/modules/views/src/Form/ViewsExposedForm.php b/core/modules/views/src/Form/ViewsExposedForm.php
+index 7ee6f210549e..d68b1dd5363c 100644
+--- a/core/modules/views/src/Form/ViewsExposedForm.php
++++ b/core/modules/views/src/Form/ViewsExposedForm.php
+@@ -137,11 +137,7 @@ public function buildForm(array $form, FormStateInterface $form_state) {
+ 
+     $form['#action'] = $form_action;
+     $form['#theme'] = $view->buildThemeFunctions('views_exposed_form');
+-    $clean_form_id = Html::cleanCssIdentifier('views_exposed_form-' . $view->storage->id() . '-' . $display['id']);
+-    $form['#id'] = $clean_form_id;
+-    $form['#attributes']['data-drupal-exposed-form-wrapper-class'] = 'views-exposed-form-wrapper-' . $clean_form_id;
+-    $form['#prefix'] = "<div class=\"views-exposed-form-wrapper {$form['#attributes']['data-drupal-exposed-form-wrapper-class']}\">";
+-    $form['#suffix'] = '</div>';
++    $form['#id'] = Html::cleanCssIdentifier('views_exposed_form-' . $view->storage->id() . '-' . $display['id']);
+     // Labels are built too late for inline form errors to work, resulting
+     // in duplicated messages.
+     $form['#disable_inline_form_errors'] = TRUE;
+diff --git a/core/modules/views/src/Plugin/views/exposed_form/ExposedFormPluginBase.php b/core/modules/views/src/Plugin/views/exposed_form/ExposedFormPluginBase.php
+index ec4808deae93..5b04f1098322 100644
+--- a/core/modules/views/src/Plugin/views/exposed_form/ExposedFormPluginBase.php
++++ b/core/modules/views/src/Plugin/views/exposed_form/ExposedFormPluginBase.php
+@@ -2,6 +2,7 @@
+ 
+ namespace Drupal\views\Plugin\views\exposed_form;
+ 
++use Drupal\Component\Utility\Html;
+ use Drupal\Core\Cache\Cache;
+ use Drupal\Core\Cache\CacheableDependencyInterface;
+ use Drupal\Core\Form\FormState;
+@@ -139,6 +140,8 @@ public function renderExposedForm($block = FALSE) {
+       $this->view->build_info['abort'] = TRUE;
+     }
+ 
++    $form['#attributes'][self::DATA_ATTRIBUTE_EXPOSED_FORM_IDENTIFIER] = Html::cleanCssIdentifier(implode('-', ['views_exposed_form', $this->getPluginId(), $this->view->storage->id(), $this->view->display_handler->display['id']]));
++
+     if (!$this->view->display_handler->displaysExposed() || (!$block && $this->view->display_handler->getOption('exposed_block'))) {
+       return [];
+     }
+diff --git a/core/modules/views/src/Plugin/views/exposed_form/ExposedFormPluginInterface.php b/core/modules/views/src/Plugin/views/exposed_form/ExposedFormPluginInterface.php
+index b06b83193197..1ab8b08a9f22 100644
+--- a/core/modules/views/src/Plugin/views/exposed_form/ExposedFormPluginInterface.php
++++ b/core/modules/views/src/Plugin/views/exposed_form/ExposedFormPluginInterface.php
+@@ -41,6 +41,32 @@
+  */
+ interface ExposedFormPluginInterface extends ViewsPluginInterface {
+ 
++  /**
++   * Identifies all instances of this exposed form on a page.
++   *
++   * Plugin implementations must add this data attribute to the form render
++   * array with a unique value that identifies each exposed form instance.
++   * This attribute enables JavaScript behaviors to target specific exposed
++   * forms when multiple instances appear on the same page.
++   *
++   * The recommended format for the identifier value combines the plugin ID,
++   * view ID, and display ID to ensure uniqueness.
++   *
++   * @code
++   * $form['#attributes'][self::DATA_ATTRIBUTE_EXPOSED_FORM_IDENTIFIER] = Html::cleanCssIdentifier(
++   *   implode('-', [
++   *     'views_exposed_form',
++   *     $this->getPluginId(),
++   *     $this->view->storage->id(),
++   *     $this->view->display_handler->display['id']
++   *   ])
++   * );
++   * @endcode
++   *
++   * @see \Drupal\views\Plugin\views\exposed_form\ExposedFormPluginBase::renderExposedForm()
++   */
++  public const string DATA_ATTRIBUTE_EXPOSED_FORM_IDENTIFIER = 'data-drupal-exposed-form-identifier';
++
+   /**
+    * Renders the exposed form.
+    *
+diff --git a/core/modules/views/tests/src/Functional/Plugin/ExposedFormTest.php b/core/modules/views/tests/src/Functional/Plugin/ExposedFormTest.php
+index 244c32e90b20..7d2af0f1a4dd 100644
+--- a/core/modules/views/tests/src/Functional/Plugin/ExposedFormTest.php
++++ b/core/modules/views/tests/src/Functional/Plugin/ExposedFormTest.php
+@@ -287,10 +287,10 @@ public function testExposedBlock($display): void {
+     $this->assertSession()->pageTextMatchesCount(1, '/' . $view->getTitle() . '/');
+ 
+     // Test there is an exposed form in a block.
+-    $this->assertSession()->elementsCount('xpath', '//div[@id="' . Html::getUniqueId('block-' . $block->id()) . '"]//form/@id', 1);
++    $this->assertSession()->elementsCount('xpath', '//div[@id="' . Html::getUniqueId('block-' . $block->id()) . '"]/form/@id', 1);
+ 
+     // Test there is not an exposed form in the view page content area.
+-    $xpath = $this->assertSession()->buildXPathQuery('//div[@class="view-content"]//form/@id', [
++    $xpath = $this->assertSession()->buildXPathQuery('//div[@class="view-content"]/form/@id', [
+       ':id' => Html::getUniqueId('block-' . $block->id()),
+     ]);
+     $this->assertSession()->elementNotExists('xpath', $xpath);
+-- 
+GitLab
+
+
+From 36918b2c5adc1babf702cc6cb946cb7b434b3f95 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Dezs=C5=91=20BICZ=C3=93?= <dezso.biczo@pronovix.com>
+Date: Wed, 7 May 2025 09:56:52 +0200
+Subject: [PATCH 4/5] Remove comment which is not relevant anymore
+
+---
+ core/modules/views/src/Controller/ViewAjaxController.php | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/core/modules/views/src/Controller/ViewAjaxController.php b/core/modules/views/src/Controller/ViewAjaxController.php
+index 40b5f720b160..8a3dfbed68b5 100644
+--- a/core/modules/views/src/Controller/ViewAjaxController.php
++++ b/core/modules/views/src/Controller/ViewAjaxController.php
+@@ -243,7 +243,6 @@ public function ajaxView(Request $request) {
+                 unset($exposed_form_block_render_array[$property]);
+               }
+             }
+-            // The render element must be rendered before the form ID is accessed.
+             $exposed_form = $this->renderer->render($exposed_form_block_render_array);
+             $response->addCommand(new ReplaceCommand('[' . $exposed_form_plugin::DATA_ATTRIBUTE_EXPOSED_FORM_IDENTIFIER . '=' . $exposed_form_data_attribute_value . '] form', $exposed_form));
+           }
+-- 
+GitLab
+
+
+From 8846d50f4f3a71e0f406fa4f78167f67cd4f4c4c Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Dezs=C5=91=20BICZ=C3=93?= <dezso.biczo@pronovix.com>
+Date: Wed, 14 May 2025 10:18:54 +0200
+Subject: [PATCH 5/5] CS
+
+---
+ core/modules/views/src/Controller/ViewAjaxController.php | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/core/modules/views/src/Controller/ViewAjaxController.php b/core/modules/views/src/Controller/ViewAjaxController.php
+index 8a3dfbed68b5..966a94da532f 100644
+--- a/core/modules/views/src/Controller/ViewAjaxController.php
++++ b/core/modules/views/src/Controller/ViewAjaxController.php
+@@ -235,8 +235,8 @@ public function ajaxView(Request $request) {
+             // render. We need to remove these attributes from our replacement
+             // content to prevent duplication and UI issues.
+             // The BlockViewBuilder has already applied these attributes to the
+-            // block container in the DOM, so we don't need to include them again
+-            // in our replacement content.
++            // block container in the DOM, so we don't need to include them
++            // again in our replacement content.
+             // @see \Drupal\block\BlockViewBuilder::preRender()
+             foreach (['#attributes', '#contextual_links'] as $property) {
+               if (isset($exposed_form_block_render_array[$property])) {
+-- 
+GitLab
+
