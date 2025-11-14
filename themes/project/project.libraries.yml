@@ -36,3 +36,4 @@ search-form:
   dependencies:
     - core/drupal
     - core/once
+

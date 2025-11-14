@@ -58,12 +58,24 @@
               $(element).addClass('mobile-exposed--open');
             });
 
-            // обработчик закрытия фильтров
-            $('.mobile-exposed__header i, .mobile-exposed .form-actions input').on("click", function () {
+            $('.mobile-exposed__header i').on("click", function () {
               $(element).removeClass('mobile-exposed--open');
             });
 
           }
+        }
+      );
+
+      // так как фильтры обновляются по ajax, обработчики нажатия кнопок Применить и Сброс вешаем отдельно
+      once('filter-button-once', '.mobile-exposed .form-actions input', context).forEach(
+        (element) => {
+
+          let $block = $(element).closest('.block-views-exposed-filter-blockkatalog-page-1');
+
+          // обработчик закрытия фильтров
+          $(element).on("click", function () {
+            $block.removeClass('mobile-exposed--open');
+          });
         }
       );
 

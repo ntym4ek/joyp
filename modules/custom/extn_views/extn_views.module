@@ -1,5 +1,7 @@
 <?php
 
+use Drupal\Component\Utility\Html;
+use Drupal\Core\Render\Markup;
 use Drupal\views\ViewExecutable;
 
 /**
@@ -50,4 +52,22 @@ function extn_views_preprocess_views_mini_pager(&$variables): void
     return;
   }
   $variables['items']['total'] = $pager->getTotalPages();
+}
+
+function extn_views_views_filters_summary_replacements_alter(&$view)
+{
+  $request = \Drupal::request();
+  $currentPath = $request->getPathInfo();
+  $pathArgs = explode('/', trim($currentPath, '/'));
+
+  if ($pathArgs[0] == 'poisk') {
+    $keyword = $pathArgs[1] ?? '';
+  } elseif ($pathArgs[0] == 'views') {
+    $keyword = $_GET["view_args"] ?? '';
+  }
+
+  if (!empty($keyword)) {
+    $view["custom"] = Markup::create('<span class="item--keyword"><span class="label">по запросу: <span class="value">' . urldecode(Html::escape($keyword)) . '</span></span></span>');
+  }
+
 }

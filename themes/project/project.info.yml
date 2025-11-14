@@ -18,6 +18,12 @@ libraries:
   - base9/modal-ui-widget-remove
   - project/swiper-outsource-navigation
 
+libraries-override:
+  views_filters_summary/views_filters_summary:
+    css:
+      theme:
+        css/views_filters_summary.css: false
+
 regions:
   header: Header
   primary_menu: Primary menu

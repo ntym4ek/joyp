@@ -17,6 +17,7 @@
 .view-karusel-obuchayushchih-materialov,
 .view-novosti,
 .view-blog {
+  .view-header,
   .view-content {
                           @include row('true', $gutter-sm);
     @media #{$pad}      { @include row('true', $gutter-pd); }
@@ -40,6 +41,18 @@
 
 .view-katalog.view-display-id-page_1,
 .view-poisk.view-display-id-page_1 {
+  .view-header {
+    border-bottom: 1px solid $gray-lightest;
+    align-items: center;
+
+                          padding: 1rem $gutter-sm;
+    @media #{$pad}      { padding: 2rem $gutter-pd; }
+    @media #{$tablet}   { padding: 2rem $gutter-tb; }
+    @media #{$laptop}   { padding: 2.5rem $gutter-lp; }
+    @media #{$desktop}  { padding: 2.5rem $gutter-dt; }
+    @media #{$wide}     { padding: 2.5rem $gutter-wd; }
+  }
+
   .views-row {
     flex-basis: 100%; max-width: 100%;
     border-bottom: 1px solid $gray-lightest;
@@ -54,6 +67,7 @@
     }
   }
 }
+
 .view-katalog.view-display-id-page_2 {
   .views-row {
     flex-basis: 100%; max-width: 100%;
@@ -237,6 +251,28 @@ aside .views-exposed-form:not(:empty) {
     padding-bottom: 2rem;
   }
 }
+
+.view-katalog,
+.view-poisk {
+  .view-header {
+    .item--keyword,
+    .value-container,
+    .remove-filter { margin-left: 4px; }
+    a.remove-filter {
+      background: $gray-lightest; border-radius: 10px;
+      font-size: 7px;
+      padding: 2px 5px;
+      vertical-align: middle;
+    }
+    .label { text-transform: lowercase; }
+    .value { color: $brand-cocoa; font-weight: 400;  }
+
+    @media #{$pad}   {
+      .prefix { margin-left: 4px; }
+    }
+  }
+}
+
 
 .pager {
   font-size: $font-size-large; font-family: $font-name2;
