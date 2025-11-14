@@ -45,7 +45,6 @@
 
 .product--teaser {
   height: 100%;
-  position: relative;
 
   .product__inner {
                           padding: 1rem $gutter-sm;
@@ -77,7 +76,7 @@
   }
   .product__image {
     display: flex; justify-content: center;
-    height: 220px;
+    position: relative;
     a { width: 100%; }
     img {
       height: 100%; width: 100%;
@@ -89,7 +88,7 @@
     background: $brand-primary;
     border-radius: 35px;
     color: white; font-family: $font-name2; font-size: $font-size-h3;
-    position: absolute; top: 2rem; right: 0;
+    position: absolute; top: 1rem; right: 2rem;
     width: 70px; height: 70px;
   }
   .product__content {
@@ -101,10 +100,27 @@
   }
   .product__actions { margin-top: 1rem; }
 
+  @media #{$laptop}      {
+    .product__discount {
+      font-size: $font-size-h5;
+      top: -1rem; right: -1rem;
+      width: 50px; height: 50px;
+    }
+  }
   @media #{$desktop}      {
-    .product__discount { right: -2rem; }
+    .product__discount {
+      font-size: $font-size-h4;
+      width: 60px; height: 60px;
+    }
     .product__image { height: 350px; }
     .product__actions { margin-top: 25px; }
+  }
+  @media #{$wide}      {
+    .product__discount {
+      font-size: $font-size-h3;
+      right: -2rem;
+      width: 70px; height: 70px;
+    }
   }
 }
 
