@@ -5,6 +5,7 @@ namespace Drupal\extn_commerce\Form;
 use Drupal\Core\Form\ConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\commerce_order\Entity\OrderInterface;
+use Drupal\Core\Session\AccountInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -66,7 +67,7 @@ class UserOrderCancelForm extends ConfirmFormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, $user = NULL, OrderInterface $commerce_order = NULL) {
+  public function buildForm(array $form, FormStateInterface $form_state, $user = NULL, $commerce_order = NULL) {
     $this->order = $commerce_order;
     $form = parent::buildForm($form, $form_state);
     $form["#attributes"]['autofocus'] = '';

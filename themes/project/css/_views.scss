@@ -28,6 +28,16 @@
   }
 }
 
+.view-aromas,
+.view-karusel-produktov,
+.view-karusel-kategoriy,
+.view-karusel-obuchayushchih-materialov,
+.view-novosti {
+  .view-header {
+    border-top: 1px solid $gray-lightest;
+  }
+}
+
 // слайдер нервно реагирует на flex обёртку (row)
 // поэтому прописываем отрицательный отступ ручками
 .view-front-slider {
@@ -218,7 +228,7 @@
 
   .content {
     display: flex;
-    padding: .5rem 2rem;
+    padding: 2rem;
   }
   .image { flex: 0 0 35%; }
   .text {
@@ -226,7 +236,10 @@
     padding: 0 0 0 2rem;
   }
   p { color: $text-muted; }
-  h2 { font-size: $font-size-large; }
+  h2 {
+    font-size: $font-size-large;
+    margin-top: 1rem;
+  }
   .field-name--field-products-count {
     color: $text-muted;
     padding-top: 1rem;
@@ -234,15 +247,14 @@
 
   @media #{$pad}   {
     .views-row { flex-basis: 50%; max-width: 50%; }
-    .content { padding: 1rem 2rem; }
   }
   @media #{$laptop}   {
     .views-row { flex-basis: 33.3%; max-width: 33.3%; }
-    .content { padding: 1rem 4rem; }
+    .content { padding: 2rem 4rem; }
     .image { flex: 0 0 40%; }
     .text { padding: 2rem 0 0 2rem; }
 
-    .field-name--field-products-count { padding-top: 4rem; }
+    .field-name--field-products-count { padding-top: 3rem; margin-bottom: 1rem;}
   }
 }
 
@@ -257,6 +269,7 @@ aside .views-exposed-form:not(:empty) {
   .view-header {
     .item--keyword,
     .value-container,
+    .prefix,
     .remove-filter { margin-left: 4px; }
     a.remove-filter {
       background: $gray-lightest; border-radius: 10px;
@@ -266,10 +279,6 @@ aside .views-exposed-form:not(:empty) {
     }
     .label { text-transform: lowercase; }
     .value { color: $brand-cocoa; font-weight: 400;  }
-
-    @media #{$pad}   {
-      .prefix { margin-left: 4px; }
-    }
   }
 }
 

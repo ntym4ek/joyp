@@ -23,12 +23,14 @@ use Drupal\func_helper\Helper\CommerceHelper;
 function extn_commerce_cart_form_alter(&$form, FormStateInterface $form_state): void
 {
   // форма Корзины
-  foreach (\Drupal\Core\Render\Element::children($form["edit_quantity"]) as $key) {
-    $form["edit_quantity"][$key]['#wrapper_attributes']['class'][] = '';
-    $form["edit_quantity"][$key]['#prefix'] = Markup::create('<div class="commerce-quantity-controls"><span class="commerce-quantity-control decrement"></span>');
-    $form["edit_quantity"][$key]["#suffix"] = Markup::create('<span class="commerce-quantity-control increment"></span></div>');
+  if (isset($form["edit_quantity"])) {
+    foreach (\Drupal\Core\Render\Element::children($form["edit_quantity"]) as $key) {
+      $form["edit_quantity"][$key]['#wrapper_attributes']['class'][] = '';
+      $form["edit_quantity"][$key]['#prefix'] = Markup::create('<div class="commerce-quantity-controls"><span class="commerce-quantity-control decrement"></span>');
+      $form["edit_quantity"][$key]["#suffix"] = Markup::create('<span class="commerce-quantity-control increment"></span></div>');
+    }
+    $form['#attached']['library'][] = 'project/commerce-quantity-controls';
   }
-  $form['#attached']['library'][] = 'project/commerce-quantity-controls';
 }
 
 /**
@@ -38,6 +40,7 @@ function extn_commerce_form_commerce_order_item_add_to_cart_form_alter(&$form, F
 {
   /** @var ProductInterface $product */
   $product = $form_state->get('product');
+//  $product_variation = $product->getVariations()[0];
 
   // в Каталоге не выводить количество в форме добавления в корзину
   $storage = $form_state->getStorage();
@@ -96,7 +99,7 @@ function extn_commerce_add_to_cart_ajax(array &$form, FormStateInterface $form_s
 
   $response = new AjaxResponse();
   // только на странице Каталога
-  $response->addCommand(new InvokeCommand('.product--summary #add-to-cart-button-' . $product->id(), 'addClass', ['in-cart']));
+  $response->addCommand(new InvokeCommand('.product--teaser #add-to-cart-button-' . $product->id(), 'addClass', ['in-cart']));
   // только на странице Продукта
   $response->addCommand(new InvokeCommand('.product--full .go-to-cart', 'removeClass', ['hide']));
   $response->addCommand(new InvokeCommand('.product--full .field--name-quantity', 'addClass', ['hide']));
@@ -136,22 +139,26 @@ function extn_commerce_form_views_form_commerce_cart_form_default_alter(array &$
   $form['actions']['submit']['#name'] = 'update';
 
   // AJAXify "quantity" inputs
-  foreach (Element::children($form['edit_quantity']) as $key) {
-    $form['edit_quantity'][$key]['#ajax'] = [
-      'event' => 'change',
-      'callback' => '',
-      'trigger_as' => [
-        'name' => 'update',
-      ],
-    ];
+  if (isset($form["edit_quantity"])) {
+    foreach (Element::children($form['edit_quantity']) as $key) {
+      $form['edit_quantity'][$key]['#ajax'] = [
+        'event' => 'change',
+        'callback' => '',
+        'trigger_as' => [
+          'name' => 'update',
+        ],
+      ];
+    }
   }
 
   // AJAXify "delete" buttons
-  foreach (Element::children($form['remove_button']) as $key) {
-    $form['remove_button'][$key]['#ajax'] = [
-      'callback' => 'extn_commerce_ajax_update_cart_form',
-      'event' => 'click',
-    ];
+  if (isset($form["remove_button"])) {
+    foreach (Element::children($form['remove_button']) as $key) {
+      $form['remove_button'][$key]['#ajax'] = [
+        'callback' => 'extn_commerce_ajax_update_cart_form',
+        'event' => 'click',
+      ];
+    }
   }
 }
 

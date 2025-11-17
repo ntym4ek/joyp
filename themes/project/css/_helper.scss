@@ -15,7 +15,7 @@
   }
 }
 
-
+// переменный горизонтальный отступ блока в зависимости от ширины экрана
 @mixin padding-side() {
   padding-left: $gutter-sm; padding-right: $gutter-sm;
 
@@ -25,22 +25,35 @@
   @media #{$tablet}   {
     padding-left: $gutter-tb; padding-right: $gutter-tb;
   }
+  @media #{$laptop}   {
+    padding-left: $gutter-lp; padding-right: $gutter-lp;
+  }
   @media #{$desktop}   {
     padding-left: $gutter-dt; padding-right: $gutter-dt;
   }
+  @media #{$wide}   {
+    padding-left: $gutter-wd; padding-right: $gutter-wd;
+  }
 }
 
-@mixin padding-block($xs, $md, $xl) {
-  padding: #{$xs}+px $gutter-sm;
+// переменный ЗАДАННЫЕ вертикальный и горизонтальный отступ блока в зависимости от ширины экрана
+@mixin padding-block($sm, $pd, $dt) {
+  padding: #{$sm}+px $gutter-sm;
 
   @media #{$pad}   {
-    padding: #{$md}+px $gutter-pd;
+    padding: #{$pd}+px $gutter-pd;
   }
   @media #{$tablet}   {
-    padding: #{$md}+px $gutter-tb;
+    padding: #{$pd}+px $gutter-tb;
+  }
+  @media #{$laptop}   {
+    padding: #{$pd}+px $gutter-lp;
   }
   @media #{$desktop}   {
-    padding: #{$xl}+px $gutter-dt;
+    padding: #{$dt}+px $gutter-dt;
+  }
+  @media #{$wide}   {
+    padding: #{$dt}+px $gutter-wd;
   }
 }
 

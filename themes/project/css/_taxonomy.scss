@@ -50,7 +50,7 @@
 
 
 .taxonomy-term--banner-na-glavnoy {
-  .banner__text {
+  .content {
     @include padding-block(16, 32, 0);
   }
   .banner__image {
@@ -59,24 +59,33 @@
       width: 100%; height: 100%;
     }
   }
-  .h1 {
-    line-height: 1;
+  .h1 { line-height: 1.1; text-transform: initial; }
+  .h2 {
+    text-transform: initial;
+    .text-formatted { line-height: initial;}
   }
   .show-more {
     display: flex; align-items: center;
-    margin-top: 1rem;
     i { margin-left: 1rem; }
   }
 
   @media #{$pad} {
-    .h1 { max-width: 70%; }
+    .banner__text { max-width: 70%; }
   }
   @media #{$laptop} {
     .h1 { padding: 0; }
-    .banner__text {
-      position: absolute; top: 30%; width: 30%;
+    .content {
+      display:flex; flex-direction: column;
+      position: absolute; top: 0; bottom: 0; z-index: auto;
     }
-    .show-more { margin-top: 2rem; }
+    .banner__text {
+      display: flex; flex-wrap: wrap; align-content: center;
+      flex: auto;
+      max-width: 50%;
+
+      > div { flex: 0 0 100%; }
+    }
+    .banner__go { flex: 0 0 120px; }
 
   }
 }
@@ -85,15 +94,13 @@
   height: 100%;
 
   .content {
-    padding: 1rem $gutter-sm;
+                          padding: 2rem $gutter-sm;
     @media #{$pad}      { padding: 2rem $gutter-pd; }
     @media #{$tablet}   { padding: 2rem $gutter-tb; }
     @media #{$laptop}   { padding: 2.5rem $gutter-lp; }
     @media #{$desktop}  { padding: 3rem $gutter-dt; }
     @media #{$wide}     { padding: 3rem $gutter-wd; }
   }
-
-  .image { height: 220px; }
 
   i.picon::before {
     background-color: $text-color;
@@ -110,3 +117,4 @@
     .image { height: 350px; }
   }
 }
+

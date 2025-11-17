@@ -53,7 +53,7 @@ function extn_commerce_form_commerce_checkout_flow_multistep_default_alter(&$for
     $form["coupon_redemption"]["form"]["code"]["#type"] = 'hidden';
     $form["coupon_redemption"]["form"]["apply"]["#attributes"]['class'][] = 'js-hide';
     $form["coupon_redemption"]["form"]["#element_validate"][] = 'extn_commerce_coupon_redemption_element_validate';
-    $form["coupon_redemption"]["#title"] = new TranslatableMarkup('');
+    $form["coupon_redemption"]["#title"] = Markup::create('');
     if (empty($form["coupon_redemption"]["form"]["coupons"])) {
       $form["coupon_redemption"]["form"]['show_modal'] = ['#markup' => '<div class="button button--primary promocode-modal-button">Ввести промокод</div>'];
     } else {

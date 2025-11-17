@@ -18,17 +18,19 @@
   border-bottom: 1px solid $gray-lightest;
   display: flex; align-items: center; justify-content: center;
   padding: 1rem 0;
+
+  .branding__logo { max-width: 180px; }
 }
 
 .page-offside__content {
   flex: 1 0 auto;
-  padding: 1rem;
+  padding: 1rem 2rem;
 }
 
 .page-offside__footer {
   .page-offside__row {
     border-top: 1px solid $gray-lightest;
-    padding: 1rem;
+    padding: 1rem 2rem;
   }
   .button {
     margin: 1rem 0 0 0;

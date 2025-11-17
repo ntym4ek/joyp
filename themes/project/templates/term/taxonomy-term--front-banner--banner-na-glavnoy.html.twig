@@ -31,17 +31,30 @@
   ]
 %}
 <div{{ attributes.setAttribute('id', 'taxonomy-term-' ~ term.id).addClass(classes) }}>
+  {% if content.field_link|render %}
+  <a href="{{ content.field_link[0]["#url_title"] }}">
+  {% endif %}
   <div class="content">
     <div class="banner__text" style="color:#{{ content.field_text_color[0]['#context']['value'] }}">
       <div class="h1">{{ term.name.value|replace({'&nbsp;': ' '}) }}</div>
+      {% if content.description|render %}
+        <div class="h2">{{ content.description }}</div>
+      {% endif %}
+    </div>
+    <div class="banner__go">
+      {% if content.field_link|render %}
       <div class="show-more">Подробнее <i class="picon picon--arrow-right"></i></div>
+      {% endif %}
     </div>
-    <div class="banner__image">
-      <picture>
-        <source media="(max-width: 767px)" srcset="{{ content.field_image_mobile[0]["#markup"] }}">
-        <source media="(max-width: 1365px)" srcset="{{ content.field_image_pad[0]["#markup"] }}">
-        <img src="{{ content.field_image[0]["#markup"] }}" alt="{{ content.name }}">
-      </picture>
-    </div>
+  </div>
+  {% if content.field_link|render %}
+  </a>
+  {% endif %}
+  <div class="banner__image">
+    <picture>
+      <source media="(max-width: 767px)" srcset="{{ content.field_image_mobile[0]["#markup"] }}">
+      <source media="(max-width: 1365px)" srcset="{{ content.field_image_pad[0]["#markup"] }}">
+      <img src="{{ content.field_image[0]["#markup"] }}" alt="{{ content.name }}">
+    </picture>
   </div>
 </div>

@@ -255,6 +255,7 @@
     @media #{$tablet}   { @include row('true', $gutter-tb); }
     @media #{$laptop}   { @include row('true', $gutter-lp); }
     @media #{$desktop}  { @include row('true', $gutter-dt); }
+    @media #{$wide}     { @include row('true', $gutter-wd); }
   }
   li {
     border-bottom: 1px solid $gray-lightest;
