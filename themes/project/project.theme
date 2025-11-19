@@ -306,3 +306,64 @@ function project_form_alter(&$form, FormStateInterface $form_state, $form_id): v
     $form["actions"]["reset"]["#attributes"]['class'][] = 'button--default button--outline button--full-width';
   }
 }
+
+/**
+ * Implements hook_preprocess_field().
+ */
+function project_preprocess_field(&$vars)
+{
+  // устанавливаем Alt для изображений
+  if ($vars["element"]["#field_type"] === 'image') {
+    $entity = $vars['element']['#object'];
+    $label = $entity->label();
+    $alt = '';
+
+    // для материалов
+    if ($entity->bundle() === 'article')    $alt = $label;
+
+    // для таксономии
+    if ($entity->bundle() === 'smells')     $alt = $label . ' в ароматах JOY PREMIUM';
+
+    if ($vars["element"]["#entity_type"] == 'paragraph' && $entity->bundle() === 'mnenie_eksperta') {
+      $name = $entity->get('field_expert_name')->value;
+      $alt = 'Эксперт ' . trim($name) . ' о продукте JOY PREMIUM ' . str_replace(' > Мнение эксперта', '', $label);
+    }
+
+
+    if ($alt) {
+      foreach ($vars['items'] as $delta => &$item) {
+        $alt_w_delta = $alt . ($delta ? ' [' . $delta . ']' : '');
+        if (isset($item['content']['#item'])) {
+          // Устанавливаем alt из заголовка ноды
+          $item['content']['#item']->alt = $alt_w_delta;
+
+          // Также обновляем атрибуты в рендеринге
+          if (isset($item['content']['#image_style'])) {
+            $item['content']['#attributes']['alt'] = $alt_w_delta;
+          }
+        }
+      }
+    }
+
+
+    // для товаров
+    if ($vars['entity_type'] === 'commerce_product') {
+
+      if ($entity->bundle() === 'smells') {
+        $alt = $entity->label() . ' в ароматах JOY PREMIUM';
+
+        foreach ($vars['items'] as $delta => &$item) {
+          if (isset($item['content']['#item'])) {
+            // Устанавливаем alt из заголовка ноды
+            $item['content']['#item']->alt = $alt;
+
+            // Также обновляем атрибуты в рендеринге
+            if (isset($item['content']['#image_style'])) {
+              $item['content']['#attributes']['alt'] = $alt;
+            }
+          }
+        }
+      }
+    }
+  }
+}

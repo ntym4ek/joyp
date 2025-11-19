@@ -5587,7 +5587,7 @@ aside:first-child {
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
-    height: 4rem;
+    min-height: 3.7rem;
     overflow: hidden;
   }
 }
