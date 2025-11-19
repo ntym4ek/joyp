@@ -217,7 +217,7 @@ function project_preprocess_node__article(&$vars)
   if ($vars["elements"]["#view_mode"] == 'full') {
     $vars['socials'] = [
       '#theme' => 'socials',
-      '#items' => project_get_share_links($vars["url"], $vars["title"]),
+      '#items' => project_get_share_links($vars["url"], $vars["elements"]["#node"]->label()),
     ];
   }
 }

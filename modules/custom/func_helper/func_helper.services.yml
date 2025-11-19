@@ -10,3 +10,9 @@ services:
   func_helper.secret:
     class: Drupal\func_helper\Service\SecretHelper
     arguments: ['@cache.data', '@datetime.time']
+
+  bitrix_redirects.redirect_subscriber:
+    class: Drupal\func_helper\EventSubscriber\BitrixRedirectSubscriber
+    arguments: ['@path_alias.manager', '@current_route_match']
+    tags:
+      - { name: event_subscriber }
