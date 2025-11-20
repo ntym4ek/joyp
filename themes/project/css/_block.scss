@@ -214,27 +214,22 @@
   }
   .views-field-name {
     font-size: $font-size-h4;
-    height: 60px;
-    padding-top: 1rem;
     .field-content {
       display: block;
       transition: all 0.3s;
-      a {
-        color: inherit; font-family: $font-name2; text-transform: uppercase;
-        &:hover,
-        &:active { color: $brand-cocoa; }
-      }
     }
 
-    @include padding-side();
+    a {
+      color: inherit; font-family: $font-name2; text-transform: uppercase;
+      &:hover,
+      &:active { color: $brand-cocoa; }
+    }
+
+    @include padding-block(32, 32, 40);
   }
 
   @media #{$desktop} {
-    .views-field-name {
-      font-size: $font-size-h3;
-      height: 100px;
-      padding-top: 2rem;
-    }
+    .views-field-name { font-size: $font-size-h3; }
   }
 }
 
@@ -245,6 +240,17 @@
     background: #B59A7F;
     color: #fff;
   }
+
+  a {
+    &:hover,
+    &:active { color: $gray-lightest; }
+  }
+
+  .views-field-name {
+    border-image-source: linear-gradient(transparent, #ddd, transparent);
+    border-image-slice: 1;
+  }
+
 }
 
 .block-user-links-block,

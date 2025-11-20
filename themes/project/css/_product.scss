@@ -129,12 +129,14 @@
 
 
 .product--full {
-  .product__brief { padding: 30px 0; }
+  .product__brief { padding-bottom: 30px; }
 
   .product__image {
-    height: 300px;
     overflow: hidden;
-    .slider__content img { height: 300px; }
+    .slider__content img {
+      height: 300px;
+      object-fit: contain;
+    }
     .slider {
       grid-template-columns: 0 100%;
       @media #{$desktop} { grid-template-columns: 15% 85%; }
@@ -260,16 +262,19 @@
 
   @media #{$pad} {
     .product__image {
-      &,
       .slider__content img { height: 500px; }
     }
   }
+
+  @media #{$laptop} {
+    .product__brief { padding: 30px 0; }
+  }
+
   @media #{$desktop} {
     h1 { font-size: $font-size-h2; }
     .product__price { font-size: $font-size-h2; }
     .product__brief { padding: 70px 0; }
     .product__image {
-      max-height: 650px;
       .slider__content img { max-height: 650px; }
     }
   }
@@ -349,7 +354,7 @@
 
 .karusel-produktov .product--teaser {
   border-right: 1px solid transparent;
-  border-image: linear-gradient(transparent, $gray-light, transparent);
+  border-image-source: linear-gradient(transparent, $gray-light, transparent);
   border-image-slice: 1;
 
   &.product-category--21 { background: linear-gradient(#fff, $brand-hair); }

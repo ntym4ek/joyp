@@ -2,7 +2,6 @@
 
 namespace Drupal\func_helper\EventSubscriber;
 
-use Drupal\Core\Path\PathAliasManagerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\path_alias\AliasManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -139,6 +138,7 @@ class BitrixRedirectSubscriber implements EventSubscriberInterface {
         'privacy-policy' => 'node/3',
         'payment' => 'node/7',
         'offer' => 'node/11',
+        'cooperation' => 'node/9',
         'docs/personal-data-policy.pdf' => 'sites/default/files/attachments/misc/personal-data-policy.pdf',
       ],
       'patterns' => [

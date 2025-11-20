@@ -2,10 +2,12 @@
 
 .taxonomy-term {
   .field--name-field-image {
+    display: flex; justify-content: center;
+
     height: 100%;
     img {
       object-fit: cover;
-      width: 100%; height: 100%;
+      height: 100%;
     }
   }
 }
@@ -94,13 +96,12 @@
   height: 100%;
 
   .content {
-                          padding: 2rem $gutter-sm;
-    @media #{$pad}      { padding: 2rem $gutter-pd; }
-    @media #{$tablet}   { padding: 2rem $gutter-tb; }
-    @media #{$laptop}   { padding: 2.5rem $gutter-lp; }
-    @media #{$desktop}  { padding: 3rem $gutter-dt; }
-    @media #{$wide}     { padding: 3rem $gutter-wd; }
+    height: 100%;
+    padding-top: 2.5rem; padding-bottom: 2.5rem;
+    @include padding-side();
   }
+
+  .field--name-field-image img { height: 220px; }
 
   i.picon::before {
     background-color: $text-color;
@@ -113,8 +114,11 @@
   &.taxonomy-term--25 { background: linear-gradient(#fff, $brand-travel); }
   &.taxonomy-term--26 { background: linear-gradient(#fff, $brand-set); }
 
-  @media #{$desktop}      {
-    .image { height: 350px; }
+  @media #{$laptop}      {
+    .field--name-field-image img { height: 300px; }
+  }
+  @media #{$wide}      {
+    .field--name-field-image img { height: 350px; }
   }
 }
 

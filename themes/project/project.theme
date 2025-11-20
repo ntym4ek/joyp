@@ -5,6 +5,7 @@
  * Functions to support theming.
  */
 
+use Drupal\commerce_product\Entity\Product;
 use Drupal\Core\Render\Markup;
 use Drupal\Core\StringTranslation\PluralTranslatableMarkup;
 use Drupal\func_helper\Helper\CommerceHelper;
@@ -286,10 +287,27 @@ function project_preprocess_swiper_formatter(array &$vars): void
         if ($file) {
           $uri = $file->getFileUri();
           $item['#thumb'] = ImageStyle::load('thumbnail')->buildUrl($uri);
+          $item['#alt'] = $term->label();
         }
       }
     }
   }
+
+  // здесь добавляется alt для изображений в слайдере на странице товара
+  // (добавление alt раскидано по трём местам)
+  if ($vars["object"] instanceof Product) {
+    foreach ($vars["content"] as $delta => &$item) {
+      $title = $item["#object"]->hasField('field_title_ru') ? $item["#object"]->get('field_title_ru')->value : $item["#object"]->getTitle();
+      $volume = $item["#object"]->hasField('field_p_volume') ? ' ' . $item["#object"]->get('field_p_volume')->entity->label() : '';
+      $alt = $title . $volume;
+      $alt_w_delta = $alt . ($delta ? ' [' . $delta . ']' : '');
+      if (isset($item['#slide']['#item'])) {
+        $item['#slide']['#item']->alt = $alt_w_delta;
+      }
+    }
+
+  }
+
 }
 
 /**
@@ -312,7 +330,8 @@ function project_form_alter(&$form, FormStateInterface $form_state, $form_id): v
  */
 function project_preprocess_field(&$vars)
 {
-  // устанавливаем Alt для изображений
+  // устанавливаем Alt для изображений, не связанных со swiper
+  // (добавление alt раскидано по трём местам)
   if ($vars["element"]["#field_type"] === 'image') {
     $entity = $vars['element']['#object'];
     $label = $entity->label();
@@ -334,36 +353,12 @@ function project_preprocess_field(&$vars)
       foreach ($vars['items'] as $delta => &$item) {
         $alt_w_delta = $alt . ($delta ? ' [' . $delta . ']' : '');
         if (isset($item['content']['#item'])) {
-          // Устанавливаем alt из заголовка ноды
           $item['content']['#item']->alt = $alt_w_delta;
-
-          // Также обновляем атрибуты в рендеринге
-          if (isset($item['content']['#image_style'])) {
-            $item['content']['#attributes']['alt'] = $alt_w_delta;
-          }
         }
       }
     }
-
 
     // для товаров
-    if ($vars['entity_type'] === 'commerce_product') {
-
-      if ($entity->bundle() === 'smells') {
-        $alt = $entity->label() . ' в ароматах JOY PREMIUM';
-
-        foreach ($vars['items'] as $delta => &$item) {
-          if (isset($item['content']['#item'])) {
-            // Устанавливаем alt из заголовка ноды
-            $item['content']['#item']->alt = $alt;
-
-            // Также обновляем атрибуты в рендеринге
-            if (isset($item['content']['#image_style'])) {
-              $item['content']['#attributes']['alt'] = $alt;
-            }
-          }
-        }
-      }
-    }
+    // на странице товара используется слайдер, устанавливаем alt в hook_preprocess_swiper_formatter()
   }
 }

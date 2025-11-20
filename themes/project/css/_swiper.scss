@@ -44,6 +44,10 @@
   }
 }
 
+.karusel-produktov {
+  .swiper-button-prev, .swiper-button-next { display: none; }
+}
+
 .view {
   .swiper-container { margin: 0; }
 }

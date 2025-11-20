@@ -47,7 +47,7 @@
     padding: #{$pd}+px $gutter-tb;
   }
   @media #{$laptop}   {
-    padding: #{$pd}+px $gutter-lp;
+    padding: #{$dt}+px $gutter-lp;
   }
   @media #{$desktop}   {
     padding: #{$dt}+px $gutter-dt;
