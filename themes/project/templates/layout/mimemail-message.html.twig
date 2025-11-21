@@ -1,0 +1,89 @@
+{#
+/**
+ * @file
+ * Default template to format a HTML email using the Mime Mail module.
+ *
+ * Copy this file in your default theme folder to create a custom themed email.
+ * If you modify this template you MUST be sure to keep the html, body, and
+ * header tags. This template should produce a fully-formed HTML document.
+ * Failure to include these will result in a malformed email and possibly
+ * errors shown to the user when sending email.
+ *
+ * To override this template for all emails sent by a given module,
+ * rename this template to mimemail-messages--[module].html.twig.
+ *
+ * To override this template for a specific email sent by a given module,
+ * rename this template to mimemail-messages--[module]--[key].html.twig.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the body element of the message.
+ * - key: The message identifier.
+ * - module: The machine name of the sending module.
+ * - css: Internal style sheets.
+ * - recipient: The recipient of the message.
+ * - subject: The message subject.
+ * - body: The message body.
+ *
+ * @see template_preprocess_mimemail_message()
+ *
+ * @ingroup themeable
+ */
+#}
+{% set classes = module ? (key ? module ~ '-' ~ key) %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title></title>
+  </head>
+
+  <body id="mimemail-body"{{ attributes.addClass(classes) }}>
+    <div id="center">
+      <div id="main">
+
+        <div style="margin: 0 auto; max-width: 800px;">
+          <table style="font-family: ubuntu, Helvetica, Arial, sans-serif; font-size: 16px; width: 100%;">
+            <tr>
+              <td>
+                <table style="width: 100%;">
+                  <tr>
+                    <td style="padding-bottom: 32px;">
+                      <div style="width: 230px;">
+                        <img src="{{ logo }}" style="display: block; max-width: 100%;">
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="padding-bottom: 32px; ">
+                      <div style="min-height: 300px;">{{ body|raw }}</div>
+                    </td>
+                  </tr>
+
+                  <tr><td><div style="border-top: 1px solid #ccc; padding-bottom: 32px; width: 100%;"></div></td></tr>
+
+                  <tr>
+                    <td style="font-weight: 700; padding-bottom: 32px;">
+                      Love Enjoy! Любите и наслаждайтесь!<br>
+                      Команда JOY PREMIUM
+                      <p><a href="https://joypremium.com" style="color: inherit; text-decoration: none;">joypremium.com</a></p>
+                    </td>
+                  </tr>
+
+                  <tr><td><div style="border-top: 1px solid #ccc; padding-bottom: 32px; width: 100%;"></div></td></tr>
+
+                  <tr>
+                    <td style="font-size: 1em; padding-bottom: 32px;">
+                      Данное письмо сформировано автоматически и не требует ответа.
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </body>
+</html>

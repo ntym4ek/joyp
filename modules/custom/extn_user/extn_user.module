@@ -21,6 +21,21 @@ function extn_user_form_profile_user_edit_form_alter(&$form, FormStateInterface 
 {
   if (!\Drupal::currentUser()->hasPermission('administer site configuration')) {
     $form["field_user_phone"]["widget"][0]["value"]["#disabled"] = TRUE;
+  } else {
+
+    // тестирование отправки email
+//    \Drupal::service('plugin.manager.mail')->mail('system', 'example_mail_key', 'mega_comp@mail.ru', 'ru', [
+//      'context' => [
+//        'subject' => 'HTML тестовое письмо',
+//        'message' => \Drupal\Core\Render\Markup::create(
+//      '<p><strong>Уважаемый(ая) [Имя клиента]!</strong></p>' .
+//            '<p>Большое спасибо за ваш заказ в интернет-магазине JOY Premium!  Мы очень рады, что вы выбрали наши продукты.</p>' .
+//            '<p><strong>Ваш заказ №[номер заказа] от [дата оформления] успешно оформлен и передан на обработку.</strong></p>'
+//        ),
+//      ],
+//    ], 'bot@joypremium.com');
+
+
   }
   $form['actions']['submit']['#ajax']['callback'] = 'extn_user_form_profile_user_edit_form_ajax_update';
 }

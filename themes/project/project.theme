@@ -362,3 +362,13 @@ function project_preprocess_field(&$vars)
     // на странице товара используется слайдер, устанавливаем alt в hook_preprocess_swiper_formatter()
   }
 }
+
+/**
+ * Implements template_preprocess_mimemail_message().
+ */
+function project_preprocess_mimemail_message(&$vars)
+{
+  // подготовить логотип
+  $path_theme = \Drupal::service('extension.path.resolver')->getPath('theme', 'project');
+  $vars['logo'] = \Drupal::service('file_url_generator')->generateAbsoluteString($path_theme . '/images/logo/logo.png');
+}
