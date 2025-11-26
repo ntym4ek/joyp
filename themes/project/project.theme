@@ -378,6 +378,7 @@ function project_preprocess_mimemail_message(&$vars)
  */
 function project_preprocess_commerce_order_receipt(&$vars)
 {
+  // подготовка переменных для Письма об оформленном заказе (commerce-order-receipt.html.twig)
   $address_entity = $vars["shipping_information"]["shipping_profile"]["#profile"]->get('address')[0]->getValue();
   $vars["shipping"]['name'] = $address_entity['given_name'] . ' ' . $address_entity['family_name'];
 

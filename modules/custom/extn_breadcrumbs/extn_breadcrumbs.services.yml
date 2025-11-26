@@ -38,7 +38,12 @@ services:
       - { name: breadcrumb_builder}
 
   extn_breadcrumbs.categories_list_breadcrumb:
-    class: Drupal\extn_breadcrumbs\Breadcrumb\CateroryListBreadcrumbBuilder
+    class: Drupal\extn_breadcrumbs\Breadcrumb\CategoryListBreadcrumbBuilder
+    tags:
+      - { name: breadcrumb_builder}
+
+  extn_breadcrumbs.researches_list_breadcrumb:
+    class: Drupal\extn_breadcrumbs\Breadcrumb\ResearchesListBreadcrumbBuilder
     tags:
       - { name: breadcrumb_builder}
 

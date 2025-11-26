@@ -27,6 +27,16 @@
   @media #{$laptop}   { @include row('true', $gutter-lp); }
   @media #{$desktop}  { @include row('true', $gutter-dt); }
   @media #{$wide}     { @include row('true', $gutter-wd); }
+
+  @media #{$laptop}  {
+    .field--name-title {
+      display: inline-block;
+      max-width: 75%;
+    }
+  }
+  @media #{$desktop}  {
+    .field--name-title { max-width: 60%; }
+  }
 }
 
 .block-views {

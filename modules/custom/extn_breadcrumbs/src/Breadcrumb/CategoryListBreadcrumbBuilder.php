@@ -8,7 +8,7 @@ use Drupal\Core\Link;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
 
-class CateroryListBreadcrumbBuilder implements BreadcrumbBuilderInterface {
+class CategoryListBreadcrumbBuilder implements BreadcrumbBuilderInterface {
 
   /**
    * Проверяет, применим ли builder к текущему маршруту.

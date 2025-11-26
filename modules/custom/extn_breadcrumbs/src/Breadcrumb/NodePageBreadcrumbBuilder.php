@@ -33,6 +33,10 @@ class NodePageBreadcrumbBuilder implements BreadcrumbBuilderInterface {
         $links[] = Link::fromTextAndUrl(t('Blog'), Url::fromUri('internal:/blog'));
         $links[] = Link::fromTextAndUrl($node->label(), Url::fromRoute('<none>'));
       }
+      elseif ($node->bundle() == 'issledovanie') {
+        $links[] = Link::fromTextAndUrl(t('Researches'), Url::fromRoute('view.issledovaniya.page_1'));
+        $links[] = Link::fromTextAndUrl($node->label(), Url::fromRoute('<none>'));
+      }
       elseif ($node->bundle() == 'page') {
         // для страниц, кроме:
         //  - Исследования (id5)

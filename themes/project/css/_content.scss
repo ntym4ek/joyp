@@ -28,13 +28,8 @@
 }
 
 
-.node--type-article {
-
-  .node__date,
-  .node__tags {
-    color: $gray-light; font-family: $font-name2; text-transform: uppercase;
-  }
-
+.node--type-article,
+.node--type-issledovanie {
   &.node--view-mode-teaser,
   &.node--view-mode-kartochka-v-bloke-nedavnih-materialov {
     h2 {
@@ -45,15 +40,7 @@
     .field--name-title {
       font-family: $font-name; text-overflow: ellipsis;
     }
-    .node__date {
-      font-size: $font-size-large;
-      margin-bottom: 1rem;
-    }
-    .node__tags { text-transform: lowercase; }
 
-  }
-
-  &.node--view-mode-teaser {
     .field--name-field-image {
       height: 250px;
       img {
@@ -77,6 +64,23 @@
         min-height: 3.7rem;
         overflow: hidden;
       }
+    }
+  }
+}
+
+.node--type-article {
+
+  .node__date,
+  .node__tags {
+    color: $gray-light; font-family: $font-name2; text-transform: uppercase;
+  }
+
+  &.node--view-mode-teaser,
+  &.node--view-mode-kartochka-v-bloke-nedavnih-materialov {
+    .node__tags { text-transform: lowercase; }
+    .node__date {
+      font-size: $font-size-large;
+      margin-bottom: 1rem;
     }
   }
 
@@ -265,5 +269,26 @@
   @media #{$tablet} {
     .col--1 { flex: 0 0 120px; }
     .col--2 { padding-left: 30px; }
+  }
+}
+
+
+.node--type-issledovanie {
+  &.node--view-mode-teaser {
+    h2 {
+      margin: 0;
+    }
+  }
+
+  &.node--view-mode-full {
+    .content { padding-top: 1rem; padding-bottom: 1rem; }
+    h3 { margin-top: 0; }
+
+    @media #{$pad} {
+      .content { padding: 1.5rem 0; }
+    }
+    @media #{$laptop} {
+      .content { padding: 2rem 0; }
+    }
   }
 }

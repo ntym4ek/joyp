@@ -16,6 +16,7 @@
 .view-karusel-kategoriy,
 .view-karusel-obuchayushchih-materialov,
 .view-novosti,
+.view-issledovaniya,
 .view-blog {
   .view-header,
   .view-content {
@@ -171,6 +172,7 @@
   .show-more { margin-bottom: 0; }
 }
 
+.view-issledovaniya,
 .view-blog {
   &.view-display-id-page_1 {
     .views-row {
