@@ -297,7 +297,7 @@ function project_preprocess_swiper_formatter(array &$vars): void
   // (добавление alt раскидано по трём местам)
   if ($vars["object"] instanceof Product) {
     foreach ($vars["content"] as $delta => &$item) {
-      $title = $item["#object"]->hasField('field_title_ru') ? $item["#object"]->get('field_title_ru')->value : $item["#object"]->getTitle();
+      $title = $item["#object"]->getTitle();
       $volume = $item["#object"]->hasField('field_p_volume') ? ' ' . $item["#object"]->get('field_p_volume')->entity->label() : '';
       $alt = $title . $volume;
       $alt_w_delta = $alt . ($delta ? ' [' . $delta . ']' : '');

@@ -40,7 +40,7 @@ class ProductPageBreadcrumbBuilder implements BreadcrumbBuilderInterface {
         }
       }
 
-      $links[] = Link::fromTextAndUrl($product->label(), Url::fromRoute('<none>'));
+      $links[] = Link::fromTextAndUrl(trim($product->label()), Url::fromRoute('<none>'));
     }
 
     return $breadcrumb->setLinks($links);

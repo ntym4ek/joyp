@@ -1,0 +1,7 @@
+extn_admin.action_form:
+  path: '/admin/config/development/action-page'
+  defaults:
+    _title: 'Форма выполнения действия'
+    _form: '\Drupal\extn_admin\Form\ActionForm'
+  requirements:
+    _permission: 'administer site configuration'

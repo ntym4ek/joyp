@@ -31,7 +31,7 @@ function extn_commerce_commerce_product_view(array &$build, \Drupal\Core\Entity\
   // (добавление alt раскидано по трём местам)
   // hook_preprocess_field для field_p_images не вызывается для полей или сущностей, выводимых через виджет swiper
   if ($entity->hasField('field_p_images')) {
-    $title = $entity->hasField('field_title_ru') ? $entity->get('field_title_ru')->value : $entity->label();
+    $title = $entity->label();
     $volume = $entity->hasField('field_p_volume') ? ' ' . $entity->get('field_p_volume')->entity->label() : '';
     $alt = $title . $volume . ' от JOY PREMIUM';
 

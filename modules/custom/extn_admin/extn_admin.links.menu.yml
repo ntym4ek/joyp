@@ -1,0 +1,6 @@
+extn_admin.admin_page:
+  title: 'Выполнить функцию'
+  route_name: extn_admin.action_form
+  parent: system.admin_config_development
+  description: 'Страница для выполнения специального действия'
+  weight: 100
