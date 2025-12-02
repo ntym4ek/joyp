@@ -352,7 +352,8 @@
   }
 }
 
-.karusel-produktov .product--teaser {
+.karusel-produktov .product--teaser,
+.karusel-produktov-auto .product--teaser {
   border-right: 1px solid transparent;
   border-image-source: linear-gradient(transparent, $gray-light, transparent);
   border-image-slice: 1;

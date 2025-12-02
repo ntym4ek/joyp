@@ -63,7 +63,10 @@ class SearchForm extends FormBase {
    */
   public function validateForm(array &$form, FormStateInterface $form_state): void
   {
-    // todo проверить поисковый запрос
+    // проверить поисковый запрос
+    $key = $form_state->getValue('key');
+    $clean_text = \Drupal\Component\Utility\Xss::filter($key);
+    $form_state->setValue('key', $clean_text);
   }
 
   /**
@@ -94,8 +97,9 @@ class SearchForm extends FormBase {
         $object = $result->getOriginalObject();
         $entity = $object->getEntity();
         $url = $entity->toUrl()->toString();
-        $title = $entity->getTitle();
-        $output .= Markup::create('<li class="input-dropdown-item item--link"><a href="' . $url . '">' . $title . '</a></li>');
+        $title = trim($entity->getTitle());
+        $volume = $entity->get('field_p_volume')->entity->label();
+        $output .= Markup::create('<li class="input-dropdown-item item--link"><a href="' . $url . '">' . $title . ($volume ? ', <span>' . $volume . '</span>' : '') . '</a></li>');
         if (++$counter >= $results_limit) break;
       }
     }
