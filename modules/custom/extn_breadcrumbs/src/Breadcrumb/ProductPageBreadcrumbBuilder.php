@@ -28,15 +28,20 @@ class ProductPageBreadcrumbBuilder implements BreadcrumbBuilderInterface {
 
     $links = [];
     $links[] = Link::fromTextAndUrl(t('Home'), Url::fromRoute('<front>'));
+    $links[] = Link::fromTextAndUrl('Каталог', Url::fromUserInput('/katalog'));
 
     if ($product = $route_match->getParameter('commerce_product')) {
       // Если у ноды есть категория — добавляем её со ссылкой.
       if ($product->hasField('field_p_application') && !$product->get('field_p_application')->isEmpty()) {
-        $term = $product->get('field_p_application')->entity;
-        if ($term instanceof TermInterface) {
-          $links[] = Link::createFromRoute(
-            $term->label(), 'entity.taxonomy_term.canonical', ['taxonomy_term' => $term->id()]
-          );
+        // перебираем до первого живого, так как в Продукте могут быть orphaned термины
+        foreach ($product->get('field_p_application') as $application) {
+          $term = $application->entity;
+          if ($term instanceof TermInterface) {
+            $links[] = Link::createFromRoute(
+              $term->label(), 'entity.taxonomy_term.canonical', ['taxonomy_term' => $term->id()]
+            );
+            break;
+          }
         }
       }
 

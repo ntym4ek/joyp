@@ -9,6 +9,7 @@
 }
 
 .view-katalog,
+.view-katalog-travel,
 .view-poisk,
 .view-kategorii,
 .view-aromas,
@@ -51,6 +52,7 @@
 }
 
 .view-katalog.view-display-id-page_1,
+.view-katalog-travel.view-display-id-page_1,
 .view-poisk.view-display-id-page_1 {
   .view-header {
     border-bottom: 1px solid $gray-lightest;
@@ -267,6 +269,7 @@ aside .views-exposed-form:not(:empty) {
 }
 
 .view-katalog,
+.view-katalog-travel,
 .view-poisk {
   .view-header {
     .item--keyword,

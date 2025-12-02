@@ -35,7 +35,7 @@ class ProductListBreadcrumbBuilder implements BreadcrumbBuilderInterface {
         $links[] = Link::fromTextAndUrl('Блог', Url::fromUserInput('/blog'));
       }
       if ($view_id == 'katalog') {
-        $links[] = Link::fromTextAndUrl('Каталог', Url::fromUserInput('/catalog'));
+        $links[] = Link::fromTextAndUrl('Каталог', Url::fromUserInput('/katalog'));
       }
     }
 

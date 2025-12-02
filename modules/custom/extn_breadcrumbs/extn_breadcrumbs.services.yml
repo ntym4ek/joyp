@@ -27,6 +27,11 @@ services:
     tags:
       - { name: breadcrumb_builder, priority: 1003 }
 
+  extn_breadcrumbs.product_travel_list_breadcrumb:
+    class: Drupal\extn_breadcrumbs\Breadcrumb\ProductTravelListBreadcrumbBuilder
+    tags:
+      - { name: breadcrumb_builder }
+
   extn_breadcrumbs.product_page_breadcrumb:
     class: Drupal\extn_breadcrumbs\Breadcrumb\ProductPageBreadcrumbBuilder
     tags:

@@ -43,7 +43,7 @@ class ActionForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state)
   {
     $dry_run = $form_state->getValue('dry_run');
-//    $this->processProducts($dry_run);
+    $this->processProducts($dry_run);
 
     $this->messenger()->addStatus($this->t('Действие успешно выполнено!'));
   }
@@ -78,13 +78,13 @@ class ActionForm extends FormBase {
       $skipped = 0;
 
       foreach ($products as $product) {
-        $title = $product->getTitle();
-        $title_en = $product->get('field_title_en')->value;
+        $cats = $product->get('field_p_application')->getValue();
+        $cat_ids = array_column($cats, 'target_id');
 
-        if ($title !== $title_en) {
+        if (in_array(25, $cat_ids)) { // если есть категория Travel
           if (!$dry_run) {
             // Сохраняем значение
-            $product->set('field_title_en', $title);
+            $product->set('field_p_travel', TRUE);
             $product->save();
           }
 
