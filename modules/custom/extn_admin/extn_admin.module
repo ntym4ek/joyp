@@ -5,7 +5,27 @@ use Drupal\Core\Form\FormStateInterface;
 /**
  * Implements hook_form_FORM_ID_alter()
  */
-function extn_form_form_entity_clone_form_alter(&$form, FormStateInterface $form_state, $form_id): void
+function extn_admin_form_commerce_product_care_edit_form_alter(&$form, FormStateInterface $form_state): void
+{
+  // в форме редактирования Товара убрать часть терминов Областей применения
+  unset($form["field_p_application"]["widget"]["#options"][2107]); // travel
+  unset($form["field_p_application"]["widget"]["#options"][2109]); // подарочные наборы
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter()
+ */
+function extn_admin_form_commerce_product_podarochnyy_nabor_edit_form_alter(&$form, FormStateInterface $form_state): void
+{
+  // в форме редактирования Товара убрать часть терминов Областей применения
+  unset($form["field_p_application"]["widget"]["#options"][2107]); // travel
+  unset($form["field_p_application"]["widget"]["#options"][2109]); // подарочные наборы
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter()
+ */
+function extn_admin_form_entity_clone_form_alter(&$form, FormStateInterface $form_state, $form_id): void
 {
   // для Контент менеджеров при клонировании Продукта установить галки
   if (\Drupal::currentUser()->hasPermission('administer site configuration'))  return;

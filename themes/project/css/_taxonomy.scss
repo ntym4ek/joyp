@@ -111,10 +111,10 @@
   &.taxonomy-term--22 { background: linear-gradient(#fff, $brand-hands); }
   &.taxonomy-term--23 { background: linear-gradient(#fff, $brand-body); }
   &.taxonomy-term--24 { background: linear-gradient(#fff, $brand-home); }
-  &.taxonomy-term--25 { background: linear-gradient(#fff, $brand-travel); }
-  &.taxonomy-term--26 { background: linear-gradient(#fff, $brand-set); }
+  &.taxonomy-term--2107 { background: linear-gradient(#fff, $brand-travel); }
+  &.taxonomy-term--2109 { background: linear-gradient(#fff, $brand-set); }
 
-  @media #{$laptop}      {
+  @media #{$laptop}    {
     .field--name-field-image img { height: 300px; }
   }
   @media #{$wide}      {

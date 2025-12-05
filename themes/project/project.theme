@@ -234,12 +234,30 @@ function project_preprocess_taxonomy_term(array &$variables)
 
   // На странице списка Категорий
   if ($variables["view_mode"] == 'kartochka_kategorii') {
-    // Подсчитываем количество материалов, привязанных к этому термину.
-    $count = \Drupal::entityQuery('commerce_product')
-      ->condition('field_p_application', $term->id())
-      ->accessCheck(FALSE)
-      ->count()
-      ->execute();
+    if ($term->id() == 2107) {                                    // Travel
+      $count = \Drupal::entityQuery('commerce_product')
+        ->condition('field_p_travel', TRUE)
+        ->accessCheck(FALSE)
+        ->count()
+        ->execute();
+      $variables["url"] = '/katalog/travel';
+    }
+    elseif ($term->id() == 2109) {                                // Подарочные наборы
+      $count = \Drupal::entityQuery('commerce_product')
+        ->condition('type', 'podarochnyy_nabor')
+        ->accessCheck(FALSE)
+        ->count()
+        ->execute();
+      $variables["url"] = '/katalog/podarochnye-nabory';
+    }
+    else {
+      // Подсчитываем количество материалов, привязанных к этому термину.
+      $count = \Drupal::entityQuery('commerce_product')
+        ->condition('field_p_application', $term->id())
+        ->accessCheck(FALSE)
+        ->count()
+        ->execute();
+    }
 
     // Добавляем значение в переменные для шаблона.
     if ($count) {
@@ -298,7 +316,7 @@ function project_preprocess_swiper_formatter(array &$vars): void
 
   // alt для thumbs и изображений в слайдере фото товаров
   // (добавление alt раскидано по трём местам)
-  if ($vars["object"] instanceof Product) {
+  if (str_starts_with($vars["id"],  'commerce-product-')) {
     foreach ($vars['content'] as $delta => &$item) {
       $product = $item["#object"];
       if ($product->hasField('field_p_images')) {

@@ -71,3 +71,4 @@ function extn_views_views_filters_summary_replacements_alter(&$view)
   }
 
 }
+
