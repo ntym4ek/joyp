@@ -19,9 +19,6 @@ function extn_commerce_form_alter(&$form, FormStateInterface $form_state, $form_
   }
 }
 
-
-
-
 /**
  * Implements hook_ENTITY_TYPE_view().
  */
@@ -31,9 +28,9 @@ function extn_commerce_commerce_product_view(array &$build, \Drupal\Core\Entity\
   // (добавление alt раскидано по трём местам)
   // hook_preprocess_field для field_p_images не вызывается для полей или сущностей, выводимых через виджет swiper
   if ($entity->hasField('field_p_images')) {
-    $title = $entity->label();
+    $title = trim($entity->label());
     $volume = $entity->hasField('field_p_volume') ? ' ' . $entity->get('field_p_volume')->entity->label() : '';
-    $alt = $title . $volume . ' от JOY PREMIUM';
+    $alt = 'Превью. ' . $title . $volume . ' от JOY PREMIUM';
 
     if (isset($build["field_p_images"])) {
       foreach(\Drupal\Core\Render\Element::children($build['field_p_images']) as $key => $item) {

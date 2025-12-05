@@ -99,7 +99,7 @@ class SearchForm extends FormBase {
         $url = $entity->toUrl()->toString();
         $title = trim($entity->getTitle());
         $volume = $entity->get('field_p_volume')->entity->label();
-        $output .= Markup::create('<li class="input-dropdown-item item--link"><a href="' . $url . '">' . $title . ($volume ? ', <span>' . $volume . '</span>' : '') . '</a></li>');
+        $output .= Markup::create('<li class="input-dropdown-item item--link"><a href="' . $url . '">' . $title . ($volume ? '<span>, ' . $volume . '</span>' : '') . '</a></li>');
         if (++$counter >= $results_limit) break;
       }
     }

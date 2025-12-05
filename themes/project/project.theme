@@ -280,7 +280,8 @@ function project_preprocess_menu(array &$vars)
 function project_preprocess_swiper_formatter(array &$vars): void
 {
   if ($vars["id"] == 'swiper-front-slider-block-1') {
-    foreach ($vars['content'] as &$item) {
+    // alt для thumbs для главного баннера
+    foreach ($vars['content'] as $delta => &$item) {
       $term = $item["#slide"]["#taxonomy_term"];
       if ($term->hasField('field_image_mobile')) {
         $file = $term->get('field_image_mobile')->entity;
@@ -288,25 +289,35 @@ function project_preprocess_swiper_formatter(array &$vars): void
         if ($file) {
           $uri = $file->getFileUri();
           $item['#thumb'] = ImageStyle::load('thumbnail')->buildUrl($uri);
-          $item['#alt'] = $term->label();
+          $item['#alt'] = 'Миниатюра. ' . $term->label() . ((count($vars['content']) > 1) ? '. Баннер ' . $delta+1 . ' из ' . count($vars['content']) : '');
         }
       }
     }
   }
 
-  // здесь добавляется alt для изображений в слайдере на странице товара
+  // alt для thumbs и изображений в слайдере фото товаров
   // (добавление alt раскидано по трём местам)
   if ($vars["object"] instanceof Product) {
-    foreach ($vars["content"] as $delta => &$item) {
-      $title = $item["#object"]->getTitle();
-      $volume = $item["#object"]->hasField('field_p_volume') ? ' ' . $item["#object"]->get('field_p_volume')->entity->label() : '';
-      $alt = $title . $volume;
-      $alt_w_delta = $alt . ($delta ? ' [' . $delta . ']' : '');
-      if (isset($item['#slide']['#item'])) {
-        $item['#slide']['#item']->alt = $alt_w_delta;
+    foreach ($vars['content'] as $delta => &$item) {
+      $product = $item["#object"];
+      if ($product->hasField('field_p_images')) {
+        $file = $product->get('field_p_images')[$delta]->entity;
+
+        if ($file) {
+          $uri = $file->getFileUri();
+          $item['#thumb'] = ImageStyle::load('thumbnail')->buildUrl($uri);
+          $title = trim($product->getTitle());
+          $volume = $product->hasField('field_p_volume') ? ' ' . $product->get('field_p_volume')->entity->label() : '';
+          $alt = $title . $volume;
+          $alt_w_delta = $alt . ((count($vars['content']) > 1) ? '. Изображение ' . $delta+1 . ' из ' . count($vars['content']) : '');
+          $alt_w_delta .= ' от JOY PREMIUM';
+          $item['#thumb_alt'] = 'Миниатюра. ' . $alt_w_delta;
+          if (isset($item['#slide']['#item'])) {
+            $item['#slide']['#item']->alt = $alt_w_delta;
+          }
+        }
       }
     }
-
   }
 
 }
@@ -339,7 +350,14 @@ function project_preprocess_field(&$vars)
     $alt = '';
 
     // для материалов
-    if ($entity->bundle() === 'article')    $alt = $label;
+    if ($entity->bundle() === 'article') {
+      $alt = $label;
+      if ($vars["element"]["#view_mode"] == 'teaser') $alt = 'Превью. ' . $alt;
+    }
+    if ($entity->bundle() === 'issledovanie') {
+      $alt = 'Исследование JOY PREMIUM: ' . $label;
+      if ($vars["element"]["#view_mode"] == 'teaser') $alt = 'Превью. ' . $alt;
+    }
 
     // для таксономии
     if ($entity->bundle() === 'smells')     $alt = $label . ' в ароматах JOY PREMIUM';
@@ -348,7 +366,6 @@ function project_preprocess_field(&$vars)
       $name = $entity->get('field_expert_name')->value;
       $alt = 'Эксперт ' . trim($name) . ' о продукте JOY PREMIUM ' . str_replace(' > Мнение эксперта', '', $label);
     }
-
 
     if ($alt) {
       foreach ($vars['items'] as $delta => &$item) {
@@ -363,6 +380,7 @@ function project_preprocess_field(&$vars)
     // на странице товара используется слайдер, устанавливаем alt в hook_preprocess_swiper_formatter()
   }
 }
+
 
 /**
  * Implements template_preprocess_mimemail_message().
