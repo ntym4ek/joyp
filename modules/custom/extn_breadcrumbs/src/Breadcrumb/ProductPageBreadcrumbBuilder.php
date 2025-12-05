@@ -32,17 +32,23 @@ class ProductPageBreadcrumbBuilder implements BreadcrumbBuilderInterface {
 
     if ($product = $route_match->getParameter('commerce_product')) {
       // Если у ноды есть категория — добавляем её со ссылкой.
-      if ($product->hasField('field_p_application') && !$product->get('field_p_application')->isEmpty()) {
-        // перебираем до первого живого, так как в Продукте могут быть orphaned термины
-        foreach ($product->get('field_p_application') as $application) {
-          $term = $application->entity;
-          if ($term instanceof TermInterface) {
-            $links[] = Link::createFromRoute(
-              $term->label(), 'entity.taxonomy_term.canonical', ['taxonomy_term' => $term->id()]
-            );
-            break;
+      if ($product->bundle() == 'care') {
+        if ($product->hasField('field_p_application') && !$product->get('field_p_application')->isEmpty()) {
+          // перебираем до первого живого, так как в Продукте могут быть orphaned термины
+          foreach ($product->get('field_p_application') as $application) {
+            $term = $application->entity;
+            if ($term instanceof TermInterface) {
+              $links[] = Link::createFromRoute(
+                $term->label(), 'entity.taxonomy_term.canonical', ['taxonomy_term' => $term->id()]
+              );
+              break;
+            }
           }
         }
+      } elseif ($product->bundle() == 'podarochnyy_nabor') {
+        $links[] = Link::fromTextAndUrl(t('Gift sets'), Url::fromRoute('view.katalog_sets.page_1'));
+      } elseif ($product->bundle() == 'sertifikat') {
+        $links[] = Link::fromTextAndUrl(t('Certificates'), Url::fromRoute('view.katalog_sertifikaty.page_1'));
       }
 
       $links[] = Link::fromTextAndUrl(trim($product->label()), Url::fromRoute('<none>'));

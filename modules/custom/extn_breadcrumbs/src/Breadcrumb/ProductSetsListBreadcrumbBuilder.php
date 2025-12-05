@@ -8,14 +8,14 @@ use Drupal\Core\Link;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
 
-class ProductTravelListBreadcrumbBuilder implements BreadcrumbBuilderInterface {
+class ProductSetsListBreadcrumbBuilder implements BreadcrumbBuilderInterface {
 
   /**
    * Проверяет, применим ли builder к текущему маршруту.
    */
   public function applies(RouteMatchInterface $route_match)
   {
-    return $route_match->getRouteName() && $route_match->getRouteName() === 'view.katalog_travel.page_1';
+    return $route_match->getRouteName() && $route_match->getRouteName() === 'view.katalog_sets.page_1';
   }
 
   /**
@@ -29,7 +29,7 @@ class ProductTravelListBreadcrumbBuilder implements BreadcrumbBuilderInterface {
     $links = [];
     $links[] = Link::fromTextAndUrl(t('Home'), Url::fromRoute('<front>'));
     $links[] = Link::fromTextAndUrl(t('Catalog'), Url::fromUserInput('/katalog'));
-    $links[] = Link::fromTextAndUrl(t('Travel'), Url::fromRoute('<none>'));
+    $links[] = Link::fromTextAndUrl(t('Gift sets'), Url::fromRoute('<none>'));
 
     return $breadcrumb->setLinks($links);
   }

@@ -124,6 +124,7 @@ function project_preprocess_page(array &$vars): void
   // Каталог (блок фильтров)
   if ($route_name == 'entity.taxonomy_term.canonical'                         // Каталог
       || $route_name == 'view.katalog_travel.page_1'                          // Страница каталога Travel
+      || $route_name == 'view.katalog_sets.page_1'                            // Страница каталога Подарочные наборы
       || $route_name == 'view.poisk.page_1' )                                 // Страница поиска
   {
     $left_col = 2;

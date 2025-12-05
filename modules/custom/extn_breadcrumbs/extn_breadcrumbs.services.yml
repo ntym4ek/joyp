@@ -32,6 +32,16 @@ services:
     tags:
       - { name: breadcrumb_builder }
 
+  extn_breadcrumbs.product_sets_list_breadcrumb:
+    class: Drupal\extn_breadcrumbs\Breadcrumb\ProductSetsListBreadcrumbBuilder
+    tags:
+      - { name: breadcrumb_builder }
+
+  extn_breadcrumbs.product_certificates_list_breadcrumb:
+    class: Drupal\extn_breadcrumbs\Breadcrumb\ProductCertificatesListBreadcrumbBuilder
+    tags:
+      - { name: breadcrumb_builder }
+
   extn_breadcrumbs.product_page_breadcrumb:
     class: Drupal\extn_breadcrumbs\Breadcrumb\ProductPageBreadcrumbBuilder
     tags:
