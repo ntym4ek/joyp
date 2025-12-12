@@ -61,6 +61,7 @@ class ActionForm extends FormBase {
         ->getStorage('commerce_product')
         ->getQuery()
         ->accessCheck(FALSE)
+//        ->range(0, 1)
         ->condition('type', 'care');
 
       $product_ids = $query->execute();
@@ -78,14 +79,19 @@ class ActionForm extends FormBase {
       $skipped = 0;
 
       foreach ($products as $product) {
-        $cats = $product->get('field_p_application')->getValue();
-        $cat_ids = array_column($cats, 'target_id');
+//        $volume = $product->get('field_p_volume')->getValue();
 
-        if (in_array(25, $cat_ids)) { // если есть категория Travel
+        if ($variation = $product->getVariations()[0]) {
           if (!$dry_run) {
             // Сохраняем значение
-            $product->set('field_p_travel', TRUE);
-            $product->save();
+//            $variation->set('field_pv_volume', $volume);
+
+            $variation->get('field_pv_availability')->setValue([
+              'orderable' => 1,
+              'availability_status' => 'in_stock',
+            ]);
+
+            $variation->save();
           }
 
           $updated++;

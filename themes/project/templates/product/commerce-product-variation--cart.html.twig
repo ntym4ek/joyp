@@ -1,0 +1,34 @@
+{#
+/**
+ * @file
+ *
+ * Default template for product variations.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the wrapper.
+ * - product_variation: The rendered product variation fields.
+ *   Use 'product_variation' to print them all, or print a subset such as
+ *   'product_variation.title'. Use the following code to exclude the
+ *   printing of a given field:
+ *   @code
+ *   {{ product_variation|without('title') }}
+ *   @endcode
+ * - product_variation_entity: The product variation entity.
+ * - product_url: The product URL.
+ * - product_variation_url: The product variation URL.
+ * - is_active: Whether the current variation is the active variation.
+ *
+ * @ingroup themeable
+ */
+#}
+<div{{ attributes.addClass(['product', 'product--cart']) }}>
+  <div class="product__row">
+    <div class="product__image">
+      {{- product_variation.field_pv_images[0] -}}
+    </div>
+    <div class="product__summary">
+      <div class="product__title"><a href="{{ product_variation_url }}">{{- product_variation.title -}}</a></div>
+      <div class="product__volume">{{- product_variation.attribute_volume -}}</div>
+    </div>
+  </div>
+</div>

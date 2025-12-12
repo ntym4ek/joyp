@@ -22,7 +22,7 @@ use Drupal\func_helper\Helper\CommerceHelper;
  */
 function extn_commerce_cart_form_alter(&$form, FormStateInterface $form_state): void
 {
-  // форма Корзины
+  // В форме Корзины для поля ввода количества добавить +/-
   if (isset($form["edit_quantity"])) {
     foreach (\Drupal\Core\Render\Element::children($form["edit_quantity"]) as $key) {
       $form["edit_quantity"][$key]['#wrapper_attributes']['class'][] = '';
@@ -34,30 +34,57 @@ function extn_commerce_cart_form_alter(&$form, FormStateInterface $form_state): 
 }
 
 /**
+ * Implements hook_form_BASE_FORM_ID_alter(): commerce_order_item_variation_cart_form_form.
+ *
+ * На странице Каталога, в карточках Вариаций товара для добавления в корзину конкретной Вариации
+ * используется виджет модуля commerce_variation_cart_form
+ */
+function extn_commerce_form_commerce_order_item_variation_cart_form_form_alter(&$form, FormStateInterface $form_state): void
+{
+  $storage = $form_state->getStorage();
+  if (isset($storage["view_mode"]) && $storage["view_mode"] == 'summary') {
+
+    $variation_id = $form_state->get('selected_variation');
+    /** @var \Drupal\commerce_product\Entity\ProductVariationInterface $variation */
+    $variation = \Drupal::entityTypeManager()->getStorage('commerce_product_variation')->load($variation_id);
+
+    if (CommerceHelper::isProductVariationInCart($variation)) {
+      $form["actions"]["submit"]["#attributes"]["class"][] = 'in-cart';
+    }
+
+    // ajax на кнопку добавления в корзину
+    $form['actions']['submit']['#id'] = 'add-to-cart-button-' . $variation_id;
+    $form['actions']['submit']['#ajax'] = [
+      'callback' => 'extn_commerce_add_to_cart_ajax',
+      'event' => 'click',
+      'selector' => ':input[data-drupal-selector="add-to-cart-button-' . $variation_id . '"]',
+    ];
+  }
+}
+
+/**
  * Implements hook_form_BASE_FORM_ID_alter(): commerce_order_item_add_to_cart_form.
+ *
+ * На странице Товара используется стандартный виджет добавления в корзину,
+ * Product->Variations->Add to cart form
  */
 function extn_commerce_form_commerce_order_item_add_to_cart_form_alter(&$form, FormStateInterface $form_state): void
 {
-  /** @var ProductInterface $product */
-  $product = $form_state->get('product');
-//  $product_variation = $product->getVariations()[0];
-
-  // в Каталоге не выводить количество в форме добавления в корзину
-  $storage = $form_state->getStorage();
-  if (isset($storage["view_mode"]) && $storage["view_mode"] == 'summary') {
-    $form["quantity"]["#access"] = false;
-    if (CommerceHelper::isProductInCart($product)) {
-      $form["actions"]["submit"]["#attributes"]["class"][] = 'in-cart';
-    }
-  }
-  // Для поля количества вывести кнопки +/-
   if (isset($storage["view_mode"]) && $storage["view_mode"] == 'full') {
+
+    // К полю ввода количества добавить кнопки +/-
     $form["quantity"]['#attributes']['class'][] = 'commerce-quantity-controls';
+    if ($form["quantity"]["#disabled"]) $form["quantity"]['#attributes']['class'][] = 'disabled';
     $form["quantity"]["widget"]['#prefix'] = Markup::create('<span class="commerce-quantity-control decrement"></span>');
     $form["quantity"]["widget"][0]["value"]["#suffix"] = Markup::create('<span class="commerce-quantity-control increment"></span>');
     $form['#attached']['library'][] = 'project/commerce-quantity-controls';
+
+    // Если Вариация уже в корзине, заменить форму добавления в корзину на кнопку перехода в корзину
     $go_to_cart_class = ' hide';
-    if (CommerceHelper::isProductInCart($product)) {
+    $variation_id = $form_state->get('selected_variation');
+    /** @var \Drupal\commerce_product\Entity\ProductVariationInterface $variation */
+    $variation = \Drupal::entityTypeManager()->getStorage('commerce_product_variation')->load($variation_id);
+    if (CommerceHelper::isProductVariationInCart($variation)) {
       $form["actions"]["submit"]["#access"] = false;
       $form["quantity"]["#access"] = false;
       $go_to_cart_class = '';
@@ -66,16 +93,14 @@ function extn_commerce_form_commerce_order_item_add_to_cart_form_alter(&$form, F
       '#markup' => '<a href="/cart" class="go-to-cart button button--primary button--wide' . $go_to_cart_class . '">В корзине<br><span>Перейти</span></a>',
     ];
 
+    // Повесить ajax на кнопку добавления в корзину
+    $form['actions']['submit']['#id'] = 'add-to-cart-button-' . $variation_id;
+    $form['actions']['submit']['#ajax'] = [
+      'callback' => 'extn_commerce_add_to_cart_ajax',
+      'event' => 'click',
+      'selector' => ':input[data-drupal-selector="add-to-cart-button-' . $variation_id . '"]',
+    ];
   }
-
-  // ajax на кнопку добавления в корзину
-  $form['actions']['submit']['#id'] = 'add-to-cart-button-' . $product->id();
-  $form['actions']['submit']['#ajax'] = [
-    'callback' => 'extn_commerce_add_to_cart_ajax',
-//    'disable-refocus' => TRUE,
-    'event' => 'click',
-    'selector' => ':input[data-drupal-selector="add-to-cart-button-' . $product->id() . '"]',
-  ];
 }
 
 /**
@@ -86,29 +111,43 @@ function extn_commerce_add_to_cart_ajax(array &$form, FormStateInterface $form_s
   // Удалить статусные сообщения
   \Drupal::messenger()->deleteByType(MessengerInterface::TYPE_STATUS);
 
-  // Получить отрендеренный продукт в Мини view_mode
-  $product = $form_state->get('product');
-  $view_builder = \Drupal::entityTypeManager()->getViewBuilder('commerce_product');
-  $build = $view_builder->view($product, 'mini');
-  $output = \Drupal::service('renderer')->render($build);
-
-  $output .=  '<div class="ui-dialog-actions" autofocus>' .
-               '<a href="/cart" class="button button--primary">Перейти в корзину</a>' .
-               '<a id="buttonDialogClose" class="button button--default button--outline">Вернуться к покупкам</a>' .
-              '</div>';
-
   $response = new AjaxResponse();
-  // только на странице Каталога
-  $response->addCommand(new InvokeCommand('.product--teaser #add-to-cart-button-' . $product->id(), 'addClass', ['in-cart']));
-  // только на странице Продукта
-  $response->addCommand(new InvokeCommand('.product--full .go-to-cart', 'removeClass', ['hide']));
-  $response->addCommand(new InvokeCommand('.product--full .field--name-quantity', 'addClass', ['hide']));
-  $response->addCommand(new InvokeCommand('.product--full #add-to-cart-button-' . $product->id(), 'addClass', ['hide']));
+
+  $storage = $form_state->getStorage();
+  if (!empty($storage["selected_variation"])) {
+    $variation = \Drupal::entityTypeManager()
+      ->getStorage('commerce_product_variation')
+      ->load($storage["selected_variation"]);
+
+    // Получить отрендеренный продукт в Мини view_mode
+    $view_builder = \Drupal::entityTypeManager()->getViewBuilder('commerce_product_variation');
+    $build = $view_builder->view($variation, 'mini');
+    $output = \Drupal::service('renderer')->render($build);
+
+    $output .=  '<div class="ui-dialog-actions" autofocus>' .
+                  '<a href="/cart" class="button button--primary">Перейти в корзину</a>' .
+                  '<a id="buttonDialogClose" class="button button--default button--outline">Вернуться к покупкам</a>' .
+                '</div>';
+
+    if (isset($storage["view_mode"])) {
+      if ($storage["view_mode"] == 'summary') {
+        // только на странице Каталога
+        $response->addCommand(new InvokeCommand('.product--teaser #add-to-cart-button-' . $variation->id(), 'addClass', ['in-cart']));
+      } elseif ($storage["view_mode"] == 'full') {
+        // только на странице Продукта
+        $response->addCommand(new InvokeCommand('.product--full .go-to-cart', 'removeClass', ['hide']));
+        $response->addCommand(new InvokeCommand('.product--full .field--name-quantity', 'addClass', ['hide']));
+        $response->addCommand(new InvokeCommand('.product--full #add-to-cart-button-' . $variation->id(), 'addClass', ['hide']));
+      }
+    }
+  }
+
   // обновить бейдж на Корзине
   $products_count = CommerceHelper::getCurrentUserCartProductsCount();
   $badge = $products_count ? '<span class="badge">' . $products_count . '</span>' : '';
   $response->addCommand(new HtmlCommand('.cart-badge-wrapper', $badge));
-  // Показать диалог
+
+  // Показать диалог добавленной в корзину Вариации
   $response->addCommand(new OpenModalDialogCommand(
     t('Product added to cart'),
     ['#markup' => $output],

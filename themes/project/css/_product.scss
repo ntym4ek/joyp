@@ -61,7 +61,10 @@
       color: inherit;
       padding-right: 1rem;
     }
-    h4 { font-family: inherit; font-size: inherit; text-transform: initial; }
+    h4 {
+      font-family: inherit; font-size: inherit; text-transform: initial;
+      margin: 0;
+    }
 
     input[type=submit] {
       background: url(../images/icons/bag.svg) no-repeat center center;
@@ -71,7 +74,10 @@
       height: 24px; width: 24px;
       padding: 0;
       text-indent: -9999px;
-      &.in-cart { background-image: url(../images/icons/bag-fill.svg) }
+      &.in-cart {
+        background-image: url(../images/icons/bag-fill.svg);
+        pointer-events: none;
+      }
     }
   }
   .product__image {
@@ -96,9 +102,11 @@
   .product__content {
     padding-top: 1rem;
   }
+  .product__volume { color: $text-muted; }
   .product__price {
     font-size: $font-size-large;
     gap: 1rem;
+    margin-top: 1rem;
   }
   .product__actions { margin-top: 1rem; }
 
@@ -178,9 +186,36 @@
   }
 
   .commerce-order-item-add-to-cart-form {
-    display: flex;
+    display: flex; flex-wrap: wrap; gap: 1rem;
     .form-item { margin: 0; }
     .form-type-number label { display: none; }
+
+
+    .field--widget-commerce-quantity {}
+    .field--widget-commerce-product-variation-attributes {
+      flex: 0 0 100%; order: -1;
+      margin-bottom: 1rem;
+
+      fieldset {
+        border: none;
+        padding: 0;
+        legend { margin-bottom: 10px; }
+        .form-item:not(:last-child) { margin-right: 1rem; }
+      }
+      .product--rendered-attribute label.option {
+        border: $input-border-width solid $input-border-color;
+        border-radius: $input-border-radius;
+        cursor: pointer;
+        height: $input-height-base;
+        font-size: $input-font-size-base; line-height: $line-height-base;
+        padding: $input-padding-base-v $input-padding-base-h;
+      }
+      .product--rendered-attribute__selected ~ label.option {
+        border-color: $brand-cocoa;
+        cursor: default;
+      }
+    }
+
     .form-actions {
       margin: 0;
       input.button { margin: 0; }
@@ -197,7 +232,7 @@
 
   .field--name-quantity {
     display: flex;
-    margin-right: 1rem;
+    //margin-right: 1rem;
     input {
       border-left: none; border-right: none;
       text-align: center;
@@ -297,9 +332,7 @@
   .product__row {
     display: flex; align-items: center;
   }
-  .field--name-field-p-volume {
-    color: $text-muted;
-  }
+  .product__volume { color: $text-muted; }
 }
 
 .product--mini {
@@ -316,10 +349,12 @@
     display: flex; flex-wrap: wrap; align-content: space-around;
     > div { flex: 100%; }
   }
+  .product__volume { color: $text-muted; }
 
   .product__price {
     font-size: $font-size-large;
     gap: 1rem;
+    margin-top: .5rem;
   }
 
   @media #{$desktop} {
@@ -349,6 +384,12 @@
   .increment {
     background: url(../images/icons/plus.svg) no-repeat center center;
     border-left: none;
+  }
+
+  &.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+    box-shadow: none;
   }
 }
 

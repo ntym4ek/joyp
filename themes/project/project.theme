@@ -168,7 +168,7 @@ function project_preprocess_commerce_product(&$vars): void
       $product_variation = reset($product_variations);
       $price = $product_variation->getPrice();
       if ($list_price = $product_variation->getListPrice()) {
-        $discount = (($list_price->getNumber() - $price->getNumber()) / $price->getNumber()) * 100;
+        $discount = (($list_price->getNumber() - $price->getNumber()) / $list_price->getNumber()) * 100;
       }
       if (!empty($discount)) {
         $vars['product']['discount'] = ['#markup' => '-' . round($discount) . '%'];
@@ -186,6 +186,45 @@ function project_preprocess_commerce_product(&$vars): void
       '#theme' => 'socials',
       '#items' => project_get_share_links($product->toUrl()->toString(), $product->getTitle()),
     ];
+  }
+}
+
+/**
+ * Implements hook_preprocess_commerce_product_variation().
+ */
+function project_preprocess_commerce_product_variation(&$vars): void
+{
+  $product_variation = $vars['elements']['#commerce_product_variation'];
+  $product = $product_variation->getProduct();
+
+  // Наименование Вариации товара формируем без объёма с добавлением
+  // нот из аромата
+  $title = $product->label();
+  if ($aroma = $product->get('field_p_aroma')->referencedEntities()) {
+    $smells = $aroma[0]->get('field_smells')->referencedEntities();
+    foreach ($smells as $key => $term) {
+      if ($key == 0)                    $title .= ' ' . mb_strtolower($term->label());
+      elseif ($key < count($smells)-1)  $title .= ', ' . mb_strtolower($term->label());
+      elseif ($key == count($smells)-1) $title .= ' и&nbsp;' . mb_strtolower($term->label());
+    }
+  }
+
+  $vars['product_variation']['title'] = Markup::create($title);
+
+  if ($vars["elements"]["#view_mode"] == 'summary') {
+    // Рассчитать скидку и добавить в переменные, если задана цена list_price.
+    $price = $product_variation->getPrice();
+    if ($list_price = $product_variation->getListPrice()) {
+      $discount = (($list_price->getNumber() - $price->getNumber()) / $price->getNumber()) * 100;
+    }
+    if (!empty($discount)) {
+      $vars['product_variation']['discount'] = ['#markup' => '-' . round($discount) . '%'];
+    }
+
+    // определить категорию товара
+    if ($product->hasField('field_p_application') && !$product->field_p_application->isEmpty()) {
+      $vars['product_variation']['category_id'] = $product->field_p_application[0]->getValue()['target_id'];
+    }
   }
 }
 
@@ -318,16 +357,14 @@ function project_preprocess_swiper_formatter(array &$vars): void
   // (добавление alt раскидано по трём местам)
   if (str_starts_with($vars["id"],  'commerce-product-')) {
     foreach ($vars['content'] as $delta => &$item) {
-      $product = $item["#object"];
-      if ($product->hasField('field_p_images')) {
-        $file = $product->get('field_p_images')[$delta]->entity;
+      $product_variation = $item["#object"];
+      if ($product_variation->hasField('field_pv_images')) {
+        $file = $product_variation->get('field_pv_images')[$delta]->entity;
 
         if ($file) {
           $uri = $file->getFileUri();
           $item['#thumb'] = ImageStyle::load('thumbnail')->buildUrl($uri);
-          $title = trim($product->getTitle());
-          $volume = $product->hasField('field_p_volume') ? ' ' . $product->get('field_p_volume')->entity->label() : '';
-          $alt = $title . $volume;
+          $alt = trim($product_variation->getTitle());
           $alt_w_delta = $alt . ((count($vars['content']) > 1) ? '. Изображение ' . $delta+1 . ' из ' . count($vars['content']) : '');
           $alt_w_delta .= ' от JOY PREMIUM';
           $item['#thumb_alt'] = 'Миниатюра. ' . $alt_w_delta;

@@ -20,18 +20,12 @@ class CommerceHelper {
     $cart_provider = \Drupal::service('commerce_cart.cart_provider');
     $carts = $cart_provider->getCarts();
 
-    $products = [];
+    $count = 0;
     foreach ($carts as $cart) {
-      foreach ($cart->getItems() as $order_item) {
-        /** @var \Drupal\commerce_product\Entity\ProductVariationInterface $variation */
-        $variation = $order_item->getPurchasedEntity();
-        if ($variation instanceof ProductVariationInterface) {
-          $products[$variation->getProductId()] = $variation->getProductId();
-        }
-      }
+      $count = count($cart->getItems());
     }
 
-    return count($products);
+    return $count;
   }
 
 
@@ -97,7 +91,7 @@ class CommerceHelper {
 
 
   /**
-   * Проверяем, есть ли вариация товара в корзине.
+   * Проверяем, есть ли хотя бы одна вариация товара в корзине.
    */
   public static function isProductInCart(ProductInterface $product): bool
   {
@@ -109,6 +103,26 @@ class CommerceHelper {
         /** @var \Drupal\commerce_product\Entity\ProductVariationInterface $variation */
         $variation = $order_item->getPurchasedEntity();
         if ($variation instanceof ProductVariationInterface && $variation->getProductId() == $product->id()) {
+          return TRUE;
+        }
+      }
+    }
+    return FALSE;
+  }
+
+  /**
+   * Проверяем, есть ли конкретная вариация товара в корзине.
+   */
+  public static function isProductVariationInCart(ProductVariationInterface $product_variation): bool
+  {
+    $cart_provider = \Drupal::service('commerce_cart.cart_provider');
+    $carts = $cart_provider->getCarts();
+
+    foreach ($carts as $cart) {
+      foreach ($cart->getItems() as $order_item) {
+        /** @var \Drupal\commerce_product\Entity\ProductVariationInterface $variation */
+        $variation = $order_item->getPurchasedEntity();
+        if ($variation instanceof ProductVariationInterface && $variation->id() == $product_variation->id()) {
           return TRUE;
         }
       }

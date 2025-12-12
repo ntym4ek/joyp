@@ -1,7 +1,8 @@
 @import "variables";                                                            // чтобы переменные не подсвечивались
 
 // форма добавления в корзину в карточке товара
-.commerce-order-item-add-to-cart-form {
+.commerce-order-item-add-to-cart-form,
+.commerce-order-item-variation-cart-form-form {
   .form-actions { margin: 0; }
 }
 
@@ -193,7 +194,7 @@
   }
 
   .views-label { display: none; }
-  .views-field-rendered-entity {
+  [class*=views-field-rendered-entity] {
     flex: 0 0 100%;
     margin-bottom: .5rem;
   }
@@ -239,7 +240,7 @@
   }
 
   @media #{$pad} {
-    .views-field-rendered-entity {
+    [class*=views-field-rendered-entity] {
       margin-bottom: 0;
     }
     .views-field-price,
@@ -258,7 +259,7 @@
       &:last-child { border-bottom: none; }
     }
 
-    .views-field-rendered-entity,
+    [class*=views-field-rendered-entity],
     .views-field-nothing {
       flex: 0 0 50%;
     }
