@@ -70,6 +70,7 @@ function extn_commerce_form_commerce_order_item_variation_cart_form_form_alter(&
  */
 function extn_commerce_form_commerce_order_item_add_to_cart_form_alter(&$form, FormStateInterface $form_state): void
 {
+  $storage = $form_state->getStorage();
   if (isset($storage["view_mode"]) && $storage["view_mode"] == 'full') {
 
     // К полю ввода количества добавить кнопки +/-

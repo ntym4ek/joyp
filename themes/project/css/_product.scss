@@ -339,7 +339,7 @@
   .product__image {
     border: 1px solid $gray-lightest;
     margin-right: 1rem;
-    width: 50px;
+    flex: 0 0 50px;
   }
   .product__row {
     display: flex;
@@ -360,7 +360,7 @@
   @media #{$desktop} {
     .product__image {
       margin-right: 2rem;
-      width: 70px;
+      flex: 0 0 70px;
     }
   }
 }

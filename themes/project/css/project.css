@@ -5594,7 +5594,7 @@ aside:first-child {
 .product--mini .product__image {
   border: 1px solid #E8E8E8;
   margin-right: 1rem;
-  width: 50px;
+  flex: 0 0 50px;
 }
 .product--mini .product__row {
   display: flex;
@@ -5618,7 +5618,7 @@ aside:first-child {
 @media only screen and (min-width: 1600px) {
   .product--mini .product__image {
     margin-right: 2rem;
-    width: 70px;
+    flex: 0 0 70px;
   }
 }
 
