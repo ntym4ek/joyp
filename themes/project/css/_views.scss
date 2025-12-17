@@ -8,15 +8,15 @@
   }
 }
 
-.view-katalog,
+
 .view-katalog2,
-.view-katalog-travel,
-.view-katalog-sets,
-.view-katalog-sertifikaty,
-.view-poisk,
+.view-katalog-travel2,
+.view-katalog-sets2,
+.view-katalog-sertifikaty2,
+.view-poisk2,
 .view-kategorii,
 .view-aromas,
-.view-karusel-produktov,
+.view-karusel-produktov2,
 .view-karusel-kategoriy,
 .view-karusel-obuchayushchih-materialov,
 .view-novosti,
@@ -35,6 +35,7 @@
 
 .view-aromas,
 .view-karusel-produktov,
+.view-karusel-produktov2,
 .view-karusel-kategoriy,
 .view-karusel-obuchayushchih-materialov,
 .view-novosti {
@@ -54,11 +55,10 @@
   @media #{$wide}     { margin: 0 (-$gutter-wd); }
 }
 
-.view-katalog.view-display-id-page_1,
 .view-katalog2.view-display-id-page_1,
-.view-katalog-travel.view-display-id-page_1,
-.view-katalog-sets.view-display-id-page_1,
-.view-poisk.view-display-id-page_1 {
+.view-katalog-travel2.view-display-id-page_1,
+.view-katalog-sets2.view-display-id-page_1,
+.view-poisk2.view-display-id-page_1 {
   .view-header {
     border-bottom: 1px solid $gray-lightest;
     align-items: center;
@@ -86,7 +86,7 @@
   }
 }
 
-.view-katalog-sertifikaty {
+.view-katalog-sertifikaty2 {
   .views-row {
     flex-basis: 100%; max-width: 100%;
     border-top: 1px solid $gray-lightest;
@@ -94,6 +94,10 @@
     &:nth-child(1) { border-top: none; }
 
     .product__content { @include padding-block(16, 20, 32); }
+    .product__image {
+      a { width: 100%; }
+      img { width: 100%; }
+    }
 
     @media #{$pad}      {
       border-right: 1px solid $gray-lightest;
@@ -140,6 +144,7 @@
 
 .view-aromas,
 .view-karusel-produktov,
+.view-karusel-produktov2,
 .view-karusel-kategoriy,
 .view-karusel-obuchayushchih-materialov,
 .view-novosti {
@@ -273,12 +278,12 @@ aside .views-exposed-form:not(:empty) {
   }
 }
 
-.view-katalog,
+
 .view-katalog2,
-.view-katalog-travel,
-.view-katalog-sets,
-.view-katalog-sertifikaty,
-.view-poisk {
+.view-katalog-travel2,
+.view-katalog-sets2,
+.view-katalog-sertifikaty2,
+.view-poisk2 {
   .view-header {
     .item--keyword,
     .value-container,

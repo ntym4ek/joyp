@@ -327,12 +327,20 @@
 .product--cart {
   .product__image {
     border: 1px solid $gray-lightest;
-    margin-right: 2rem;
+    margin-right: 1rem;
+    flex: 0 0 50px;
   }
   .product__row {
     display: flex; align-items: center;
   }
   .product__volume { color: $text-muted; }
+
+  @media #{$laptop} {
+    .product__image {
+      margin-right: 2rem;
+      flex: 0 0 90px;
+    }
+  }
 }
 
 .product--mini {
@@ -357,10 +365,10 @@
     margin-top: .5rem;
   }
 
-  @media #{$desktop} {
+  @media #{$laptop} {
     .product__image {
       margin-right: 2rem;
-      flex: 0 0 70px;
+      flex: 0 0 90px;
     }
   }
 }
@@ -405,4 +413,6 @@
   &.product-category--24 { background: linear-gradient(#fff, $brand-home); }
   &.product-category--25 { background: linear-gradient(#fff, $brand-travel); }
   &.product-category--26 { background: linear-gradient(#fff, $brand-set); }
+
+  .product__volume { color: #555; }
 }

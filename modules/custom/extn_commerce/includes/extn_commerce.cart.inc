@@ -42,7 +42,7 @@ function extn_commerce_cart_form_alter(&$form, FormStateInterface $form_state): 
 function extn_commerce_form_commerce_order_item_variation_cart_form_form_alter(&$form, FormStateInterface $form_state): void
 {
   $storage = $form_state->getStorage();
-  if (isset($storage["view_mode"]) && $storage["view_mode"] == 'summary') {
+  if (isset($storage["view_mode"]) && $storage["view_mode"] == 'teaser') {
 
     $variation_id = $form_state->get('selected_variation');
     /** @var \Drupal\commerce_product\Entity\ProductVariationInterface $variation */
@@ -75,7 +75,7 @@ function extn_commerce_form_commerce_order_item_add_to_cart_form_alter(&$form, F
 
     // К полю ввода количества добавить кнопки +/-
     $form["quantity"]['#attributes']['class'][] = 'commerce-quantity-controls';
-    if ($form["quantity"]["#disabled"]) $form["quantity"]['#attributes']['class'][] = 'disabled';
+    if (!empty($form["quantity"]["#disabled"])) $form["quantity"]['#attributes']['class'][] = 'disabled';
     $form["quantity"]["widget"]['#prefix'] = Markup::create('<span class="commerce-quantity-control decrement"></span>');
     $form["quantity"]["widget"][0]["value"]["#suffix"] = Markup::create('<span class="commerce-quantity-control increment"></span>');
     $form['#attached']['library'][] = 'project/commerce-quantity-controls';
@@ -131,7 +131,7 @@ function extn_commerce_add_to_cart_ajax(array &$form, FormStateInterface $form_s
                 '</div>';
 
     if (isset($storage["view_mode"])) {
-      if ($storage["view_mode"] == 'summary') {
+      if ($storage["view_mode"] == 'teaser') {
         // только на странице Каталога
         $response->addCommand(new InvokeCommand('.product--teaser #add-to-cart-button-' . $variation->id(), 'addClass', ['in-cart']));
       } elseif ($storage["view_mode"] == 'full') {

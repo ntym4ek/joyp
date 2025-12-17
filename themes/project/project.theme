@@ -123,8 +123,8 @@ function project_preprocess_page(array &$vars): void
   $left_col = $right_col = 3;
   // Каталог (блок фильтров)
   if ($route_name == 'entity.taxonomy_term.canonical'                         // Каталог
-      || $route_name == 'view.katalog_travel.page_1'                          // Страница каталога Travel
-      || $route_name == 'view.katalog_sets.page_1'                            // Страница каталога Подарочные наборы
+      || $route_name == 'view.katalog_travel2.page_1'                         // Страница каталога Travel
+      || $route_name == 'view.katalog_sets2.page_1'                           // Страница каталога Подарочные наборы
       || $route_name == 'view.poisk.page_1' )                                 // Страница поиска
   {
     $left_col = 2;
@@ -162,7 +162,7 @@ function project_preprocess_commerce_product(&$vars): void
 {
   $product = $vars['elements']['#commerce_product'];
 
-  if ($vars["elements"]["#view_mode"] == 'summary') {
+  if ($vars["elements"]["#view_mode"] == 'teaser') {
     // Рассчитать скидку и добавить в переменные, если задана цена list_price.
     if ($product_variations = $product->getVariations()) {
       $product_variation = reset($product_variations);
@@ -200,7 +200,7 @@ function project_preprocess_commerce_product_variation(&$vars): void
   // Наименование Вариации товара формируем без объёма с добавлением
   // нот из аромата
   $title = $product->label();
-  if ($aroma = $product->get('field_p_aroma')->referencedEntities()) {
+  if ($product->hasField('field_p_aroma') && $aroma = $product->get('field_p_aroma')->referencedEntities()) {
     $smells = $aroma[0]->get('field_smells')->referencedEntities();
     foreach ($smells as $key => $term) {
       if ($key == 0)                    $title .= ' ' . mb_strtolower($term->label());
@@ -209,13 +209,13 @@ function project_preprocess_commerce_product_variation(&$vars): void
     }
   }
 
-  $vars['product_variation']['title'] = Markup::create($title);
+    $vars['product_variation']['title'] = ['#markup' => $title];
 
-  if ($vars["elements"]["#view_mode"] == 'summary') {
+  if ($vars["elements"]["#view_mode"] == 'teaser') {
     // Рассчитать скидку и добавить в переменные, если задана цена list_price.
     $price = $product_variation->getPrice();
     if ($list_price = $product_variation->getListPrice()) {
-      $discount = (($list_price->getNumber() - $price->getNumber()) / $price->getNumber()) * 100;
+      $discount = (($list_price->getNumber() - $price->getNumber()) / $list_price->getNumber()) * 100;
     }
     if (!empty($discount)) {
       $vars['product_variation']['discount'] = ['#markup' => '-' . round($discount) . '%'];
