@@ -78,14 +78,16 @@ class SearchForm extends FormBase {
 
   public function ajaxCallback(array $form, FormStateInterface $form_state)
   {
-
-    $results_limit = 5;                                      // количество выводимых в строке результатов
+    $results_limit = 6;                                      // количество выводимых в строке результатов
     $output = '';
     $results_count = 0;
     if ($key = $form_state->getValue('key')) {
       /** @var \Drupal\search_api\IndexInterface $index_storage */
-      $index = \Drupal\search_api\Entity\Index::load('product_index');
+      $index = \Drupal\search_api\Entity\Index::load('product_variations_index');
       $query = $index->query();
+      $query->addCondition('type', 'care');
+      $query->addCondition('status', 1);
+      $query->addCondition('availability_status', 'in_stock');
       $query->keys('*' . $key . '*');
       /** @var \Drupal\search_api\Query\ResultSetInterface $search_result */
       $results = $query->execute();
@@ -94,11 +96,15 @@ class SearchForm extends FormBase {
       // Выводим результаты
       $counter = 0;
       foreach ($results->getResultItems() as $result) {
+        // наименование Товара берём из индекса
+        $title_values = $result->getField('title')->getValues();
+        $title = trim($title_values[0]->getText());
+
         $object = $result->getOriginalObject();
         $entity = $object->getEntity();
+
+        $volume = $entity->get('attribute_volume')->entity->label();
         $url = $entity->toUrl()->toString();
-        $title = trim($entity->getTitle());
-        $volume = $entity->get('field_p_volume')->entity->label();
         $output .= Markup::create('<li class="input-dropdown-item item--link"><a href="' . $url . '">' . $title . ($volume ? '<span>, ' . $volume . '</span>' : '') . '</a></li>');
         if (++$counter >= $results_limit) break;
       }
