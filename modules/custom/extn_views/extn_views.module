@@ -1,6 +1,7 @@
 <?php
 
 use Drupal\Component\Utility\Html;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Markup;
 use Drupal\views\ViewExecutable;
 
@@ -75,6 +76,21 @@ function extn_views_views_filters_summary_replacements_alter(&$view)
   if (!empty($keyword)) {
     $view["custom"] = Markup::create('<span class="item--keyword"><span class="label">по запросу: <span class="value">' . urldecode(Html::escape($keyword)) . '</span></span></span>');
   }
-
 }
 
+/**
+ * Implements hook_form_FORM_ID_alter()
+ */
+function extn_views_form_views_exposed_form_alter(&$form, FormStateInterface &$form_state)
+{
+  // Exposed фильтры в блоках по какой-то причине рендерятся дважды
+  // и на втором проходе #action c текущей страницы меняется на taxonomy/term/all.
+  // Issue: https://www.drupal.org/project/drupal/issues/3175725
+  // Заменить #action на текущий путь, если он имеет значение "/taxonomy/term/all"
+  if (isset($form['#action']) && $form['#action'] == '/taxonomy/term/all') {
+    $current_path = \Drupal::service('path.current')->getPath();
+    $alias_manager = \Drupal::service('path_alias.manager');
+    $alias = $alias_manager->getAliasByPath($current_path);
+    $form['#action'] = $alias;
+  }
+}
