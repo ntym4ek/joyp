@@ -271,7 +271,7 @@ function project_preprocess_taxonomy_term(array &$variables)
 {
   $term = $variables['term'];
 
-  // На странице списка Категорий
+  // На странице списка Категорий посчитать количество товаров в категориях
   if ($variables["view_mode"] == 'kartochka_kategorii') {
     if ($term->id() == 2107) {                                    // Travel
       $count = \Drupal::entityQuery('commerce_product')
@@ -398,7 +398,7 @@ function project_form_alter(&$form, FormStateInterface $form_state, $form_id): v
  */
 function project_preprocess_field(&$vars)
 {
-  // устанавливаем Alt для изображений, не связанных со swiper
+  // устанавливаем alt для изображений, не связанных со swiper
   // (добавление alt раскидано по трём местам)
   if ($vars["element"]["#field_type"] === 'image') {
     $entity = $vars['element']['#object'];

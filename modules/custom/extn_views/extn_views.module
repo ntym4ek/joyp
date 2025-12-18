@@ -94,3 +94,4 @@ function extn_views_form_views_exposed_form_alter(&$form, FormStateInterface &$f
     $form['#action'] = $alias;
   }
 }
+
