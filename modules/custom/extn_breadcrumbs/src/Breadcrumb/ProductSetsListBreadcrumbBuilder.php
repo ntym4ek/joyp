@@ -15,7 +15,7 @@ class ProductSetsListBreadcrumbBuilder implements BreadcrumbBuilderInterface {
    */
   public function applies(RouteMatchInterface $route_match)
   {
-    return $route_match->getRouteName() && $route_match->getRouteName() === 'view.katalog_sets.page_1';
+    return $route_match->getRouteName() && $route_match->getRouteName() === 'view.katalog_sets2.page_1';
   }
 
   /**
