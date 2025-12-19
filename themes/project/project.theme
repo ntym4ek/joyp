@@ -6,6 +6,7 @@
  */
 
 use Drupal\commerce_product\Entity\Product;
+use Drupal\commerce_product\Entity\ProductVariation;
 use Drupal\Core\Render\Markup;
 use Drupal\Core\StringTranslation\PluralTranslatableMarkup;
 use Drupal\func_helper\Helper\CommerceHelper;
@@ -267,40 +268,51 @@ function project_preprocess_node__article(&$vars)
 /**
  * Реализация hook_preprocess_taxonomy_term().
  */
-function project_preprocess_taxonomy_term(array &$variables)
+function project_preprocess_taxonomy_term(array &$vars)
 {
-  $term = $variables['term'];
 
   // На странице списка Категорий посчитать количество товаров в категориях
-  if ($variables["view_mode"] == 'kartochka_kategorii') {
-    if ($term->id() == 2107) {                                    // Travel
-      $count = \Drupal::entityQuery('commerce_product')
-        ->condition('field_p_travel', TRUE)
-        ->accessCheck(FALSE)
-        ->count()
-        ->execute();
-      $variables["url"] = '/katalog/travel';
-    }
-    elseif ($term->id() == 2109) {                                // Подарочные наборы
-      $count = \Drupal::entityQuery('commerce_product')
-        ->condition('type', 'podarochnyy_nabor')
-        ->accessCheck(FALSE)
-        ->count()
-        ->execute();
-      $variables["url"] = '/katalog/podarochnye-nabory';
-    }
-    else {
-      // Подсчитываем количество материалов, привязанных к этому термину.
-      $count = \Drupal::entityQuery('commerce_product')
-        ->condition('field_p_application', $term->id())
-        ->accessCheck(FALSE)
-        ->count()
-        ->execute();
+  if ($vars["view_mode"] == 'kartochka_kategorii') {
+    $count = 0;
+
+    $variations_ids = \Drupal::entityQuery('commerce_product_variation')->accessCheck(FALSE)->execute();
+    foreach ($variations_ids as $variation_id) {
+      $variation = ProductVariation::load($variation_id);
+      $product = $variation->getProduct();
+      $label = $product->label();
+      if ($variation->isPublished() && $product->isPublished()) {
+        $is_travel = $variation->hasField('field_pv_travel') && $variation->get('field_pv_travel')->getValue();
+
+        // Получаем значение поля field_pv_availability (связь с сущностью availability)
+        $availability_field = $variation->get('field_pv_availability');
+
+        if ($availability_field) {
+          // Проверяем условия для поля orderable и availability status
+          $orderable = $availability_field[0]->get('orderable')->getValue();
+          $availability_status = $availability_field[0]->get('availability_status')->getValue();
+
+          // Проверяем, что доступность соответствует условиям
+          if ($orderable && $availability_status === 'in_stock') {
+            if ($vars['term']->id() == 2107 && $is_travel) {
+              $count++;
+            } elseif ($variation->bundle() == 'podarochnyy_nabor') {
+              if ($vars['term']->id() == 2109) $count++;
+            } elseif ($product->hasField('field_p_application')) {
+              $applications = $product->get('field_p_application')->getValue();
+              foreach ($applications as $application) {
+                if ($vars['term']->id() == $application['target_id']) {
+                  $count++;
+                }
+              }
+            }
+          }
+        }
+      }
     }
 
     // Добавляем значение в переменные для шаблона.
     if ($count) {
-      $variables['content']['products_count'] = [
+      $vars['content']['products_count'] = [
         '#markup' => '<div class="field field-name--field-products-count">' . $count . ' ' . new PluralTranslatableMarkup($count, 'item', 'items') . '</div>'
       ];
     }
