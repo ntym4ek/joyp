@@ -46,9 +46,9 @@ class ProductPageBreadcrumbBuilder implements BreadcrumbBuilderInterface {
           }
         }
       } elseif ($product->bundle() == 'podarochnyy_nabor') {
-        $links[] = Link::fromTextAndUrl(t('Gift sets'), Url::fromRoute('view.katalog_sets.page_1'));
+        $links[] = Link::fromTextAndUrl(t('Gift sets'), Url::fromRoute('view.katalog_sets2.page_1'));
       } elseif ($product->bundle() == 'sertifikat') {
-        $links[] = Link::fromTextAndUrl(t('Certificates'), Url::fromRoute('view.katalog_sertifikaty.page_1'));
+        $links[] = Link::fromTextAndUrl(t('Certificates'), Url::fromRoute('view.katalog_sertifikaty2.page_1'));
       }
 
       $links[] = Link::fromTextAndUrl(trim($product->label()), Url::fromRoute('<none>'));
