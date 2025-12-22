@@ -2,6 +2,7 @@
 
 namespace Drupal\extn_commerce\Controller;
 
+use Drupal\commerce_shipping\Entity\ShipmentInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Render\Markup;
 use Drupal\Core\Url;
@@ -83,22 +84,22 @@ class UserOrdersListController {
         // собрать покупки
         foreach ($order->getItems() as $order_item) {
           /** @var \Drupal\commerce_order\Entity\OrderItemInterface $order_item */
-          $purchased_entity = $order_item->getPurchasedEntity(); // это product variation
-          $product = $purchased_entity?->getProduct();
-          $price = $order_item->getUnitPrice();
-          $total_price = $order_item->getTotalPrice();
+          if ($purchased_entity = $order_item->getPurchasedEntity()) { // это product variation
+            $product = $purchased_entity?->getProduct();
+            $price = $order_item->getUnitPrice();
+            $total_price = $order_item->getTotalPrice();
 
-          $view_builder = \Drupal::entityTypeManager()->getViewBuilder('commerce_product');
-          $build = $view_builder->view($product, 'cart');
+            $view_builder = \Drupal::entityTypeManager()->getViewBuilder('commerce_product');
+            $build = $view_builder->view($product, 'cart');
 
-          $order_data['items'][] = [
-            'title' => $order_item->getTitle(),
-            'quantity' => (integer) $order_item->getQuantity(),
-            'price' => $price,
-            'total_price' => $total_price,
-            'product' => $build,
-          ];
-
+            $order_data['items'][] = [
+              'title' => $order_item->getTitle(),
+              'quantity' => (integer)$order_item->getQuantity(),
+              'price' => $price,
+              'total_price' => $total_price,
+              'product' => $build,
+            ];
+          }
           // собрать Adjustments
           foreach ($order_item->getAdjustments() as $adjustment) {
             if ($adjustment->getType() == 'promotion') {
@@ -131,21 +132,44 @@ class UserOrdersListController {
           $amount = $adjustment->getAmount();
 
           if ($type == 'shipping') {
-            // для доставки определить адрес
-            if ($shipments = $order->get('shipments')->referencedEntities()) {
-              $shipping_method = reset($shipments)->getShippingMethod();
-              $shipping_label = $shipping_method->getPlugin()->getLabel();
-              $shipping_address = [];
+            foreach ($order->get('shipments') as $shipment_item) {
+              $shipment = $shipment_item->entity;
+              if ($shipment instanceof ShipmentInterface) {
+                if (in_array($shipment->getState()->getId(), ['ready', 'shipped'])) {
+                  // определить адрес
+                  $shipping_method = $shipment->getShippingMethod();
+                  $shipping_label = $shipping_method->getPlugin()->getLabel();
+                  $shipping_address = [];
 
-              $address = '';
-              if ($profile = reset($shipments)->getShippingProfile()) {
-                if ($city = $profile->get('field_shipping_city')->value) $shipping_address[] = $city;
-                if ($shipping_method->id() == SHIPPING_COURIER)     $address = $profile->get('field_shipping_address')->value;
-                elseif ($shipping_method->id() == SHIPPING_PICKUP)  $address = $profile->get('field_shipping_pvz')->value;
-                if ($address) $shipping_address[] = $address;
+                  $address = '';
+                  if ($profile = $shipment->getShippingProfile()) {
+                    if ($city = $profile->get('field_shipping_city')->value) $shipping_address[] = $city;
+                    if ($shipping_method->id() == SHIPPING_COURIER)     $address = $profile->get('field_shipping_address')->value;
+                    elseif ($shipping_method->id() == SHIPPING_PICKUP)  $address = $profile->get('field_shipping_pvz')->value;
+                    if ($address) $shipping_address[] = $address;
+                  }
+
+                  $status = '';
+                  if ($shipment->getState()->getId() == 'ready') {
+                    $status = '<p>Упаковано и готово к отправке</p>';
+                  }
+                  if ($shipment->getState()->getId() == 'shipped')  {
+                    $status = 'Отправлено';
+                    $order_data['state'] = $status;
+                    $track = $shipment->get('tracking_code')->getValue()[0]['value']??'';
+                  }
+
+                  if ($notes) $notes .= '<br><br>'; // на случай нескольких отправок
+                  $notes .=
+                    Markup::create(
+                    $shipping_label .
+                    '<br>' . implode(', ', $shipping_address) .
+                    '' . $status .
+                    (!empty($track) ? 'Трек-номер: <a href="" title="Отследить">' . $track . '</a>' : '')
+                  );
+
+                }
               }
-
-              $notes = Markup::create($shipping_label . '<br>' . implode(', ', $shipping_address));
             }
           }
 
@@ -177,6 +201,10 @@ class UserOrdersListController {
           'amount' => $order->getTotalPrice(),
         ];
 
+        // собрать Отправки
+        $shipments = [];
+        if ($order->hasField('shipments')) {
+        }
 
         // возможные действия с заказом
           // отмена

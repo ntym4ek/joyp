@@ -1,5 +1,0 @@
-services:
-  extn_admin.product_clone_event_subscriber:
-    class: Drupal\extn_admin\EventSubscriber\ProductCloneEventSubscriber
-    tags:
-      - { name: event_subscriber }
