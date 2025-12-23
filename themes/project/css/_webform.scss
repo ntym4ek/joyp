@@ -1,7 +1,10 @@
 @import "variables";                                                            // чтобы переменные не подсвечивались
 
 .node--type-webform {
-  padding-bottom: 2rem;
+  padding: 2rem 0;
+  .webform-confirmation__back a { color: $brand-cocoa; }
+
+  @media #{$laptop}  { padding-bottom: 4rem; }
 }
 
 .webform-submission-sotrudnichestvo-form {
