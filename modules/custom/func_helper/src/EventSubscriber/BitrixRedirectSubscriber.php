@@ -98,25 +98,10 @@ class BitrixRedirectSubscriber implements EventSubscriberInterface {
     }
 
     // логика для Товаров
-    // пробуем сформировать из исходной ссылки новую,
-    // исходя из логики того, что транслит имя товаров одинаковое
+    // (устарело, просто переадресуем на katalog)
     $args = explode('/', $clean_path, 2);
     if ($args[0] == 'catalog' && !empty($args[1])) {
-      preg_match('/^(.+-)(\d+)$/', $args[1], $matches);
-      if (isset($matches[2]) && is_numeric($matches[2])) {
-        $pathAliasManager = \Drupal::service('path_alias.manager');
-        $new_arg2 = $matches[0] . '-ml';
-        foreach ([21, 22, 23, 24, 25] as $category_id) {
-          $category_alias = $pathAliasManager->getAliasByPath('/taxonomy/term/' . $category_id);
-          $new_path = $category_alias . '/' . $new_arg2;
-
-          // Проверяем путь (работает с алиасами и системными путями)
-          if ($pathValidator->getUrlIfValid($new_path)) {
-            $this->performRedirect($event, $new_path);
-            return;
-          }
-        }
-      }
+      $this->performRedirect($event, 'katalog');
     }
 
 
