@@ -51,7 +51,7 @@ order_mail_failure:
 order_state_updated:
   category: commerce_order
   label: 'Order state updated'
-  template: '<p>Статус заказ изменён с <em>{{ from_state }}</em> на <em>{{ to_state }}</em> действием <em>{{ transition_label }}</em>.</p>'
+  template: '<p>Статус заказа изменён с <em>{{ from_state }}</em> на <em>{{ to_state }}</em> действием <em>{{ transition_label }}</em>.</p>'
 mail_order_receipt:
   category: commerce_order
   label: 'Order receipt email'

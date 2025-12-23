@@ -67,6 +67,7 @@ class UserOrdersListController {
       if ($order->get('state')->value != 'draft') {
 
         $promotions = [];
+        $is_cancellable = TRUE;
 
         $total_price = $order->getTotalPrice();
 
@@ -135,7 +136,6 @@ class UserOrdersListController {
             foreach ($order->get('shipments') as $shipment_item) {
               $shipment = $shipment_item->entity;
               if ($shipment instanceof ShipmentInterface) {
-                if (in_array($shipment->getState()->getId(), ['ready', 'shipped'])) {
                   // определить адрес
                   $shipping_method = $shipment->getShippingMethod();
                   $shipping_label = $shipping_method->getPlugin()->getLabel();
@@ -151,27 +151,28 @@ class UserOrdersListController {
 
                   $status = '';
                   if ($shipment->getState()->getId() == 'ready') {
-                    $status = '<p>Упаковано и готово к отправке</p>';
+                    $status = '<p>Заказ упакован и готов к отправке</p>';
                   }
                   if ($shipment->getState()->getId() == 'shipped')  {
-                    $status = 'Отправлено';
-                    $order_data['state'] = $status;
-                    $track = $shipment->get('tracking_code')->getValue()[0]['value']??'';
+                    $status = 'Заказ отправлен';
+                    $is_cancellable = FALSE;
+                    $order_data['state'] = 'Отправлено';
+                    $track = trim($shipment->get('tracking_code')->getValue()[0]['value']??'');
                   }
 
                   if ($notes) $notes .= '<br><br>'; // на случай нескольких отправок
                   $notes .=
-                    Markup::create(
                     $shipping_label .
                     '<br>' . implode(', ', $shipping_address) .
-                    '' . $status .
-                    (!empty($track) ? 'Трек-номер: <a href="" title="Отследить">' . $track . '</a>' : '')
-                  );
+                    '<p>' . $status . '</p>' .
+                    (!empty($track) ? 'Трек-номер: <a href="https://www.cdek.ru/ru/tracking/?order_id=' . $track . '" title="Отследить" target="_blank" rel="nofollow">' . $track . '</a>' : '');
 
-                }
               }
             }
+
+            $notes = Markup::create($notes);
           }
+
 
           if ($type == 'promotion') {
             if (!isset($promotions[$adjustment->getLabel()])) {
@@ -201,17 +202,12 @@ class UserOrdersListController {
           'amount' => $order->getTotalPrice(),
         ];
 
-        // собрать Отправки
-        $shipments = [];
-        if ($order->hasField('shipments')) {
-        }
-
         // возможные действия с заказом
           // отмена
         $state = $order->getState();
         $transitions = $state->getTransitions();
         foreach ($transitions as $transition) {
-          if ($transition->getId() === 'cancel') {
+          if ($transition->getId() === 'cancel' && $is_cancellable) {
             $url = Url::fromRoute('extn_commerce.user_order_cancel', [
               'user' => $order->getCustomerId(),
               'commerce_order' => $order->id(),

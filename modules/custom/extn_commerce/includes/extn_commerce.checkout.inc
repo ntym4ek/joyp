@@ -65,6 +65,8 @@ function extn_commerce_form_commerce_checkout_flow_multistep_default_alter(&$for
   if (isset($form["payment_information"]["payment_method"]["yoomoney"])) {
     $form["payment_information"]["payment_method"]["yoomoney"]['#description'] = 'Карты Visa, Mastercard, Maestro, Мир, JCB';
     $form["payment_information"]["billing_information"]["copy_fields"]['#access'] = false;
+  } else {
+    $form["payment_information"]["#access"] = FALSE;
   }
 
   // добавить проверку телефона по СМС для анонимов
