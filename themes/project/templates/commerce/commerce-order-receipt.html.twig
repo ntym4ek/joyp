@@ -37,9 +37,9 @@
 
         <tr><td><div style="border-top: 1px solid #ccc; padding-bottom: 32px; width: 100%;"></div></td></tr>
 
+        {% if (shipping) %}
         <tr>
           <td style="padding-bottom: 32px;">
-            {% if (shipping_information) %}
             <table style="width: 100%;">
               <tbody>
               <tr>
@@ -52,9 +52,9 @@
               <tr><td>Способ оплаты</td><td>{{ shipping.payment }}</td></tr>
               </tbody>
             </table>
-            {% endif %}
           </td>
         </tr>
+        {% endif %}
 
         <tr><td><div style="border-top: 1px solid #ccc; padding-bottom: 32px; width: 100%;"></div></td></tr>
 

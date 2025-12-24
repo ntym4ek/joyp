@@ -479,3 +479,24 @@ function project_preprocess_commerce_order_receipt(&$vars)
 
   $vars["shipping"]['method'] = $vars["shipping_information"][0]["shipment"]["#commerce_shipment"]->get("shipping_method")[0]->entity->label();
 }
+
+/**
+ * Implements template_preprocess_commerce_shipment_confirmation().
+ */
+function project_preprocess_commerce_shipment_confirmation(&$vars)
+{
+  // подготовка переменных для Письма об оформленном заказе (commerce_shipment_confirmation)
+  $address_entity = $vars["shipping_profile"]["#profile"]->get('address')[0]->getValue();
+  $vars["shipping"]['name'] = $address_entity['given_name'] . ' ' . $address_entity['family_name'];
+
+  $vars["shipping"]['phone'] = $vars["shipping_profile"]["#profile"]->get('field_user_phone')[0]->value;
+
+  $city = $vars["shipping_profile"]["#profile"]->get('field_shipping_city')[0]->value;
+  $address = $vars["shipping_profile"]["#profile"]->get('field_shipping_address')[0]->value;
+  $vars["shipping"]['address'] = $city . ', ' . $address;
+
+  $vars["shipping"]['payment'] = 'Банковская карта';
+
+  $vars["shipping"]['method'] = $vars["shipment_entity"]->get("shipping_method")[0]->entity->label();
+  $vars["shipping"]['tracking_code'] = $vars["shipment_entity"]->get("tracking_code")->value;
+}

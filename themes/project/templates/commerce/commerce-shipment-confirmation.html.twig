@@ -1,0 +1,139 @@
+{#
+/**
+ * @file
+ * Template for the shipment confirmation.
+ *
+ * Available variables:
+ * - order_entity: The order entity.
+ * - shipment_entity: The shipment entity.
+ * - shipping_profile: The profile associated with a shipment.
+ * - tracking_code: The tracking code associated with the shipment.
+ *
+ * @ingroup themeable
+ */
+#}
+{% set shipmentItemCount = shipment_entity.getItems|length %}
+<table style="width: 100%;">
+  <tbody>
+  <tr>
+    <td>
+      <table style="width: 100%;">
+        <tbody>
+        <tr>
+          <td style="padding-bottom: 32px">
+            <p><strong>Дорогой покупатель!</strong></p>
+            Cпасибо за ваш заказ в интернет-магазине JOY PREMIUM!<br>
+            Мы очень рады, что вы выбрали наши продукты.
+            <p><strong>Ваш заказ №{{ order_entity.getOrderNumber }} от {{ order_entity.getPlacedTime|date('d.m.Y') }} отправлен.</strong></p>
+          </td>
+        </tr>
+
+        <tr><td><div style="border-top: 1px solid #ccc; padding-bottom: 32px; width: 100%;"></div></td></tr>
+
+        {% if (shipping) %}
+        <tr>
+          <td style="padding-bottom: 32px;">
+              <table style="width: 100%;">
+                <tbody>
+                <tr>
+                  <td><strong>{{ 'Shipping Information'|t }}</strong></td>
+                </tr>
+                <tr><td>Способ доставки</td><td>{{ shipping.method }}</td></tr>
+                <tr><td>Получатель</td><td>{{ shipping.name }}</td></tr>
+                <tr><td>Номер телефона</td><td>{{ shipping.phone }}</td></tr>
+                <tr><td>Адрес</td><td>{{ shipping.address }}</td></tr>
+                <tr><td>Способ оплаты</td><td>{{ shipping.payment }}</td></tr>
+
+                {% if shipping.tracking_code is not empty %}
+                  {% block tracking_info %}
+                    <tr><td>Трек-номер</td><td><a href="https://www.cdek.ru/ru/tracking/?order_id={{ shipping.tracking_code }}" title="Отследить" target="_blank">{{ shipping.tracking_code }}</a></td></tr>
+                  {% endblock %}
+                {% endif %}
+                </tbody>
+              </table>
+          </td>
+        </tr>
+        {% endif %}
+
+        <tr><td><div style="border-top: 1px solid #ccc; padding-bottom: 32px; width: 100%;"></div></td></tr>
+
+        <tr>
+          <td style="padding-bottom: 32px;">
+            {% block order_items %}
+              <table style="width: 100%">
+                <tbody>
+                <tr style="font-weight: bold;">
+                  <td style="padding: 8px 0;">Товар</td><td style="padding: 8px 0; width: 150px; text-align: center;">Цена</td><td style="padding: 8px 0;width: 100px; text-align: center;">Кол-во</td><td style="padding: 8px 0;width: 150px; text-align: right;">Сумма</td>
+                </tr>
+                <tr><td colspan="4"><div style="border-top: 1px solid #e8e8e8; width: 100%;"></div></td></tr>
+
+                {% for order_item in order_entity.getItems %}
+                  <tr>
+                    <td style="padding: 8px 0;">
+                      {{ order_item.label }}
+                    </td>
+                    <td style="padding: 8px 0;text-align: center;">
+                      {{ order_item.getUnitPrice|commerce_price_format }}
+                    </td>
+                    <td style="padding: 8px 0;text-align: center;">
+                      {{ order_item.getQuantity|number_format }}
+                    </td>
+                    <td style="padding: 8px 0;text-align: right;">
+                      {{ order_item.getTotalPrice|commerce_price_format }}
+                    </td>
+                  </tr>
+                  <tr><td colspan="4"><div style="border-top: 1px solid #e8e8e8; width: 100%;"></div></td></tr>
+                {% endfor %}
+
+                <tr>
+                  <td style="padding: 5px 0;"></td>
+                  <td style="font-weight: bold; padding: 5px 0;" colspan="2">{{ 'Subtotal'|t }}</td>
+                  <td style="padding: 5px 0; text-align: right;">{{ totals.subtotal|commerce_price_format }}</td>
+                </tr>
+                <tr><td colspan="4"><div style="border-top: 1px solid #e8e8e8; width: 100%;"></div></td></tr>
+                {% for adjustment in totals.adjustments %}
+                  <tr>
+                    <td style="padding: 5px 0;"></td>
+                    <td style="font-weight: bold; padding: 5px 0;" colspan="2">{{ adjustment.label }}</td>
+                    <td style="padding: 5px 0; text-align: right;">{{ adjustment.total|commerce_price_format }}</td>
+                  </tr>
+                  <tr><td colspan="4"><div style="border-top: 1px solid #e8e8e8; width: 100%;"></div></td></tr>
+                {% endfor %}
+                <tr style="font-weight: bold;">
+                  <td style="padding: 5px 0;"></td>
+                  <td style="padding: 5px 0;" colspan="2">{{ 'Order Total'|t }}</td>
+                  <td style="padding: 5px 0; text-align: right;">{{ order_entity.getTotalPrice|commerce_price_format }}</td>
+                </tr>
+
+                </tbody>
+              </table>
+            {% endblock %}
+          </td>
+        </tr>
+
+
+        {% if order_entity.getCustomerComments %}
+          <tr><td><div style="border-top: 1px solid #ccc; padding-bottom: 32px; width: 100%;"></div></td></tr>
+
+          <tr>
+            <td>
+              <table style="width: 100%;">
+                <tbody>
+                <tr>
+                  <td style="padding-top: 5px; font-weight: bold;">{{ 'Customer comments'|t }}</td>
+                </tr>
+                <tr>
+                  <td><p>{{ order_entity.getCustomerComments|raw }}</p></td>
+                </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        {% endif %}
+
+        </tbody>
+      </table>
+    </td>
+  </tr>
+  </tbody>
+</table>
