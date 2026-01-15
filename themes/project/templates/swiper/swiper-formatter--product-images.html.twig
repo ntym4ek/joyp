@@ -36,7 +36,7 @@
           settings.slidesPerView > 1 or settings.has_breakpoint_slides_per_view > 1 ? 'slides-multiple' : 'slide-single',
         ]
       %}
-      <div{{ attributes.addClass(wrapper_classes) }}>
+      <div{{ attributes.addClass(wrapper_classes).removeAttribute('id') }}>
 
         {# Slides. #}
         <div{{ content_attributes }}>

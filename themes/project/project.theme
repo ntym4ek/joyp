@@ -187,6 +187,18 @@ function project_preprocess_commerce_product(&$vars): void
       '#theme' => 'socials',
       '#items' => project_get_share_links($product->toUrl()->toString(), $product->getTitle()),
     ];
+
+    // Поля вариации товара заворачиваются в span с атрибутами,
+    // в тч с id, чтобы менять их при необходимости при выборе другого атрибута товара.
+    // Но swiper_formatter использует для вывода все те же атрибуты
+    // и, если с id проблем при смене атрибута не возникло, хотя могло,
+    // то двойной (вложенный) вывод класса swiper-container приводит к возникновению ошибки
+    // Uncaught TypeError: Failed to execute 'getComputedStyle' on 'Window': parameter 1 is not of type 'Element' в drupal.js
+    // поэтому убираем здесь класс swiper-container,
+    // а в swiper-formatter--product-images.html.twig убираем повторный вывод id
+    foreach ($vars["product"]["variation_field_pv_images"]["#attributes"]["class"] as $index => $class) {
+      if ($class == 'swiper-container') unset($vars["product"]["variation_field_pv_images"]["#attributes"]["class"][$index]);
+    }
   }
 }
 
