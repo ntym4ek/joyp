@@ -79,7 +79,6 @@ class ActionForm extends FormBase {
       $skipped = 0;
 
       foreach ($products as $product) {
-//        $volume = $product->get('field_p_volume')->getValue();
 
         if ($variation = $product->getVariations()[0]) {
           if (!$dry_run) {
