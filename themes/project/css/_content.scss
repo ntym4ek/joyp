@@ -130,6 +130,14 @@
       .socials__title { margin: 0 1rem 0 0; }
     }
 
+    // выровнять по центру медиа с флоатом
+    .node__content {
+      .align-left,
+      .align-right {
+        float: none; text-align: center;
+      }
+    }
+
     @media #{$pad} {
       .field--name-field-image { height: 300px; }
     }
@@ -145,6 +153,12 @@
         font-size: $font-size-large;
         margin-bottom: 0;
       }
+
+      .node__content {
+        .media.align-left { float: left; margin-right: 2rem; }
+        .media.align-right { float: right; margin-left: 2rem; }
+      }
+
     }
   }
 }

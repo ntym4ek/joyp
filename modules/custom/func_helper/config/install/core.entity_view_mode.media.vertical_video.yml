@@ -1,0 +1,9 @@
+langcode: ru
+status: true
+dependencies:
+  module:
+    - media
+id: media.vertical_video
+label: 'Vertical Video'
+targetEntityType: media
+cache: true

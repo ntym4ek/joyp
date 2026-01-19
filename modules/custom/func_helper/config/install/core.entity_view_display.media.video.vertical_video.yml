@@ -1,0 +1,29 @@
+langcode: ru
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.vertical_video
+    - field.field.media.video.field_media_video_file
+    - media.type.video
+  module:
+    - file
+id: media.video.vertical_video
+targetEntityType: media
+bundle: video
+mode: vertical_video
+content:
+  field_media_video_file:
+    type: file_video
+    label: hidden
+    settings:
+      width: auto
+      height: 640
+      controls: true
+    third_party_settings: { }
+    weight: 0
+hidden:
+  thumbnail: true
+  name: true
+  uid: true
+  created: true
+  changed: true
