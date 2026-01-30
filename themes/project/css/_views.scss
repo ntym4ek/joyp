@@ -45,7 +45,7 @@
 }
 
 // слайдер нервно реагирует на flex обёртку (row)
-// поэтому прописываем отрицательный отступ ручками
+// поэтому прописываем отрицательный отступ руками
 .view-front-slider {
   margin: 0 (-$gutter-sm);
   @media #{$pad}      { margin: 0 (-$gutter-pd); }
@@ -53,6 +53,13 @@
   @media #{$laptop}   { margin: 0 (-$gutter-lp); }
   @media #{$desktop}  { margin: 0 (-$gutter-dt); }
   @media #{$wide}     { margin: 0 (-$gutter-wd); }
+
+  #swiper-front-slider-block-1 {
+    height: 700px;
+    @media #{$pad}      { height: initial; }
+
+    .taxonomy-term { height: 100%; }
+  }
 }
 
 .view-katalog2.view-display-id-page_1,

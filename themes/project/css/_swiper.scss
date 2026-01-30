@@ -39,6 +39,7 @@
     .swiper-slide {
       opacity: .5;
       transition: opacity 200ms;
+      &:last-child { margin-bottom: 0!important; }
     }
     .swiper-slide-thumb-active { opacity: 1; }
   }
@@ -56,6 +57,9 @@
 .view-front-slider {
   .slider {
     grid-template-columns: 0 100%;
-    @media #{$laptop} { grid-template-columns: 12% 88%; }
+
+    @media #{$laptop} {
+      grid-template-columns: 225px auto;
+    }
   }
 }

@@ -52,10 +52,19 @@
 
 
 .taxonomy-term--banner-na-glavnoy {
-  .content {
+  display: flex; flex-direction: column;
+  .banner__content {
+    flex: 1 1 auto;
+    display: flex; flex-direction: column;
     @include padding-block(16, 32, 0);
   }
+  .banner__text {
+    flex: 1 1 auto;
+    overflow: hidden;
+  }
+  .banner__go { margin-bottom: 1rem; }
   .banner__image {
+    flex: 0 0 auto;
     img {
       object-fit: cover;
       width: 100%; height: 100%;
@@ -64,7 +73,8 @@
   .h1 { line-height: 1.1; text-transform: initial; }
   .h2 {
     text-transform: initial;
-    .text-formatted { line-height: initial;}
+    .text-formatted { line-height: initial; }
+    p { margin-bottom: 0; }
   }
   .show-more {
     display: flex; align-items: center;
@@ -76,7 +86,7 @@
   }
   @media #{$laptop} {
     .h1 { padding: 0; }
-    .content {
+    .banner__content {
       display:flex; flex-direction: column;
       position: absolute; top: 0; bottom: 0; z-index: auto;
     }
