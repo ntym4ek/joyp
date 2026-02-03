@@ -222,7 +222,7 @@ function project_preprocess_commerce_product_variation(&$vars): void
     }
   }
 
-    $vars['product_variation']['title'] = ['#markup' => $title];
+  $vars['product_variation']['title'] = ['#markup' => $title];
 
   if ($vars["elements"]["#view_mode"] == 'teaser') {
     // Рассчитать скидку и добавить в переменные, если задана цена list_price.
@@ -238,6 +238,18 @@ function project_preprocess_commerce_product_variation(&$vars): void
     if ($product->hasField('field_p_application') && !$product->field_p_application->isEmpty()) {
       $vars['product_variation']['category_id'] = $product->field_p_application[0]->getValue()['target_id'];
     }
+
+    // определить наличие
+    $availability = [
+      'is_available' => false,
+      'stock_status' => 'Нет в наличии',
+    ];
+    $availability_field = $product_variation->get('field_pv_availability');
+    $availability_value = $availability_field->getValue()[0];
+    if ($availability_value) {
+      $availability['is_available'] = $availability_value['availability_status'] == 'in_stock' && $availability_value['orderable'] == 1;
+    }
+    $vars['product_variation']['availability'] = $availability;
   }
 }
 

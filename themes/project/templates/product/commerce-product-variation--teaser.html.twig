@@ -25,6 +25,9 @@
 {% if product_variation.category_id  %}
   {% set classes = classes|merge(['product-category--' ~ product_variation.category_id|raw ]) %}
 {% endif %}
+{% if not product_variation.availability.is_available  %}
+  {% set classes = classes|merge(['product--unavailable']) %}
+{% endif %}
 
 <div{{ attributes.addClass(classes) }}>
   <div class="product__inner">
@@ -39,12 +42,20 @@
     <div class="product__content">
       <div class="product__title">
         <a href="{{ product_variation_url }}"><h4>{{- product_variation.title -}}</h4></a>
-        {{ product_variation.commerce_variation_cart_form }}
+        {% if product_variation.availability.is_available %}
+          {{ product_variation.commerce_variation_cart_form }}
+        {% endif %}
       </div>
       <div class="product__volume">{{- product_variation.attribute_volume -}}</div>
       <div class="product__price">
         {{- product_variation.price -}}
-        {{- product_variation.list_price -}}
+        {% if product_variation.availability.is_available %}
+          {{- product_variation.list_price -}}
+        {% else %}
+          <div class="product__stock">
+            {{ product_variation.availability.stock_status }}
+          </div>
+        {% endif %}
       </div>
     </div>
   </div>
