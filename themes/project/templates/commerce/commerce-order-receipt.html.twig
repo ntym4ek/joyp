@@ -86,11 +86,14 @@
                   <tr><td colspan="4"><div style="border-top: 1px solid #e8e8e8; width: 100%;"></div></td></tr>
                   {% endfor %}
 
+                  {% if (totals.subtotal|commerce_price_format) %}
                   <tr>
                     <td style="padding: 5px 0;"></td>
                     <td style="font-weight: bold; padding: 5px 0;" colspan="2">{{ 'Subtotal'|t }}</td>
                     <td style="padding: 5px 0; text-align: right;">{{ totals.subtotal|commerce_price_format }}</td>
                   </tr>
+                  {% endif %}
+
                   <tr><td colspan="4"><div style="border-top: 1px solid #e8e8e8; width: 100%;"></div></td></tr>
                   {% for adjustment in totals.adjustments %}
                   <tr>
