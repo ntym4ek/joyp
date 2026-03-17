@@ -1,0 +1,5 @@
+services:
+  func_marketing.event_subscriber:
+    class: Drupal\func_marketing\EventSubscriber\XFrameSubscriber
+    tags:
+      - { name: event_subscriber }

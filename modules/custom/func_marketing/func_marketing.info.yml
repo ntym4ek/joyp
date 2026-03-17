@@ -1,0 +1,5 @@
+name: Func Marketing
+type: module
+description: 'Дополнительный функционал для продвижения'
+package: xCustom
+core_version_requirement: ^10 || ^11
