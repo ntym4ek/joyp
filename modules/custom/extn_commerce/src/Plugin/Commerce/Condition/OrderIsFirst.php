@@ -24,21 +24,22 @@ class OrderIsFirst extends ConditionBase {
     $order = $entity;
     $customer = $order->getCustomer();
 
-    if ($customer->isAnonymous()) {
-      // Для анонимов можно проверять по email, если он уже введен
-      $email = $order->getEmail();
-      if (empty($email)) { $email = $_POST["contact_information"]["email"] ?? ''; }
-      if (!$email) {
-        return FALSE;
-      }
-      $order_ids = \Drupal::entityQuery('commerce_order')
-        ->condition('mail', $email)
-        ->condition('state', 'draft', '<>')
-        ->range(0, 1)
-        ->accessCheck(FALSE)
-        ->execute();
-      return empty($order_ids);
-    }
+    if ($customer->isAnonymous()) return TRUE;
+//    if ($customer->isAnonymous()) {
+//      // Для анонимов можно проверять по email, если он уже введен
+//      $email = $order->getEmail();
+//      if (empty($email)) { $email = $_POST["contact_information"]["email"] ?? ''; }
+//      if (!$email) {
+//        return FALSE;
+//      }
+//      $order_ids = \Drupal::entityQuery('commerce_order')
+//        ->condition('mail', $email)
+//        ->condition('state', 'draft', '<>')
+//        ->range(0, 1)
+//        ->accessCheck(FALSE)
+//        ->execute();
+//      return empty($order_ids);
+//    }
 
     // Для авторизованных проверяем количество заказов через storage
     $order_storage = \Drupal::entityTypeManager()->getStorage('commerce_order');

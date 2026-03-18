@@ -36,7 +36,12 @@
     .order-total-line-label { padding: 0; }
     .order-total-line__total { font-weight: inherit; text-transform: uppercase; }
   }
+}
 
+.cart-form {
+  .promotions {
+    padding: 2rem 0;
+  }
 }
 
 .commerce-checkout-flow {

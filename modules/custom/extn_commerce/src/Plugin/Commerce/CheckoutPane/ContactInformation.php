@@ -4,6 +4,7 @@ namespace Drupal\extn_commerce\Plugin\Commerce\CheckoutPane;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\commerce_checkout\Plugin\Commerce\CheckoutPane\ContactInformation as BaseContactInformation;
+use Drupal\Core\Render\Markup;
 use Drupal\profile\Entity\Profile;
 
 /**
@@ -121,8 +122,6 @@ class ContactInformation extends BaseContactInformation {
     $form_state->setValue('contact_information', $contacts);
 
     // Для анонимного пользователя.
-    // Если указанного номера телефона в базе не существует, то проверить отсутствие регистраций с таким email.
-    // Если существует, то нужно проверить, что email принадлежит этому же аккаунту.
     if (\Drupal::currentUser()->isAnonymous()) {
       $user_with_phone = extn_user_user_load_by_phone($user_phone_normalized);
 
@@ -130,9 +129,11 @@ class ContactInformation extends BaseContactInformation {
       $user_with_email = $user_storage->loadByProperties(['mail' => $contacts['email']]);
       $user_with_email = reset($user_with_email);
 
-      if ($user_with_email) {
-        if (!$user_with_phone || $user_with_email->id() != $user_with_phone->id()) {
-          $form_state->setError($pane_form['email'], 'Указанный E-Mail уже зарегистрирован пользователем с другим номером телефона.');
+      // Если номер телефона зарегистрирован, а email нет или наоборот,
+      // или данные принадлежат разным аккаунтам, то выдать ошибку
+      if ($user_with_email || $user_with_phone) {
+        if ((!$user_with_email && $user_with_phone) || $user_with_email && !$user_with_phone || ($user_with_email->id() != $user_with_phone->id())) {
+          $form_state->setError($pane_form['phone'], Markup::create('Если вы не помните данные, указанные при регистрации, попробуйте авторизоваться по <a href="/user/login" style="text-decoration: underline;">ссылке</a>.'));
         }
       }
     }

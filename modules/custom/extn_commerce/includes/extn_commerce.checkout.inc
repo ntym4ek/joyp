@@ -63,7 +63,7 @@ function extn_commerce_form_commerce_checkout_flow_multistep_default_alter(&$for
 
   // панель оплаты
   if (isset($form["payment_information"]["payment_method"]["yoomoney"])) {
-    $form["payment_information"]["payment_method"]["yoomoney"]['#description'] = 'Карты Visa, Mastercard, Maestro, Мир, JCB';
+    $form["payment_information"]["payment_method"]["yoomoney"]['#description'] = 'Карты МИР, Visa, Mastercard';
     $form["payment_information"]["billing_information"]["copy_fields"]['#access'] = false;
   } else {
     $form["payment_information"]["#access"] = FALSE;
@@ -91,8 +91,11 @@ function extn_commerce_form_commerce_checkout_flow_multistep_default_alter(&$for
     $form["#validate"][] = 'extn_commerce_checkout_form_validate';
     array_unshift($form["#submit"], 'extn_commerce_checkout_form_submit');
     array_unshift($form["actions"]["next"]["#submit"], 'extn_commerce_checkout_form_submit');
-
   }
+
+  // дать уникальное имя, так как кнопок типа 'submit' в форме не одна,
+  // а эту нужно отличать от остальных
+  $form["actions"]["next"]["#name"] = 'checkout';
 }
 
 function extn_commerce_checkout_form_validate(&$form, FormStateInterface $form_state)
@@ -102,7 +105,7 @@ function extn_commerce_checkout_form_validate(&$form, FormStateInterface $form_s
   $contacts = $form_state->getValue('contact_information');
   $form_state->set('sms_verification_phone', $contacts['phone']);
 
-  if ($form_state->getTriggeringElement()['#type'] == 'submit') {
+  if ($form_state->getTriggeringElement()["#name"] == 'checkout') {
     // сначала проверка, так как может быть запрошена повторная отправка кода
     extn_user_sms_check_code($form_state);
     if (!$form_state->get('sms_verification_passed')) {
@@ -115,7 +118,7 @@ function extn_commerce_checkout_form_validate(&$form, FormStateInterface $form_s
 
 function extn_commerce_checkout_form_submit(&$form, FormStateInterface $form_state)
 {
-  if ($form_state->getTriggeringElement()['#type'] == 'submit') {
+  if ($form_state->getTriggeringElement()["#name"] == 'checkout') {
     // На этом этапе проверка по СМС должна быть пройдена,
     // но дополнительно проверяем sms_verification_passed.
     // Также пользователь должен быть не авторизован.
@@ -162,7 +165,6 @@ function extn_commerce_checkout_form_submit(&$form, FormStateInterface $form_sta
       // авторизовать пользователя
       user_login_finalize($user);
     }
-
   }
 }
 

@@ -31,6 +31,24 @@ function extn_commerce_cart_form_alter(&$form, FormStateInterface $form_state): 
     }
     $form['#attached']['library'][] = 'project/commerce-quantity-controls';
   }
+
+  // вывести информацию о Промокоде на первый заказ
+  $cart_provider = \Drupal::service('commerce_cart.cart_provider');
+  $carts = $cart_provider->getCarts();
+  $order = reset($carts);
+
+  if ($order) {
+    $customer = $order->getCustomer();
+
+    $promotion_id = 4; // ID акции Скидка на первый заказ
+    $promotion = \Drupal::entityTypeManager()->getStorage('commerce_promotion')->load($promotion_id);
+
+    if ($customer->isAnonymous() || ($promotion && $promotion->applies($order))) {
+      $form['promotions'] = [
+        '#markup' => Markup::create('Скидка на первый заказ. Примените промокод <span class="text-success">NEW10</span> при оформлении. '),
+      ];
+    }
+  }
 }
 
 /**

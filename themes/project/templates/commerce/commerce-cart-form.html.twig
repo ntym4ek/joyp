@@ -1,6 +1,13 @@
 <div class="row">
   <div class="col-sm-10 col-pd-10 col-tb-10 col-lp-7 col-dt-7 col-wd-7 col-no-gutter main">
-    {{ form|without('actions', 'footer', 'policy') }}
+    {{ form|without('actions', 'footer', 'policy', 'promotions') }}
+    {% if form.promotions %}
+    <div class="col-sm-10 col-pd-10 col-tb-10 col-lp-7 col-dt-7 col-wd-7 ">
+      <div class="promotions">
+        {{ form.promotions }}
+      </div>
+    </div>
+    {% endif %}
   </div>
   <div class="col-sm-10 col-pd-10 col-tb-10 col-lp-3 col-dt-3 col-wd-3 sidebar">
     {{ form.footer }}
