@@ -85,6 +85,12 @@ function ext_user_login_name_validate($element, $form_state)
 
 function extn_user_form_user_login_form_validate(&$form, FormStateInterface $form_state)
 {
+  // если стработал стандартный антифлуд, вывести сообщение
+  if ($form_state->get('flood_control_triggered')) {
+    $url_string = '/forma/zadat-vopros?t=' . urlencode('Не получается войти на сайт с логином ' . $form_state->get('name') . '. Блокировка после пяти неудачных попыток.');
+    $form_state->setErrorByName('name', Markup::create('Слишком много неудачных попыток входа. <a href="' . $url_string . '" target="_blank">Напишите нам</a> об ошибке или попробуйте через 6 часов.'));
+  }
+
   $errors = $form_state->getErrors();
 
   // Если пользователь указал email, то вывести окно ввода пароля.
@@ -118,7 +124,12 @@ function extn_user_form_user_login_form_validate(&$form, FormStateInterface $for
     if (!$form_state->get('sms_verification_passed')) {
       // Устанавливаем ошибку валидации кода, чтобы не сработали сабмиты.
       $form_state->setErrorByName('sms_verification_code');
-      extn_user_sms_send_code($form_state);
+      $response = extn_user_sms_send_code($form_state);
+      // в случае ошибки при отправке кода, вывести сообщение
+      if ($response && $response->getStatusCode() != 100) {
+        $url_string = '/forma/zadat-vopros?t=' . urlencode('При попытке входа на сайт по номеру телефона ' . $form_state->get('name') . ' возникла ошибка с кодом: ' . $response->getStatusCode());
+        $form_state->setErrorByName('name', Markup::create('Ошибка при отправке кода. <a href="' . $url_string . '" target="_blank">Напишите нам</a> об ошибке или попробуйте позже.'));
+      }
     }
   }
 }
@@ -151,18 +162,23 @@ function extn_user_form_user_login_form_ajax(array &$form, \Drupal\Core\Form\For
   }
   // ошибки валидации
   else {
+    // если ошибка проверки имени или при отправке СМС
+    if (isset($errors['name'])) {
+      // убрать всплывающее с ошибкой
+      \Drupal::messenger()->deleteAll();
+    }
     // если ошибка проверки кода
-    if ($form_state->get('auth_type') == 'sms' && isset($errors['sms_verification_code'])) {
+    elseif ($form_state->get('auth_type') == 'sms' && isset($errors['sms_verification_code'])) {
       $dialog = extn_user_sms_input_dialog($form_state);
       $response->addCommand(new OpenModalDialogCommand('Проверка номера телефона', $dialog, ['width' => '550']));
-      // чтобы не вывело окно об ошибке sms_verification_code
+      /// убрать всплывающее с ошибкой sms_verification_code
       \Drupal::messenger()->deleteAll();
     }
     // если ошибка отсутствия пароля (pass - задаётся программно, при отсутствии пароля)
     elseif ($form_state->get('auth_type') == 'pass' && isset($errors['pass'])) {
       $dialog = extn_user_pass_input_dialog($form_state);
       $response->addCommand(new OpenModalDialogCommand('Пароль', $dialog, ['width' => '550']));
-      // чтобы не вывело окно об ошибке pass
+      // убрать всплывающее с ошибкой pass
       \Drupal::messenger()->deleteAll();
     }
   }

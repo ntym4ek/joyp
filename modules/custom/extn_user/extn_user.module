@@ -95,10 +95,11 @@ function extn_user_user_load_by_phone($phone)
  * Отправка кода возможна раз в 2 минуты.
  *
  * @param $form_state
- * @return void
+ * @return \Drupal\smsru\Response\ResponseInterface
  */
 function extn_user_sms_send_code($form_state)
 {
+  $response = false;
   $user_phone = $form_state->get('sms_verification_phone');
   $secret = \Drupal::service('func_helper.secret');
 
@@ -110,6 +111,7 @@ function extn_user_sms_send_code($form_state)
   // Если код устарел или удалён из кэша при запросе повторной отправки,
   // генерируем и отправляем сообщение с кодом.
   if ($send_code['allowed'] && $check_code['allowed'] && !$secret->exists($user_phone)) {
+//  if (true) {
     $secret_code = rand(1111, 9999);
     $secret->set($user_phone, $secret_code, 600);
     $sms_text = $secret_code . ' - JOY PREMIUM, код для входа на сайт.';
@@ -128,10 +130,11 @@ function extn_user_sms_send_code($form_state)
     }
   }
 
+  return $response;
 }
 
 /**
- * Проверить введённый код с отправленным.
+ * Сверить введённый код с отправленным.
  * Код должен быть в элементе "sms_verification_code"
  * Успешная проверка возвращается в "sms_verification_passed"
  *

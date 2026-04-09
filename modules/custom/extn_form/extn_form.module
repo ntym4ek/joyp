@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * Implements hook_form_FORM_ID_alter()
+ *
+ * Форма Обратной связи
+ */
+function extn_form_form_webform_submission_contact_node_13_add_form_alter(&$form, &$form_state)
+{
+  // если в адресной строке передан текст, вставить его в поле Сообщение
+  $request = \Drupal::request();
 
-
-
+  if ($request->query->has('t') && isset($form["elements"]["message"])) {
+    $form["elements"]["message"]["#default_value"] = $request->query->get('t');
+  }
+}
