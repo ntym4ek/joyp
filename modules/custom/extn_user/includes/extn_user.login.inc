@@ -46,8 +46,24 @@ function extn_user_form_user_login_form_alter(&$form, FormStateInterface $form_s
   $form["#validate"][] = 'extn_user_form_user_login_form_validate';
   array_unshift($form["#submit"], 'extn_user_form_user_login_form_submit');
 
-  $form['actions']["submit"]['#attributes']['class'][] = 'button--primary';
+  // кнопка для перехода к вводу кода или пароля
+  // показываем только если доступен js
+  $form['actions']["next"] = [
+    '#type' => 'button',
+    '#value' => 'Войти',
+    '#name' => 'next',
+    '#weight' => -1,
+    '#attributes' => ['class' => ['button--primary', 'js-show']],
+    '#ajax' => [
+      'callback' => 'extn_user_form_user_login_form_ajax',
+      'event' => 'click',
+      'wrapper' => 'user-login-form-wrapper',
+    ],
+  ];
+
+  // скрываем кнопку сабмита
   $form['actions']['submit']['#attributes']['class'][] = 'form-with-verification-submit';
+  $form['actions']['submit']['#attributes']['class'][] = 'js-hide';
   $form['actions']["submit"]['#ajax'] = [
     'callback' => 'extn_user_form_user_login_form_ajax',
     'event' => 'click',
@@ -85,7 +101,7 @@ function ext_user_login_name_validate($element, $form_state)
 
 function extn_user_form_user_login_form_validate(&$form, FormStateInterface $form_state)
 {
-  // если стработал стандартный антифлуд, вывести сообщение
+  // если сработал стандартный антифлуд, вывести сообщение
   if ($form_state->get('flood_control_triggered')) {
     $url_string = '/forma/zadat-vopros?t=' . urlencode('Не получается войти на сайт с логином ' . $form_state->get('name') . '. Блокировка после пяти неудачных попыток.');
     $form_state->setErrorByName('name', Markup::create('Слишком много неудачных попыток входа. <a href="' . $url_string . '" target="_blank">Напишите нам</a> об ошибке или попробуйте через 6 часов.'));
@@ -94,24 +110,24 @@ function extn_user_form_user_login_form_validate(&$form, FormStateInterface $for
   $errors = $form_state->getErrors();
 
   // Если пользователь указал email, то вывести окно ввода пароля.
-  // При неудачной проверки пары логин-пароль, сообщение об ошибке выводится в поле логина в форме.
+  // При неудачной проверке пары логин-пароль, сообщение об ошибке выводится в поле логина в форме.
   // Пользователь заново должен нажать сабмит для ввода пароля.
   if ($form_state->get('auth_type') == 'pass') {
-    $pass = $form_state->getValue('pass');
-    // Если поле пароля пустое, сбросить ошибку неудачной авторизации,
-    // установленной стандартным валидатором.
-    if (empty($pass)) {
+
+    // Если нажата кнопка перехода к вводу пароля или кода,
+    // сбросить ошибку неудачной авторизации, установленной стандартным валидатором.
+    if ($form_state->getTriggeringElement()['#name'] == 'next') {
       if (!empty($errors['name'])) $form_state->clearErrors();
       // Устанавливаем ошибку проверки пароля, чтобы не сработали сабмиты.
       $form_state->setErrorByName('pass');
     }
     else {
+      // todo зачем здесь удаление пароля?
       $input = $form_state->getUserInput();
       $input['pass'] = NULL;
       $form_state->setUserInput($input);
     }
   }
-
 
   // Если пользователь указал номер телефона, то вывести окно ввода кода.
   // При неправильном коде окно выводится снова с сообщением об ошибке.
