@@ -123,7 +123,9 @@ class BitrixRedirectSubscriber implements EventSubscriberInterface {
         'privacy-policy' => 'node/3',
         'payment' => 'node/7',
         'offer' => 'node/11',
+        'about' => 'node/17',
         'cooperation' => 'node/9',
+        'cooperation/partnership' => 'node/9',
         'docs/personal-data-policy.pdf' => 'sites/default/files/attachments/misc/personal-data-policy.pdf',
       ],
       'patterns' => [
