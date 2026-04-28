@@ -23,7 +23,7 @@
       );
 
       // Раскрытый фильтр в Каталоге.
-      once('filter-once', '.block-views-exposed-filter-blockkatalog-page-1', context).forEach(
+      once('filter-once', '.views-exposed-form', context).forEach(
         (element) => {
 
           // банкет только для мобильных
