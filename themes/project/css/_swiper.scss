@@ -24,21 +24,21 @@
   display: grid;
   grid-template-columns: 15% 85%;
   &__thumbs {
+    overflow: hidden;
     img {
-      height: 80px; width: 80px;
       object-fit: cover;
     }
     .swiper-thumbs {
-      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      display: flex; flex-direction: column; align-items: center;
       height: 100%;
+      margin: 1px; overflow: hidden; // скрываем верхнюю строку в 1 px
     }
-    .swiper-wrapper { width: initial; }
-    .swiper-wrapper,
-    .swiper-slide { height: initial; }
 
     .swiper-slide {
+      display: flex; justify-content: center;
       opacity: .5;
       transition: opacity 200ms;
+      height: 100px;
       &:last-child { margin-bottom: 0!important; }
     }
     .swiper-slide-thumb-active { opacity: 1; }

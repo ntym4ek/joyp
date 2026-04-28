@@ -66,7 +66,7 @@
   .banner__image {
     flex: 0 0 auto;
     img {
-      object-fit: cover;
+      object-fit: cover; object-position: bottom right;
       width: 100%; height: 100%;
     }
   }
@@ -98,7 +98,15 @@
       > div { flex: 0 0 100%; }
     }
     .banner__go { flex: 0 0 120px; }
-
+    .banner__image { height: 100%; }
+  }
+  @media #{$desktop} {
+    .h1 { font-size: $font-size-h1*.8; }
+    .h2 { font-size: $font-size-h2*.9; }
+  }
+  @media #{$wide} {
+    .h1 { font-size: $font-size-h1; }
+    .h2 { font-size: $font-size-h2; }
   }
 }
 

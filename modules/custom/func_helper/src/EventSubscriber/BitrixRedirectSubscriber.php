@@ -104,7 +104,6 @@ class BitrixRedirectSubscriber implements EventSubscriberInterface {
       $this->performRedirect($event, 'katalog');
     }
 
-
     // Check for conditional redirects based on query parameters.
     $this->checkQueryParameterRedirects($event, $clean_path, $request->query->all());
   }

@@ -54,11 +54,37 @@
   @media #{$desktop}  { margin: 0 (-$gutter-dt); }
   @media #{$wide}     { margin: 0 (-$gutter-wd); }
 
-  #swiper-front-slider-block-1 {
-    height: 700px;
-    @media #{$pad}      { height: initial; }
+  @media #{$laptop}   {
+    .slider__thumbs {
+      margin: 1rem;
+      height: calc(500px - 2rem);
+    }
+    .slider__content {
+      height: 500px;
+    }
+  }
+  @media #{$desktop}   {
+    .slider__thumbs {
+      height: calc(600px - 2rem);
+    }
+    .slider__content {
+      height: 600px;
+    }
+  }
+  @media #{$wide}   {
+    .slider__thumbs {
+      height: calc(700px - 2rem);
+    }
+    .slider__content {
+      height: 700px;
+    }
+  }
 
+  #swiper-front-slider-block-1 {
+    height: 100%;
     .taxonomy-term { height: 100%; }
+
+    //@media #{$pad}      { height: initial; }
   }
 }
 
