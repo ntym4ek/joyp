@@ -6,6 +6,11 @@ require('includes/extn_commerce.checkout.inc');
 const SHIPPING_COURIER = 1;
 const SHIPPING_PICKUP = 2;
 
+// аутентификация в CDEK API
+// в том числе нужно заменить в service.php
+const CDEK_ACCOUNT = 'mkwn6fDly35L0wmtFQbrDLHw9JQ4uweW';
+const CDEK_SECRET = '53JkTOSbY8Svrzuf6gFtCydf4dJqtYg5';
+
 use Drupal\Core\Form\FormStateInterface;
 
 /**

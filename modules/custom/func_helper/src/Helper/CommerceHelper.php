@@ -37,8 +37,8 @@ class CommerceHelper {
   {
     $client = \Drupal::HttpClient();
     $cdek = new \CdekSDK2\Client($client);
-    $cdek->setAccount('wRajj6IwpjXh07CYG56pG9ePQsxhc5k2');
-    $cdek->setSecure('zzw2kj6mG5uxGaG5MWD11vUAGhieIBy9');
+    $cdek->setAccount(CDEK_ACCOUNT);
+    $cdek->setSecure(CDEK_SECRET);
 
     try {
       $cdek->authorize();
