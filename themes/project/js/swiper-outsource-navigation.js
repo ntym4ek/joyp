@@ -17,14 +17,27 @@
       once('swiper-outsource-navigation-once', '.swiper-outsource-navigation', context).forEach(
         (element) => {
           let parentId = element.dataset.parentSwiperId;
+          let parentSwiper = document.getElementById(parentId).swiper;
 
           if (parentId) {
-            let parentSwiper = drupalSettings.swiper_formatter.swipers[parentId];
-            if (parentSwiper) {
-              parentSwiper.navigation = {
-                nextEl: element.querySelector('.right'),
-                prevEl: element.querySelector('.left'),
-              };
+            let nextBtn = element.querySelector('.right');
+            if (nextBtn) {
+              nextBtn.addEventListener('click', (e) => {
+                if (parentSwiper) {
+                  e.preventDefault();
+                  parentSwiper.slideNext();
+                }
+              });
+            }
+
+            let prevBtn = element.querySelector('.left');
+            if (prevBtn) {
+              prevBtn.addEventListener('click', (e) => {
+                if (parentSwiper) {
+                  e.preventDefault();
+                  parentSwiper.slidePrev();
+                }
+              });
             }
           }
         }

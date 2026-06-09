@@ -20,6 +20,8 @@ swiper-outsource-navigation:
   dependencies:
     - core/drupal
     - core/once
+    - swiper_formatter/local
+    - swiper_formatter/swiper_formatter
 
 commerce-quantity-controls:
   version: VERSION
