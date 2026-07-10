@@ -1,0 +1,8 @@
+name: Extn YooMoney
+type: module
+description: 'Добавляет платёжный шлюз с выбором метода оплаты на стороне сайта на базе ЮКассы'
+package: xCustom
+core_version_requirement: ^10 || ^11
+dependencies:
+  - yookassa
+  - commerce:commerce_payment
